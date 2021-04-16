@@ -10,7 +10,7 @@ DROP TABLE IF EXISTS lesson_table;
 DROP TABLE IF EXISTS book_table;
 DROP TABLE IF EXISTS code_table;
 DROP TABLE IF EXISTS favourites_table;
-DROP TABLE IF EXISTS grammar_table;
+DROP TABLE IF EXISTS grammer_table;
 DROP TABLE IF EXISTS phrase_table;
 DROP TABLE IF EXISTS user_info;
 DROP TABLE IF EXISTS word_table;
@@ -35,8 +35,9 @@ CREATE TABLE book_table
 
 CREATE TABLE code_table
 (
-	code_id int NOT NULL,
+	code_id bigserial NOT NULL,
 	code_no varchar(4),
+	code_item text,
 	description text,
 	PRIMARY KEY (code_id)
 ) WITHOUT OIDS;
@@ -44,9 +45,9 @@ CREATE TABLE code_table
 
 CREATE TABLE favourites_table
 (
-	favourites_id serial NOT NULL,
-	user_id int NOT NULL,
-	favourites_info xml,
+	favourites_id bigserial NOT NULL,
+	user_id bigint NOT NULL,
+	record_id xml,
 	creater varchar(20),
 	create_time timestamp,
 	updater varchar(20),
@@ -55,9 +56,9 @@ CREATE TABLE favourites_table
 ) WITHOUT OIDS;
 
 
-CREATE TABLE grammar_table
+CREATE TABLE grammer_table
 (
-	grammar_id bigserial NOT NULL,
+	grammer_id bigserial NOT NULL,
 	grammer_title text,
 	grammer text,
 	description text,
@@ -65,16 +66,16 @@ CREATE TABLE grammar_table
 	create_time timestamp,
 	updater varchar(20),
 	update_time timestamp,
-	PRIMARY KEY (grammar_id)
+	PRIMARY KEY (grammer_id)
 ) WITHOUT OIDS;
 
 
 CREATE TABLE lesson_table
 (
 	book_id bigint NOT NULL,
-	lesson_id serial NOT NULL,
-	lesson_name_translate varchar(40),
+	lesson_id bigserial NOT NULL,
 	lesson_name_orignal varchar(40),
+	lesson_name_translate varchar(40),
 	description text,
 	creater varchar(20),
 	create_time timestamp,
@@ -87,6 +88,7 @@ CREATE TABLE lesson_table
 CREATE TABLE phrase_table
 (
 	phrase_id bigserial NOT NULL,
+	phrase_type varchar(4),
 	phrase_name_translate text,
 	phrase_name_orignal text,
 	description text,
@@ -100,13 +102,13 @@ CREATE TABLE phrase_table
 
 CREATE TABLE sentence_grammer_table
 (
-	grammar_id bigint NOT NULL,
+	grammer_id bigint NOT NULL,
 	sentence_seq bigint NOT NULL,
 	creater varchar(20),
 	create_time timestamp,
 	updater varchar(20),
 	update_time timestamp,
-	PRIMARY KEY (grammar_id, sentence_seq)
+	PRIMARY KEY (grammer_id, sentence_seq)
 ) WITHOUT OIDS;
 
 
@@ -126,9 +128,9 @@ CREATE TABLE sentence_table
 (
 	sentence_seq bigserial NOT NULL,
 	book_id bigint NOT NULL,
-	lesson_id int NOT NULL,
-	sentence_type varchar(4) NOT NULL,
-	line_no bigint NOT NULL,
+	lesson_id bigint NOT NULL,
+	line_no bigserial,
+	sentence_type varchar(4),
 	sentence_name_translate text,
 	sentence_name_orignal text,
 	description text,
@@ -136,29 +138,30 @@ CREATE TABLE sentence_table
 	create_time timestamp,
 	updater varchar(20),
 	update_time timestamp,
-	PRIMARY KEY (sentence_seq)
+	PRIMARY KEY (sentence_seq),
+	CONSTRAINT sentence_information_key UNIQUE (book_id, lesson_id, line_no, sentence_type)
 ) WITHOUT OIDS;
 
 
 CREATE TABLE sentence_word_table
 (
-	sentence_seq bigint NOT NULL,
 	word_id bigint NOT NULL,
+	sentence_seq bigint NOT NULL,
 	creater varchar(20),
 	create_time timestamp,
 	updater varchar(20),
 	update_time timestamp,
-	PRIMARY KEY (sentence_seq, word_id)
+	PRIMARY KEY (word_id, sentence_seq)
 ) WITHOUT OIDS;
 
 
 CREATE TABLE user_info
 (
-	user_id serial NOT NULL,
+	user_id bigserial NOT NULL,
 	user_name varchar(20),
-	old_password varchar(255),
 	password varchar(255),
 	authority int NOT NULL,
+	password_history varchar(255),
 	description text,
 	creater varchar(20),
 	create_time timestamp,
@@ -170,8 +173,8 @@ CREATE TABLE user_info
 
 CREATE TABLE user_practice_history
 (
-	history_id serial NOT NULL,
-	user_id int NOT NULL,
+	history_id bigserial NOT NULL,
+	user_id bigint NOT NULL,
 	sentence_seq bigint NOT NULL,
 	mistake_count bigint,
 	creater varchar(20),
@@ -179,7 +182,7 @@ CREATE TABLE user_practice_history
 	updater varchar(20),
 	update_time timestamp,
 	PRIMARY KEY (history_id),
-	CONSTRAINT mistake_key UNIQUE (user_id, sentence_seq)
+	CONSTRAINT history_information UNIQUE (user_id, sentence_seq)
 ) WITHOUT OIDS;
 
 
@@ -210,8 +213,8 @@ ALTER TABLE lesson_table
 
 
 ALTER TABLE sentence_grammer_table
-	ADD FOREIGN KEY (grammar_id)
-	REFERENCES grammar_table (grammar_id)
+	ADD FOREIGN KEY (grammer_id)
+	REFERENCES grammer_table (grammer_id)
 	ON UPDATE RESTRICT
 	ON DELETE RESTRICT
 ;
