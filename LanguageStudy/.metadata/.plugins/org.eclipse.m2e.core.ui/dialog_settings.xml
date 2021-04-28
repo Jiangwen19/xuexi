@@ -2,8 +2,8 @@
 <section name="Workbench">
 	<section name="MavenProjectImportWizardPage">
 		<list key="rootDirectory">
-			<item value="E:\work\language-study\LanguageStudy"/>
 			<item value="E:\work\language-study"/>
+			<item value="E:\work\language-study\LanguageStudy"/>
 		</list>
 		<list key="projectNameTemplate">
 			<item value="[artifactId]"/>

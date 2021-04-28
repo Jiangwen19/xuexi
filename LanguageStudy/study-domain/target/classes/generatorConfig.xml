@@ -29,18 +29,18 @@
                              targetProject="src/main/java">
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
-        <table tableName="book_table" domainObjectName="BookTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="code_table" domainObjectName="CodeTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="favourites_table" domainObjectName="FavouritesTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="grammar_table" domainObjectName="GrammarTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="lesson_table" domainObjectName="LessonTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="phrase_table" domainObjectName="PhraseTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="sentence_grammer_table" domainObjectName="SentenceGrammerTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="sentence_phrase_table" domainObjectName="SentencePhraseTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="sentence_table" domainObjectName="SentenceTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="sentence_word_table" domainObjectName="SentenceWordTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="user_info" domainObjectName="UserInfo" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="user_practice_history" domainObjectName="UserPracticeHistory" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
-        <table tableName="word_table" domainObjectName="WordTable" enableCountByExample="false" enableUpdateByExample="false" enableDeleteByExample="false" enableSelectByExample="false" selectByExampleQueryId="false"></table>
+        <table tableName="sentence_grammer_table"></table>
+        <table tableName="sentence_phrase_table"></table>
+        <table tableName="sentence_word_table"></table>
+        <table tableName="user_practice_history"></table>
+        <table tableName="sentence_table"></table>
+        <table tableName="lesson_table"></table>
+        <table tableName="book_table"></table>
+        <table tableName="code_table"></table>
+        <table tableName="favourites_table"></table>
+        <table tableName="grammer_table"></table>
+        <table tableName="phrase_table"></table>
+        <table tableName="user_info"></table>
+        <table tableName="word_table"></table>
     </context>
 </generatorConfiguration>
