@@ -1,0 +1,78 @@
+// @import "../../assets/vendor/bootstrap/scss/bootstrap.scss";
+
+.title > h2 {
+  margin-bottom: 3rem;
+  color: black;
+}
+
+.container .card:nth-of-type(2),
+.container .card:nth-of-type(3) {
+  border: 1px solid rgba(0, 0, 0, 0.5);
+}
+
+.card {
+  margin-bottom: 1.25rem;
+}
+
+.table {
+  margin-bottom: 0rem;
+}
+
+.mb-3[_ngcontent-c1],
+.my-3[_ngcontent-c1] {
+  margin-bottom: 0rem !important;
+}
+
+.table[_ngcontent-c1] td[_ngcontent-c1] {
+  vertical-align: middle;
+}
+
+.form-check-inline[_ngcontent-c1] {
+  margin-right: 1.5rem;
+}
+.form-check-input[_ngcontent-c1] {
+  margin-left: -1rem;
+}
+
+.signin-tb,
+.delete-tb,
+.definition-tb {
+  display: inline;
+}
+
+.container .card-body:nth-of-type(2) {
+  padding: 0rem;
+}
+
+.card-body.button {
+  padding: 0rem;
+}
+
+.bt-button {
+  padding-right: 5rem;
+}
+
+.tb-thead-backgroundcolor {
+  background-color: #608ad5;
+  color: white;
+}
+
+.tb-thead-color {
+  font-size: 1.2rem;
+}
+
+.container .card:nth-of-type(4) {
+  border: 1px solid rgba(0, 0, 0, 0);
+}
+
+.tb-tbody-backgroundcolor{
+    background-color:#f0f0f0;
+}
+
+.btn-outline-secondary[_ngcontent-c1] {
+    border-color:#ced4da;
+}
+
+.form-control[_ngcontent-c1] {
+  height: calc(1.7em + 0.75rem + 2px);
+}

@@ -1,0 +1,89 @@
+<div class="container">
+    <div class="title">
+      <h2>データ登録機能(ポッポアッポ)</h2>
+    </div>
+    <div class="card shadow">
+        <div class="card-body">
+          <div class="table-responsive">
+            <table class="table table-bordered table-sdiviped"  width="100%" cellspacing="0">
+              <tbody>
+                <tr>
+                  <!-- <td><input type="radio" id="{{case.id}}" name="case" value="{{case.id}}" (change)="changePref(case.id)"></td> -->
+                  <td  width="28%">データ名</td>
+                  <td  width="72%">
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text"  [(ngModel)]="wordDictionaryVO.physicalName">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>日本語名</td>
+                  <td>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text"  [(ngModel)]="wordDictionaryVO.logicName">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>属性</td>
+                  <td>
+                    <!-- <div class="input-group mb-3">
+                      <input class="form-control" type="text"  [(ngModel)]="wordDictionaryVO.wordType">
+                    </div> -->
+                    　<div class="form-group">
+                        <select class="form-control" id="exampleFormControlSelect1"  [(ngModel)]="wordDictionaryVO.wordType">
+                          <option value="int">int</option>
+                          <option value="long">long</option>
+                          <option value="float">float</option>
+                          <option value="double">double</option>
+                          <option value="boolean">boolean</option>
+                          <option value="string">string</option>
+                          <option value="text">text</option>
+                        </select>
+                      </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>桁数</td>
+                  <td>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text" [disabled]="wordLengthDisabledForType()"  [(ngModel)]="wordDictionaryVO.wordLength">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>小数桁</td>
+                  <td>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text"  [disabled]="wordDecimalDisabledForType()" [(ngModel)]="wordDictionaryVO.wordDecimal">
+                    </div>
+                  </td>
+                </tr>
+                <tr>
+                  <td>説明</td>
+                  <td>
+                    <div class="input-group mb-3">
+                      <input class="form-control" type="text"  [(ngModel)]="wordDictionaryVO.description">
+                    </div>
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    <div class="card">
+      <div class="card-body button">
+        <div class="table-responsive">
+          <div class="bt-button signin-tb">
+            <button class="btn btn-primary" type="submit" (click)="registerDatas()">登録</button>
+          </div>
+          <div class="bt-button delete-tb">
+            <button class="btn btn-primary" type="submit" (click)="reset()">キャンセル</button>
+          </div>
+        </div>
+      </div>
+      <div *ngFor='let msg of errorMsgs' style="color:red">{{msg}}</div>
+    </div>
+  </div>
+  

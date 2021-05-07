@@ -1,0 +1,101 @@
+<div class="container">
+    <div class="title">
+      <h2>データ一覧機能</h2>
+    </div>
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sdiviped" width="100%" cellspacing="0">
+            <tbody>
+              <tr>
+                <!-- <td><input type="radio" id="{{case.id}}" name="case" value="{{case.id}}" (change)="changePref(case.id)"></td> -->
+                <td width="28%">キーウード</td>
+                <td width="72%">
+                  <div class="input-group mb-3">
+                    <input type="text" nbInput fullWidth shape="semi-round" [(ngModel)]="searchString"
+                      class="input-full-width size-medium status-basic shape-semi-round ng-untouched ng-pristine ng-valid nb-transition" (ngModelChange)="search()">
+                  </div>
+                </td>
+              </tr>
+              <tr>
+                <td>検索条件</td>
+                <td>
+                  <div class="form-check form-check-inline">
+  
+                    <div class="form-check">
+                      <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios1"
+                        value="option1" [(ngModel)]="option">
+  
+                    </div>
+                    <label class="form-check-label" for="exampleRadios1">
+                      ～始まる
+                    </label>
+                  </div>
+                  <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="exampleRadios" id="exampleRadios2" value="option2"  [(ngModel)]="option">
+                    <label class="form-check-label" for="exampleRadios2">
+                      ～を含む
+                    </label>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card shadow">
+      <div class="card-body">
+        <div class="table-responsive">
+          <table class="table table-bordered table-sdiviped table-sm" width="100%">
+            <thead class="tb-thead-backgroundcolor">
+              <tr>
+                <td width="3%">
+                  <div class="form-check">
+                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1"
+                      aria-label="...">
+                  </div>
+                </td>
+                <td class="tb-thead-color" width="20%">データー名</td>
+                <td class="tb-thead-color" width="20%">日本語名</td>
+                <td class="tb-thead-color" width="10%">属性</td>
+                <td class="tb-thead-color" width="5%">桁数</td>
+                <td class="tb-thead-color" width="10%">小数桁</td>
+                <td class="tb-thead-color" width="20%">説明</td>
+                <td class="tb-thead-color" width="12%">コード</td>
+
+              </tr>
+            </thead>
+            <tbody class="tb-tbody-backgroundcolor" *ngFor="let dal of WordDictionaryList">
+              <tr>
+                <td>
+                  <div class="form-check">
+                    <input class="form-check-input position-static" type="checkbox" id="blankCheckbox" value="option1"
+                      aria-label="...">
+                  </div>
+                </td>
+                <td>
+                  <a href="javascript:void(0)" class="" (click)="toModify(dal.wordId)">{{dal.physicalName}}</a>
+                </td>
+                <td>{{dal.logicName}}</td>
+                <td>{{dal.wordType}}</td>
+                <td>{{dal.wordLength}}</td>
+                <td>{{dal.wordDecimal}}</td>
+                <td>{{dal.description}}</td>
+                <td>{{dal.arrayFlg}}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-body button">
+        <div class="table-responsive">
+          <div class="bt-button signin-tb">
+            <button class="btn btn-primary" (click)="toRegister()">デープル登録</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

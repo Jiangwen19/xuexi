@@ -11,7 +11,7 @@
     <artifactId>web</artifactId>
     <version>${project.parent.version}</version>
     <name>web</name>
-    <description>Demo project for Spring Boot</description>
+    <description>language-study project for Spring Boot</description>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
