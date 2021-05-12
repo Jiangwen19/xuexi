@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.springframework.boot:spring-boot-configuration-processor:2.0.0.BUILD-SNAPSHOT">
+  <library name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.9.4">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.0.0.BUILD-SNAPSHOT/spring-boot-configuration-processor-2.0.0.BUILD-20180301.043823-635.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.4/jackson-datatype-jsr310-2.9.4.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.0.0.BUILD-SNAPSHOT/spring-boot-configuration-processor-2.0.0.BUILD-20180301.043823-635-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.4/jackson-datatype-jsr310-2.9.4-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/boot/spring-boot-configuration-processor/2.0.0.BUILD-SNAPSHOT/spring-boot-configuration-processor-2.0.0.BUILD-20180301.043823-635-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/fasterxml/jackson/datatype/jackson-datatype-jsr310/2.9.4/jackson-datatype-jsr310-2.9.4-sources.jar!/" />
     </SOURCES>
   </library>
 </component>

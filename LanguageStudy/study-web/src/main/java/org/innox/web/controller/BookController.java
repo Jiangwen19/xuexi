@@ -1,8 +1,6 @@
 package org.innox.web.controller;
 
 import org.innox.model.ApiResponse;
-import org.innox.service.BookService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -14,12 +12,13 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/book")
 public class BookController {
 	
-	@Autowired
-	private BookService bookService;
+//	@Autowired
+//	private BookService bookService;
 	
 	@PostMapping("/searchBookById")
 	public ApiResponse<?> searchBookById(@RequestBody long bookId) {
-		return ApiResponse.ok(bookService.searchBookById(bookId));
+//		return ApiResponse.ok(bookService.searchBookById(bookId));
+		return ApiResponse.ok("sdf");
 	}
 
 }

@@ -8,24 +8,24 @@
     <div class="body">
       <div class="mb">
         <label for="exampleFormControlInput1" class="form-label">Username<span> *</span></label>
-        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="userName"/>
+        <input type="text" class="form-control" id="exampleFormControlInput1" [(ngModel)]="userInfoVo.userName"/>
       </div>
       <br />
       <div class="mb">
         <label for="exampleFormControlInput2" class="form-label">Password<span> *</span></label>
-        <input type="password" class="form-control" id="exampleFormControlInput2" [(ngModel)]="passWord"/>
+        <input type="password" class="form-control" id="exampleFormControlInput2" [(ngModel)]="userInfoVo.password"/>
       </div>
       <br />
       <div class="mb">
         <label for="exampleFormControlInput3" class="form-label">PasswordAgain<span> *</span></label>
-        <input type="password" class="form-control" id="exampleFormControlInput3" [(ngModel)]="passwordAgain"/>
+        <input type="password" class="form-control" id="exampleFormControlInput3" [(ngModel)]="userInfoVo.passwordAgain"/>
         <br />
         <span class=learnmore>Make sure it's at least 15 characters OR at least 8 characters including a number and a lowercase letter.<a href="https://www.google.com" target="_blank">Learn more.</a></span>
       </div>
     </div>
     <br /><br />
     <div class="foot">
-      <button type="button" class="btn btn-lg btn-primary" [disabled]="isDisabled()">Create account</button>
+      <button type="button" class="btn btn-lg btn-primary" [disabled]="isDisabled()" (click)="userRegister()">Create account</button>
     </div>
   </div>
 </div>

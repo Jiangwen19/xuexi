@@ -1,13 +1,13 @@
 <component name="libraryTable">
-  <library name="Maven: org.springframework:spring-jcl:5.0.4.RELEASE">
+  <library name="Maven: com.github.virtuald:curvesapi:1.04">
     <CLASSES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.0.4.RELEASE/spring-jcl-5.0.4.RELEASE.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.04/curvesapi-1.04.jar!/" />
     </CLASSES>
     <JAVADOC>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.0.4.RELEASE/spring-jcl-5.0.4.RELEASE-javadoc.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.04/curvesapi-1.04-javadoc.jar!/" />
     </JAVADOC>
     <SOURCES>
-      <root url="jar://$MAVEN_REPOSITORY$/org/springframework/spring-jcl/5.0.4.RELEASE/spring-jcl-5.0.4.RELEASE-sources.jar!/" />
+      <root url="jar://$MAVEN_REPOSITORY$/com/github/virtuald/curvesapi/1.04/curvesapi-1.04-sources.jar!/" />
     </SOURCES>
   </library>
 </component>
