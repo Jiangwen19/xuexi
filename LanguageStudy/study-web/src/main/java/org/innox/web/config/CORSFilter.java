@@ -10,11 +10,12 @@ import javax.servlet.ServletRequest;
 import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.context.annotation.Configuration;
 import org.springframework.stereotype.Component;
 
-@Component
+@Configuration
 public class CORSFilter implements Filter {
-
+	@Override 
 	public void doFilter(ServletRequest req, ServletResponse res, FilterChain chain) throws IOException, ServletException {
 		System.out.println("Filtering on...........................................................");
 		HttpServletResponse response = (HttpServletResponse) res;
@@ -26,9 +27,9 @@ public class CORSFilter implements Filter {
 
 		chain.doFilter(req, res);
 	}
-
-	public void init(FilterConfig filterConfig) {}
-
+	@Override 
+	public void init(FilterConfig filterConfig) throws ServletException {}
+	@Override 
 	public void destroy() {}
 
 }
