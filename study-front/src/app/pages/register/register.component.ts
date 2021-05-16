@@ -28,7 +28,7 @@ export class RegisterComponent implements OnInit {
     }
   }
   userRegister(){
-    this.userService.userRegister(this.userInfoVo).subscribe(resData => {
+    this.userService.userRegister(this.userInfoVo).subscribe((resData) => {
       this.router.navigate(['/']);
     });
   }
