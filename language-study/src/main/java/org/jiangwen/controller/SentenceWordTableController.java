@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-08-25
+ * @since 2021-08-27
  */
 @RestController
 @RequestMapping("/sentence-word-table")

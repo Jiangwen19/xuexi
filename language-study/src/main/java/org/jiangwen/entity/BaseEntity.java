@@ -1,4 +1,14 @@
 package org.jiangwen.entity;
 
-public class BaseEntity {
+import lombok.Data;
+
+import java.io.Serializable;
+import java.time.LocalDateTime;
+
+@Data
+public class BaseEntity implements Serializable {
+
+    private LocalDateTime create_time;
+
+    private LocalDateTime update_time;
 }

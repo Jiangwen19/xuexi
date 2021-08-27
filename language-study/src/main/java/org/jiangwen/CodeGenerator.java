@@ -52,7 +52,7 @@ public class CodeGenerator {
 
         // 数据源配置
         DataSourceConfig dsc = new DataSourceConfig();
-        dsc.setUrl("jdbc:postgresql://localhost:5432/language_study");
+        dsc.setUrl("jdbc:postgresql://localhost:5432/japan_study");
         // dsc.setSchemaName("public");
         dsc.setDriverName("org.postgresql.Driver");
         dsc.setUsername("postgres");
