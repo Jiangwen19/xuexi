@@ -1,5 +1,6 @@
 package org.jiangwen.controller;
 
+import org.jiangwen.common.lang.Result;
 import org.jiangwen.service.CodeTableService;
 import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +17,12 @@ public class TestController {
     CodeTableService codeTableService;
 
     @GetMapping("/test")
-    public Object test(){
-        return userInfoService.list();
+    public Result test() {
+        return Result.succ(userInfoService.list());
     }
 
     @GetMapping("/code")
-    public Object code(){
-        return codeTableService.list();
+    public Result code() {
+        return Result.succ(codeTableService.list());
     }
 }

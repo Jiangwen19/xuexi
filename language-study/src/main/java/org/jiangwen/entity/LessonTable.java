@@ -21,9 +21,9 @@ public class LessonTable extends BaseEntity {
 
     private Long lessonId;
 
-    private String lessonNameOrignal;
-
     private String lessonNameTranslate;
+
+    private String lessonNameOrignal;
 
     private String description;
 

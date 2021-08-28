@@ -19,7 +19,9 @@ public class BookTable extends BaseEntity {
 
     private Long bookId;
 
-    private String bookName;
+    private String bookNameTranslate;
+
+    private String bookNameOrignal;
 
     private String description;
 

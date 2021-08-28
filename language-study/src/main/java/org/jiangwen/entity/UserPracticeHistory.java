@@ -23,6 +23,10 @@ public class UserPracticeHistory extends BaseEntity {
 
     private Long sentenceSeq;
 
+    private Boolean favouritesFlg;
+
+    private Boolean mistakesFlg;
+
     private Long mistakeCount;
 
 
