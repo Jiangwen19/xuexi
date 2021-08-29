@@ -6,8 +6,14 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { LoginComponent } from './pages/login/login/login.component';
+import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { NZ_I18N } from 'ng-zorro-antd/i18n';
+import { zh_CN } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import zh from '@angular/common/locales/zh';
+
+registerLocaleData(zh);
 @NgModule({
   declarations: [
     AppComponent,
@@ -24,7 +30,7 @@ import { RegisterComponent } from './pages/register/register.component';
     ReactiveFormsModule,
     FormsModule
   ],
-  providers: [],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
