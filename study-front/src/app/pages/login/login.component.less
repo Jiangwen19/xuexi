@@ -8,45 +8,74 @@
 
 .login-form-forgot {
     float: right;
+    font-size: 12px;
 }
 
 .login-form-button {
     width: 100%;
-    border-radius: .5em;
-    height: 39px;
-    padding: 0rem 1rem;
-    font-size: 1.25rem;
-    line-height: 1.5;
-}
-
-.form-control {
-    width: 400px;
-    max-width: 100%;
-    margin-right: 5px;
-    padding: 5px 12px;
-    font-size: 14px;
-    line-height: 20px;
     border-radius: 6px;
-    outline: none;
 }
 
-span.rememberMe {
-    width: 400px;
-    font-size: 12px;
-    color: #586069;
-    word-wrap: break-word;
-}
-
-a.login-form-forgot {
-    font-size: 12px;
-}
-
-.ant-form-item {
-    margin-bottom: 26px;
+.box {
+    display: flex;
+    justify-content: center;
+    padding-top: 64px;
 }
 
 .pic {
     display: flex;
     justify-content: center;
-    margin-bottom: 10px;
+    padding-bottom: 24px;
+}
+
+.login {
+    width: 340px;
+    padding: 0px 16px;
+}
+
+.login>h1 {
+    font-size: 24px;
+    font-weight: 300;
+    letter-spacing: -0.5px;
+    margin-bottom: 0;
+    text-align: center;
+}
+
+.auth-form {
+    margin: 16px 0px 0px;
+    padding: 20px;
+    background: #F6F8FA;
+    border: 1px solid hsl(214deg 13% 93%);
+    border-radius: 6px;
+}
+
+.auth-form>span {
+    font-weight: 400;
+    color: #24292E;
+}
+
+.form-control {
+    border-radius: 6px;
+}
+
+.input-code {
+    display: inline-block;
+    padding-right: 15px;
+    width: 60%;
+}
+
+.verificationCode {
+    display: inline-block;
+}
+
+.verificationCode>img {
+    padding-bottom: 5px;
+}
+
+.login-callout {
+    text-align: center;
+    border: 1px solid hsl(214deg 13% 93%);
+    border-radius: 6px;
+    margin: 16px 0px 10px;
+    padding: 15px 20px;
 }
