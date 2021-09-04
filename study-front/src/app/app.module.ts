@@ -17,6 +17,7 @@ import { FooterComponent } from './layout/footer/footer.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import zh from '@angular/common/locales/zh';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
+import { httpInterceptorProviders } from './common/ApiInjector/interceptor-index';
 
 registerLocaleData(zh);
 
@@ -41,7 +42,8 @@ registerLocaleData(zh);
     NgZorroAntdModule,
     BrowserAnimationsModule
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [{ provide: NZ_I18N, useValue: zh_CN },
+    httpInterceptorProviders],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

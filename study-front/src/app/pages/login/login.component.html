@@ -10,7 +10,7 @@
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Please input your username!">
                         <nz-input-group nzPrefixIcon="user">
-                            <input type="text" class="form-control" nz-input formControlName="userName" placeholder="Username" />
+                            <input type="text" class="form-control" nz-input formControlName="userName" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
@@ -19,7 +19,7 @@
                 <nz-form-item>
                     <nz-form-control nzErrorTip="Please input your Password!">
                         <nz-input-group nzPrefixIcon="lock">
-                            <input type="password" class="form-control" nz-input formControlName="password" placeholder="Password" />
+                            <input type="password" class="form-control" nz-input formControlName="password" />
                         </nz-input-group>
                     </nz-form-control>
                 </nz-form-item>
@@ -48,7 +48,7 @@
                     </div>
                 </div>
 
-                <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'">Log in</button>
+                <button nz-button class="login-form-button login-form-margin" [nzType]="'primary'" >Log in</button>
             </div>
             <div class="login-callout">
                 <span>New to User?<a href="https://www.google.com" target="_blank">Create an account</a>.</span>

@@ -1,7 +1,7 @@
 export class UserInfoVo{
-  userName: String | undefined;
+  userName!: String;
 
-  password: String | undefined;
+  password!: String;
 
-  passwordAgain: String | undefined;
+  passwordAgain!: String;
 }
