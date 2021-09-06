@@ -1,9 +1,9 @@
 export class LoginVo {
-    userName!: String;
+    userName: String;
 
-    password!: String;
+    password: String;
 
-    verificationCode!: number;
+    verificationCode: String;
     
-    remember!: boolean;
+    remember: boolean;
 }
