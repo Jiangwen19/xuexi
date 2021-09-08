@@ -3,8 +3,8 @@ package org.jiangwen.controller;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.MapUtil;
 import com.google.code.kaptcha.Producer;
+import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.lang.Const;
-import org.jiangwen.common.lang.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,14 +22,10 @@ public class AuthController extends BaseController {
     Producer producer;
 
     @GetMapping("/captcha")
-    public Result captcha() throws IOException {
+    public ApiRestResponse captcha() throws IOException {
 
         String key = UUID.randomUUID().toString();
         String code = producer.createText();
-
-        // 为了测试
-        key = "aaaaa";
-        code = "11111";
 
         BufferedImage image = producer.createImage(code);
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
@@ -42,12 +38,11 @@ public class AuthController extends BaseController {
 
         redisUtil.hset(Const.CAPTCHA_KEY, key, code, 120);
 
-        return Result.succ(
+        return ApiRestResponse.success(
                 MapUtil.builder()
                         .put("token", key)
                         .put("captchaImg", base64Img)
                         .build()
-
         );
     }
 

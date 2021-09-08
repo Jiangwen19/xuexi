@@ -12,7 +12,11 @@ export class LoginService {
 
   constructor(private http: HttpClient) { }
 
-  userLogin(params: LoginVo): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${environment.baseUrl}/login`, params);
+  userLogin(params: LoginVo): Observable<Object> {
+    return this.http.post<Object>(`${environment.baseUrl}/login`, params);
+  }
+
+  captcha(): Observable<Object> {
+    return this.http.get<Object>(`${environment.baseUrl}/captcha`);
   }
 }

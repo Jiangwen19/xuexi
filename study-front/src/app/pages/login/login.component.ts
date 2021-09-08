@@ -12,10 +12,16 @@ import { LoginService } from 'src/app/common/services/login.service';
 export class LoginComponent implements OnInit {
   validateForm!: FormGroup;
   loginVo: LoginVo = new LoginVo();
+  loginForm: String;
+  captchaImg: String;
   constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) { }
 
   ngOnInit(): void {
     this.initForm();
+    this.loginService.captcha().subscribe((resData) => {
+      console.log("nnnnnnnn")
+      console.log(resData)
+    });
   }
 
   initForm(): void {

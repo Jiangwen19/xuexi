@@ -2,7 +2,7 @@ package org.jiangwen.common.exception;
 
 
 import lombok.extern.slf4j.Slf4j;
-import org.jiangwen.common.lang.Result;
+import org.jiangwen.common.lang.ApiRestResponse;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
@@ -18,15 +18,15 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = IllegalArgumentException.class)
-    public Result handler(IllegalArgumentException e) {
+    public ApiRestResponse handler(IllegalArgumentException e) {
         log.error("Assert异常：----------------{}", e.getMessage());
-        return Result.fail(e.getMessage());
+        return ApiRestResponse.error(e.getMessage());
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ExceptionHandler(value = RuntimeException.class)
-    public Result handler(RuntimeException e) {
+    public ApiRestResponse handler(RuntimeException e) {
         log.error("运行时异常：----------------{}", e);
-        return Result.fail(e.getMessage());
+        return ApiRestResponse.error(e.getMessage());
     }
 }

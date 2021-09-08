@@ -10,7 +10,7 @@ export class NoopInterceptor implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(req.clone({
-            withCredentials: true
+            // withCredentials: true
         })).pipe(catchError(this.handleError));
     }
 

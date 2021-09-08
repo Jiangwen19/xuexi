@@ -1,6 +1,6 @@
 package org.jiangwen.controller;
 
-import org.jiangwen.common.lang.Result;
+import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.service.CodeTableService;
 import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,12 +17,12 @@ public class TestController {
     CodeTableService codeTableService;
 
     @GetMapping("/test")
-    public Result test() {
-        return Result.succ(userInfoService.list());
+    public ApiRestResponse test() {
+        return ApiRestResponse.success(userInfoService.list());
     }
 
     @GetMapping("/code")
-    public Result code() {
-        return Result.succ(codeTableService.list());
+    public ApiRestResponse code() {
+        return ApiRestResponse.success(codeTableService.list());
     }
 }
