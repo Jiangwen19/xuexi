@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 
 import { Router } from '@angular/router';
-import { UserInfoVo } from 'src/app/common/model/user.info.vo';
+import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { UserService } from 'src/app/common/services/user.service';
 import { StrigUtil } from 'src/app/common/utility/string-util';
 

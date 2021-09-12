@@ -1,20 +1,38 @@
+import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { HttpEvent, HttpInterceptor, HttpHandler, HttpRequest, HttpErrorResponse } from '@angular/common/http';
-
 import { Observable } from 'rxjs';
-import { catchError } from 'rxjs/internal/operators';
+import { AuthenticationService } from '../services/authentication.service';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
 export class NoopInterceptor implements HttpInterceptor {
 
-    intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-        return next.handle(req.clone({
-            // withCredentials: true
-        })).pipe(catchError(this.handleError));
+    // intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+    //     return next.handle(req.clone({
+    //         // withCredentials: true
+    //     })).pipe(catchError(this.handleError));
+    // }
+
+    // private handleError(error: HttpErrorResponse): never {
+    //     throw error.error;
+    // }
+    constructor(private authService: AuthenticationService) { }
+    intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
+
+        let accessToken = this.authService.getAuthToken();
+        let refreshToken = this.authService.getRefreshAuthToken();
+
+        if (accessToken && refreshToken) {
+            let token = request.url.endsWith("refresh-token") ? refreshToken : accessToken;
+            request = request.clone({
+                setHeaders: {
+                    'Authorization': `Bearer ${token}`
+                }
+            });
+
+        }
+        return next.handle(request);
     }
 
-    private handleError(error: HttpErrorResponse): never {
-        throw error.error;
-    }
+
 }

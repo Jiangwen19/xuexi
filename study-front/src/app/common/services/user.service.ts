@@ -3,7 +3,7 @@ import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ApiResponse } from "../model/api.response";
-import { UserInfoVo } from "../model/user.info.vo";
+import { UserInfoVo } from "../model/auth/user.info.vo";
 
 
 @Injectable({
