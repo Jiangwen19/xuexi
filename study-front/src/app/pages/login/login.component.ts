@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Router } from '@angular/router';
-import { LoginVo } from 'src/app/common/model/login.vo';
-import { LoginService } from 'src/app/common/services/login.service';
+import { Router, RouterStateSnapshot } from '@angular/router';
+import { first } from 'rxjs/internal/operators';
+import { AuthGuard } from 'src/app/common/guard/auth-guard';
+import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 
 @Component({
   selector: 'app-login',
@@ -10,18 +12,25 @@ import { LoginService } from 'src/app/common/services/login.service';
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
+
   validateForm!: FormGroup;
-  loginVo: LoginVo = new LoginVo();
-  loginForm: String;
+  userInfo: UserInfoVo = new UserInfoVo();
   captchaImg: String;
-  constructor(private fb: FormBuilder, private loginService: LoginService, private router: Router) { }
+  returnUrl: string = '/main';
+  isLoading: boolean = true;
+  err = '';
+
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService,
+    private authGuard: AuthGuard) {
+    this.authGuard.routerStateSnapshot$.subscribe((state: RouterStateSnapshot) => {
+      // 赋值给跳转URL
+      this.returnUrl = state.url || '/main';
+    });
+  }
 
   ngOnInit(): void {
     this.initForm();
-    this.loginService.captcha().subscribe((resData) => {
-      console.log("nnnnnnnn")
-      console.log(resData)
-    });
+    this.refreshCode();
   }
 
   initForm(): void {
@@ -34,14 +43,52 @@ export class LoginComponent implements OnInit {
   }
 
   submitForm(): void {
-    // console.log(this.validateForm.value);
-    this.loginVo.userName = this.validateForm.value.userName;
-    this.loginVo.password = this.validateForm.value.password;
-    this.loginVo.verificationCode = this.validateForm.value.verificationCode;
-    this.loginVo.remember = this.validateForm.value.remember;
-    this.loginService.userLogin(this.loginVo).subscribe((resData) => {
-      this.router.navigate(['/']);
+    // 防止重复点击
+    let submitted = false;
+    // stop here if form is invalid
+    if (this.validateForm.invalid || submitted) {
+      return;
+    }
+    this.clear();
+    submitted = true;
+    // 构建User对象
+    this.userInfo.userName = this.validateForm.value.userName;
+    this.userInfo.password = this.validateForm.value.password;
+    this.userInfo.verificationCode = this.validateForm.value.verificationCode;
+
+    this.authService.login(this.userInfo)
+      .pipe(first())
+      .subscribe(
+        data => {
+          this.router.navigate([this.returnUrl]);
+        },
+        error => {
+          if (error && error.status === 401) {
+            this.err = '用户名或密码不正确';
+          } else {
+            this.err = '其他错误';
+          }
+        },
+        () => {
+          submitted = false;
+        }
+      );
+  }
+  refreshCode(): void {
+    this.authService.captcha().subscribe((resData) => {
+      if (resData) {
+        this.captchaImg = resData.data.captchaImg;
+        this.userInfo.codeToken = resData.data.token;
+        console.log(this.captchaImg)
+        console.log(this.userInfo.codeToken)
+      }
+      this.isLoading = false;
+    }, error => {
+      console.log(error);
     });
   }
 
+  private clear() {
+    this.err = '';
+  }
 }

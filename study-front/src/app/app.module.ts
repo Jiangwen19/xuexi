@@ -19,6 +19,7 @@ import zh from '@angular/common/locales/zh';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
 import { httpInterceptorProviders } from './common/ApiInjector/interceptor-index';
 
+
 registerLocaleData(zh);
 
 @NgModule({

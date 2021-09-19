@@ -3,8 +3,8 @@ export class ApiResponse{
     private static ERROR = 1;
     private static WARNING = 2;
     status = 0;
-    message: any;
-    result: any;
+    msg: any;
+    data: any;
 
     public static isOK(date: ApiResponse): boolean{
         if(date.status === this.OK){

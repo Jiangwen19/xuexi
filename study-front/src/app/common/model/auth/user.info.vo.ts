@@ -1,9 +1,11 @@
 export class UserInfoVo{
   userId: number;
-  userName: string;
-  password: string;
+  userName: String;
+  password: String;
   passwordAgain: String;
+  verificationCode: String;
   picture: String;
-  email: string;
-  mobile: string;
+  email: String;
+  mobile: String;
+  codeToken: String;
 }
