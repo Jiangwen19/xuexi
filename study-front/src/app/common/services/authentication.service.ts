@@ -45,10 +45,10 @@ export class AuthenticationService extends BaseService {
 
   private postToBackEnd<T>(user: UserInfoVo, url: string): Observable<T> {
     // Post发请求返回用户的Token，存储到LocalStorage中，TODO 需要防止跨站点攻击
-    return this.http.post<any>(`${this.API_URL}/${url}`, { 'userName': user.userName, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode':user.verificationCode},
+    return this.http.post<any>(`${this.API_URL}/${url}`, { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode':user.verificationCode},
       Object.assign(this.httpOptions, {
         headers: new HttpHeaders({
-          'Content-Type': 'application/x-www-form-urlencoded',
+          'Content-Type': 'application/json',
           'X-Requested-With': 'XMLHttpRequest'
         }),
         responseType: 'text' as 'json'

@@ -50,6 +50,10 @@ public class ApiRestResponse<T> implements Serializable {
         return new ApiRestResponse<>(FAIL_CODE, msg);
     }
 
+    public static <T> ApiRestResponse<T> error(String msg, T result) {
+        return new ApiRestResponse<>(FAIL_CODE, msg, result);
+    }
+
     public static <T> ApiRestResponse<T> error(ExceptionEnum ex) {
         return new ApiRestResponse<>(ex.getCode(), ex.getMsg());
     }

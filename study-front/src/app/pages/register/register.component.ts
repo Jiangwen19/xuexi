@@ -16,12 +16,12 @@ export class RegisterComponent implements OnInit {
 
   constructor(private userService: UserService, private router: Router) { }
   ngOnInit(): void {
-    this.userInfoVo.userName = '';
+    this.userInfoVo.username = '';
     this.userInfoVo.password = '';
     this.userInfoVo.passwordAgain = '';
   }
   isDisabled(): boolean {
-    if (!StrigUtil.isEmpty(this.userInfoVo.userName) && !StrigUtil.isEmpty(this.userInfoVo.password) && !StrigUtil.isEmpty(this.userInfoVo.passwordAgain)) {
+    if (!StrigUtil.isEmpty(this.userInfoVo.username) && !StrigUtil.isEmpty(this.userInfoVo.password) && !StrigUtil.isEmpty(this.userInfoVo.passwordAgain)) {
       return false;
     } else {
       return true;

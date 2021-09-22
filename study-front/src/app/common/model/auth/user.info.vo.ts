@@ -1,6 +1,6 @@
 export class UserInfoVo{
   userId: number;
-  userName: String;
+  username: String;
   password: String;
   passwordAgain: String;
   verificationCode: String;

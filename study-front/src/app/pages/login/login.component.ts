@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
 
   initForm(): void {
     this.validateForm = this.fb.group({
-      userName: [null, [Validators.required]],
+      username: [null, [Validators.required]],
       password: [null, [Validators.required]],
       verificationCode: [null, [Validators.required]],
       remember: [false]
@@ -52,7 +52,7 @@ export class LoginComponent implements OnInit {
     this.clear();
     submitted = true;
     // 构建User对象
-    this.userInfo.userName = this.validateForm.value.userName;
+    this.userInfo.username = this.validateForm.value.username;
     this.userInfo.password = this.validateForm.value.password;
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
 
