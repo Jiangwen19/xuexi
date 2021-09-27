@@ -1,7 +1,7 @@
 package org.jiangwen.security;
 
 import com.baomidou.mybatisplus.core.toolkit.StringUtils;
-import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.extern.slf4j.Slf4j;
 import org.jiangwen.common.exception.CaptchaException;
 import org.jiangwen.common.lang.Const;
 import org.jiangwen.utils.RedisUtil;
@@ -14,9 +14,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
 
+@Slf4j
 @Component
 public class CaptchaFilter extends OncePerRequestFilter {
 
@@ -27,7 +26,7 @@ public class CaptchaFilter extends OncePerRequestFilter {
     LoginFailureHandler loginFailureHandler;
 
     @Override
-    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws ServletException, IOException {
+    protected void doFilterInternal(HttpServletRequest httpServletRequest, HttpServletResponse httpServletResponse, FilterChain filterChain) throws IOException, ServletException {
 
         String url = httpServletRequest.getRequestURI();
 
@@ -43,27 +42,15 @@ public class CaptchaFilter extends OncePerRequestFilter {
             }
         }
 
-        Map<String, String> loginData = new ObjectMapper().readValue(httpServletRequest.getInputStream(), Map.class);
-
         filterChain.doFilter(httpServletRequest, httpServletResponse);
+
     }
 
     // 校验验证码逻辑
     private void validate(HttpServletRequest httpServletRequest) {
 
-//		String code = httpServletRequest.getParameter("verificationCode");
-//		String key = httpServletRequest.getParameter("codeToken");
-
-        Map<String, String> loginData = new HashMap<>();
-
-        try {
-            loginData = new ObjectMapper().readValue(httpServletRequest.getInputStream(), Map.class);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-        String code = loginData.get("verificationCode");
-        String key = loginData.get("codeToken");
+		String code = httpServletRequest.getParameter("verificationCode");
+		String key = httpServletRequest.getParameter("codeToken");
 
         if (StringUtils.isBlank(code) || StringUtils.isBlank(key)) {
             throw new CaptchaException("验证码为空");

@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-08-27
+ * @since 2021-09-27
  */
 @Service
 public class UserPracticeHistoryServiceImpl extends ServiceImpl<UserPracticeHistoryMapper, UserPracticeHistory> implements UserPracticeHistoryService {

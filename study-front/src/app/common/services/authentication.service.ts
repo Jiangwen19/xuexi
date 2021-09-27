@@ -10,6 +10,8 @@ import { MessageService } from './message.service';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { ApiResponse } from '../model/api.response';
 import { environment } from 'src/environments/environment';
+import qs from 'qs'
+
 const helper = new JwtHelperService();
 
 
@@ -44,8 +46,10 @@ export class AuthenticationService extends BaseService {
   }
 
   private postToBackEnd<T>(user: UserInfoVo, url: string): Observable<T> {
+    // { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode': user.verificationCode }
     // Post发请求返回用户的Token，存储到LocalStorage中，TODO 需要防止跨站点攻击
-    return this.http.post<any>(`${this.API_URL}/${url}`, { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode':user.verificationCode},
+    //`${this.API_URL}/${url}?`+qs.stringify(user)
+    return this.http.post<any>(`${this.API_URL}/${url}?` + qs.stringify(user),
       Object.assign(this.httpOptions, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
@@ -55,6 +59,7 @@ export class AuthenticationService extends BaseService {
       }))
       .pipe(map(tokens => {
         // login successful if there's a user in the response
+        console.log(tokens)
         if (tokens) {
           // store user details and basic auth credentials in local storage
           localStorage.setItem(TOKENS, tokens);

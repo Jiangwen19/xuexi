@@ -8,7 +8,11 @@ import java.time.LocalDateTime;
 @Data
 public class BaseEntity implements Serializable {
 
-    private LocalDateTime create_time;
+    private String creater;
 
-    private LocalDateTime update_time;
+    private LocalDateTime createTime;
+
+    private String updater;
+
+    private LocalDateTime updateTime;
 }

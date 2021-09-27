@@ -3,6 +3,7 @@ package org.jiangwen.controller;
 import cn.hutool.core.lang.UUID;
 import cn.hutool.core.map.MapUtil;
 import com.google.code.kaptcha.Producer;
+import lombok.extern.slf4j.Slf4j;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.lang.Const;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.util.Base64;
 
+@Slf4j
 @RestController
 public class AuthController extends BaseController {
 

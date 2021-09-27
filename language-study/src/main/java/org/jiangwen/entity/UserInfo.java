@@ -1,8 +1,9 @@
 package org.jiangwen.entity;
 
-import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+
+import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -10,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-08-27
+ * @since 2021-09-27
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -20,11 +21,11 @@ public class UserInfo extends BaseEntity {
 
     private Long userId;
 
-    private String userName;
+    private String username;
 
     private String password;
 
-    private Integer authority;
+    private String authority;
 
     private String passwordHistory;
 
@@ -35,6 +36,8 @@ public class UserInfo extends BaseEntity {
     private String email;
 
     private String mobile;
+
+    private Integer statu;
 
     private LocalDateTime lastLogin;
 
