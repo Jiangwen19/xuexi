@@ -12,12 +12,18 @@ spring:
       initial-size: 5                            # 初始化连接数
       max-total: 5                               # 最大连接数
       max-wait-millis: 150                       # 等待连接获取的最大超时时间
-  security:
-    user:
-      name: user
-      password: 111111
+#  security:
+#    user:
+#      name: user
+#      password: 111111
 # mybatis配置
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
-
-
+# jwt配置
+jiangwen:
+  jwt:
+    header: Authorization
+    # token有效时长，7天，单位秒
+    expire: 604800
+    # 加密秘钥
+    secret: f4e2e52034348f86b67cde581c0f9eb5

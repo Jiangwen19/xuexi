@@ -49,7 +49,7 @@ export class AuthenticationService extends BaseService {
     // { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode': user.verificationCode }
     // Post发请求返回用户的Token，存储到LocalStorage中，TODO 需要防止跨站点攻击
     //`${this.API_URL}/${url}?`+qs.stringify(user)
-    return this.http.post<any>(`${this.API_URL}/${url}?` + qs.stringify(user),
+    return this.http.post<any>(`${this.API_URL}/${url}`, { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode': user.verificationCode },
       Object.assign(this.httpOptions, {
         headers: new HttpHeaders({
           'Content-Type': 'application/json',
