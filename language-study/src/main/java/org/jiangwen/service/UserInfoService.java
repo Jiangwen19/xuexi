@@ -9,10 +9,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-09-27
+ * @since 2021-10-01
  */
 public interface UserInfoService extends IService<UserInfo> {
-
     UserInfo getByUsername(String username);
-
 }

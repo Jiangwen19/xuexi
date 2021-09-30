@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-09-27
+ * @since 2021-10-01
  */
 @Service
 public class CodeTableServiceImpl extends ServiceImpl<CodeTableMapper, CodeTable> implements CodeTableService {

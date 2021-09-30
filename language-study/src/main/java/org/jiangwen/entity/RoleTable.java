@@ -9,7 +9,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-09-27
+ * @since 2021-10-01
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,7 +23,7 @@ public class RoleTable extends BaseEntity {
 
     private String remark;
 
-    private String description;
+    private String symbol;
 
     private Integer statu;
 

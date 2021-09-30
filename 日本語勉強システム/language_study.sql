@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 27/09/2021 19:55:04
+ Date: 01/10/2021 04:48:49
 */
 
 
@@ -211,6 +211,18 @@ CREATE TABLE "public"."front_menu_table" (
 ALTER TABLE "public"."front_menu_table" OWNER TO "postgres";
 
 -- ----------------------------
+-- Records of front_menu_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', '/sys/users', 'sys:user:list', 'sys/User', 1, 'el-icon-s-custom', 1, 1, NULL, '2020-02-02 00:00:00', NULL, '2021-01-01 00:00:00');
+INSERT INTO "public"."front_menu_table" VALUES (1, 0, '系统管理', NULL, 'sys:manage', NULL, 0, 'el-icon-s-opera', 1, 1, NULL, '2020-09-09 00:00:00', NULL, '2021-09-08 00:00:00');
+INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', '/sys/roles', 'sys:role:list', 'sys/Role', 1, 'el-icon-rank', 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (4, 1, '菜单管理', '/sys/menus', 'sys:menu:list', 'sys/Menu', 1, 'el-icon-menu', 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'el-icon-s-tools', 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (6, 5, '数字字典', '/sys/dicts', 'sys:dict:list', 'sys/Dict', 1, 'el-icon-s-order', 1, 1, NULL, NULL, NULL, NULL);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for grammer_table
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."grammer_table";
@@ -280,6 +292,21 @@ CREATE TABLE "public"."role_menu_table" (
 ALTER TABLE "public"."role_menu_table" OWNER TO "postgres";
 
 -- ----------------------------
+-- Records of role_menu_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."role_menu_table" VALUES (60, 6, 1, '1', '2021-01-01 00:00:00', NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (61, 6, 2, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (67, 6, 3, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (72, 6, 4, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (76, 6, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (77, 6, 6, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (96, 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (97, 3, 2, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (98, 3, 3, NULL, NULL, NULL, NULL);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for role_table
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."role_table";
@@ -287,7 +314,7 @@ CREATE TABLE "public"."role_table" (
   "role_id" int8 NOT NULL,
   "role_name" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "description" varchar(255) COLLATE "pg_catalog"."default",
+  "symbol" varchar(255) COLLATE "pg_catalog"."default",
   "statu" int4 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -296,6 +323,14 @@ CREATE TABLE "public"."role_table" (
 )
 ;
 ALTER TABLE "public"."role_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of role_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."role_table" VALUES (3, '普通用户', '只有基本查看功能', 'normal', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
+INSERT INTO "public"."role_table" VALUES (6, '超级管理员', '系统默认最高权限，不可以编辑和任意修改', 'admin', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sentence_grammer_table
@@ -388,6 +423,14 @@ CREATE TABLE "public"."user_info" (
 ALTER TABLE "public"."user_info" OWNER TO "postgres";
 
 -- ----------------------------
+-- Records of user_info
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2020-12-19 00:00:00');
+INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
+COMMIT;
+
+-- ----------------------------
 -- Table structure for user_practice_history
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."user_practice_history";
@@ -421,6 +464,15 @@ CREATE TABLE "public"."user_role_table" (
 )
 ;
 ALTER TABLE "public"."user_role_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of user_role_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."user_role_table" VALUES (4, 1996, 3, 'j', NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (7, 1996, 6, 'w', '2021-09-09 00:00:00', 'o', '2021-09-10 00:00:00');
+INSERT INTO "public"."user_role_table" VALUES (13, 1997, 3, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for word_table
@@ -513,11 +565,6 @@ ALTER TABLE "public"."lesson_table" ADD CONSTRAINT "lesson_table_pkey" PRIMARY K
 ALTER TABLE "public"."phrase_table" ADD CONSTRAINT "phrase_table_pkey" PRIMARY KEY ("phrase_id");
 
 -- ----------------------------
--- Uniques structure for table role_menu_table
--- ----------------------------
-ALTER TABLE "public"."role_menu_table" ADD CONSTRAINT "role_menu_table_role_id_key" UNIQUE ("role_id");
-
--- ----------------------------
 -- Primary Key structure for table role_menu_table
 -- ----------------------------
 ALTER TABLE "public"."role_menu_table" ADD CONSTRAINT "role_menu_table_pkey" PRIMARY KEY ("role_menu_table");
@@ -566,11 +613,6 @@ ALTER TABLE "public"."user_practice_history" ADD CONSTRAINT "history_information
 -- Primary Key structure for table user_practice_history
 -- ----------------------------
 ALTER TABLE "public"."user_practice_history" ADD CONSTRAINT "user_practice_history_pkey" PRIMARY KEY ("history_id");
-
--- ----------------------------
--- Uniques structure for table user_role_table
--- ----------------------------
-ALTER TABLE "public"."user_role_table" ADD CONSTRAINT "user_role_table_user_id_key" UNIQUE ("user_id");
 
 -- ----------------------------
 -- Primary Key structure for table user_role_table

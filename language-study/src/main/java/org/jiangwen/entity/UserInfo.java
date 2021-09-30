@@ -1,9 +1,8 @@
 package org.jiangwen.entity;
 
+import java.time.LocalDateTime;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -11,7 +10,7 @@ import java.time.LocalDateTime;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-09-27
+ * @since 2021-10-01
  */
 @Data
 @EqualsAndHashCode(callSuper = true)

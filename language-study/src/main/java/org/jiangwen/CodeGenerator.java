@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.Scanner;
 
 // 演示例子，执行 main 方法控制台输入模块表名回车自动生成对应项目目录中
+//book_table,code_table,favourites_table,front_menu_table,grammer_table,lesson_table,phrase_table,role_menu_table,role_table,sentence_grammer_table,sentence_phrase_table,sentence_table,sentence_word_table,user_info,user_practice_history,user_role_table,word_table
 public class CodeGenerator {
 
     /**
