@@ -2,4 +2,13 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.UserInfoMapper">
 
+    <select id="getNavMenuIds" resultType="java.lang.Long">
+        SELECT
+            DISTINCT rm.front_menu_id
+        FROM
+            user_role_table ur
+        LEFT JOIN role_menu_table rm ON ur.role_id=rm.role_id
+
+        WHERE ur.user_id=#{userId}
+    </select>
 </mapper>

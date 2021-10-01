@@ -1,7 +1,10 @@
 package org.jiangwen.mapper;
 
-import org.jiangwen.entity.UserInfo;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import org.jiangwen.entity.UserInfo;
+import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * <p>
@@ -11,6 +14,9 @@ import com.baomidou.mybatisplus.core.mapper.BaseMapper;
  * @author name：JiangWen
  * @since 2021-10-01
  */
+
+@Repository
 public interface UserInfoMapper extends BaseMapper<UserInfo> {
 
+    List<Long> getNavMenuIds(Long userId);
 }

@@ -3,6 +3,8 @@ package org.jiangwen.security;
 import cn.hutool.core.util.StrUtil;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import org.jiangwen.entity.UserInfo;
+import org.jiangwen.service.UserInfoService;
 import org.jiangwen.utils.JwtUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -20,6 +22,12 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    UserDetailServiceImpl userDetailService;
+
+    @Autowired
+    UserInfoService userInfoService;
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -43,11 +51,11 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
         }
 
         String username = claim.getSubject();
+
         // 获取用户的权限等信息
-
+        UserInfo userInfo = userInfoService.getByUsername(username);
         UsernamePasswordAuthenticationToken token
-                = new UsernamePasswordAuthenticationToken(username, null, null);
-
+                = new UsernamePasswordAuthenticationToken(username, null, userDetailService.getUserAuthority(userInfo.getUserId()));
         SecurityContextHolder.getContext().setAuthentication(token);
 
         chain.doFilter(request, response);

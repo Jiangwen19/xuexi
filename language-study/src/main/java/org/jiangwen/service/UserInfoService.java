@@ -12,5 +12,8 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2021-10-01
  */
 public interface UserInfoService extends IService<UserInfo> {
+
     UserInfo getByUsername(String username);
+
+    String getUserAuthorityInfo(long userId);
 }

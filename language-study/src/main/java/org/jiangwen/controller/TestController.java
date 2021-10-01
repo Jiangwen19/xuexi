@@ -4,6 +4,7 @@ import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.service.CodeTableService;
 import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,6 +21,7 @@ public class TestController {
     @Autowired
     BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @PreAuthorize("hasRole('admin')")
     @GetMapping("/test")
     public ApiRestResponse test() {
         return ApiRestResponse.success(userInfoService.list());
@@ -30,6 +32,7 @@ public class TestController {
         return ApiRestResponse.success(codeTableService.list());
     }
 
+    @PreAuthorize("hasAuthority('sys:user:list')")
     @GetMapping("/test/pass")
     public ApiRestResponse pass() {
         // 加密后的密码

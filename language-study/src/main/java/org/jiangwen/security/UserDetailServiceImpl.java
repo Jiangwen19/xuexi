@@ -4,6 +4,7 @@ import org.jiangwen.entity.UserInfo;
 import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -21,7 +22,7 @@ public class UserDetailServiceImpl implements UserDetailsService {
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
         UserInfo userInfo = userInfoService.getByUsername(username);
-        if(userInfo==null){
+        if (userInfo == null) {
             throw new UsernameNotFoundException("用户名或密码不存在");
         }
         return new AccountUser(userInfo.getUserId(), userInfo.getUsername(), userInfo.getPassword(), getUserAuthority(userInfo.getUserId()));
@@ -29,10 +30,17 @@ public class UserDetailServiceImpl implements UserDetailsService {
 
     /**
      * 获取用户权限信息（角色、菜单权限）
+     *
      * @param userId
      * @return
      */
-    public List<GrantedAuthority> getUserAuthority(long userId){
-        return null;
+    public List<GrantedAuthority> getUserAuthority(long userId) {
+
+        //角色(ROLE_admin), 菜单操作权限 sys:user:list
+        String authority = userInfoService.getUserAuthorityInfo(userId);  // ROLE_admin,ROLE_sys:user:list,....
+
+        //List<GrantedAuthority>
+        return AuthorityUtils.commaSeparatedStringToAuthorityList(authority);
+
     }
 }
