@@ -4,11 +4,22 @@
 
     <select id="getNavMenuIds" resultType="java.lang.Long">
         SELECT
-            DISTINCT rm.front_menu_id
+             DISTINCT rm.front_menu_id
+         FROM
+             user_role_table ur
+         LEFT JOIN role_menu_table rm ON ur.role_id=rm.role_id
+
+         WHERE ur.user_id=#{userId}
+    </select>
+
+    <select id="listByMenuId" resultType="org.jiangwen.entity.UserInfo">
+       SELECT DISTINCT
+            su.*
         FROM
             user_role_table ur
         LEFT JOIN role_menu_table rm ON ur.role_id=rm.role_id
+		LEFT JOIN user_info su ON ur.user_id=su.user_id
 
-        WHERE ur.user_id=#{userId}
+        WHERE rm.front_menu_id=#{menuId}
     </select>
 </mapper>

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author name：JiangWen
@@ -16,4 +16,11 @@ public interface UserInfoService extends IService<UserInfo> {
     UserInfo getByUsername(String username);
 
     String getUserAuthorityInfo(long userId);
+
+    // 清除缓存
+    void clearUserAuthorityInfo(long userId);
+
+    void clearUserAuthorityInfoByRoleId(long roleId);
+
+    void clearUserAuthorityInfoByMenuId(long menuId);
 }

@@ -75,4 +75,30 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         }
         return authority;
     }
+
+    @Override
+    public void clearUserAuthorityInfo(long userId) {
+        redisUtil.del("GrantedAuthority:" + userId);
+    }
+
+    @Override
+    public void clearUserAuthorityInfoByRoleId(long roleId) {
+
+        List<UserInfo> userInfos = this.list(new QueryWrapper<UserInfo>()
+                .inSql("user_id", "select user_id form user_role_table where role_id = " + roleId));
+
+        userInfos.forEach(u -> {
+            this.clearUserAuthorityInfo(u.getUserId());
+        });
+    }
+
+    @Override
+    public void clearUserAuthorityInfoByMenuId(long menuId) {
+
+        List<UserInfo> userInfos = userInfoMapper.listByMenuId(menuId);
+
+        userInfos.forEach(u -> {
+            this.clearUserAuthorityInfo(u.getUserId());
+        });
+    }
 }
