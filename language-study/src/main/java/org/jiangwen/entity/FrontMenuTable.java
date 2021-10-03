@@ -1,14 +1,18 @@
 package org.jiangwen.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author name：JiangWen
@@ -41,6 +45,9 @@ public class FrontMenuTable extends BaseEntity {
     private Integer ordernum;
 
     private Integer statu;
+
+    @TableField(exist = false)
+    private List<FrontMenuTable> children = new ArrayList<>();
 
 
 }

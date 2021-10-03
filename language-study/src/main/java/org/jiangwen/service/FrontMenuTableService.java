@@ -1,7 +1,10 @@
 package org.jiangwen.service;
 
+import org.jiangwen.common.dto.SysMenuDto;
 import org.jiangwen.entity.FrontMenuTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+
+import java.util.List;
 
 /**
  * <p>
@@ -13,4 +16,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface FrontMenuTableService extends IService<FrontMenuTable> {
 
+    List<SysMenuDto> getCurrentUserNav();
 }
