@@ -1,7 +1,7 @@
 package org.jiangwen.mapper;
 
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.jiangwen.entity.UserInfo;
+import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import java.util.List;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-01
+ * @since 2021-10-03
  */
 
 @Repository

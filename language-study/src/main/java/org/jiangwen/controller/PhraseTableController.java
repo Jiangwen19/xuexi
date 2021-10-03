@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-01
+ * @since 2021-10-03
  */
 @RestController
 @RequestMapping("/phrase-table")

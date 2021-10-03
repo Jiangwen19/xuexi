@@ -9,6 +9,7 @@ import org.jiangwen.mapper.UserInfoMapper;
 import org.jiangwen.service.FrontMenuTableService;
 import org.jiangwen.service.RoleTableService;
 import org.jiangwen.service.UserInfoService;
+import org.jiangwen.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,11 +22,10 @@ import java.util.stream.Collectors;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-01
+ * @since 2021-10-03
  */
 @Service
 public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
-
     @Autowired
     RoleTableService roleTableService;
 
@@ -34,6 +34,10 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
 
     @Autowired
     FrontMenuTableService frontMenuTableService;
+
+
+    @Autowired
+    RedisUtil redisUtil;
 
     @Override
     public UserInfo getByUsername(String username) {
@@ -46,24 +50,29 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         // ROLE_admin,ROLE_sys:user:list,....
         String authority = "";
 
-        // 获取角色编码
-        List<RoleTable> roles = roleTableService.list(new QueryWrapper<RoleTable>()
-                .inSql("role_id", "select role_id from user_role_table where user_id = " + userId));
+        if (redisUtil.hasKey("GrantedAuthority:" + userId)) {
+            authority = (String) redisUtil.get("GrantedAuthority:" + userId);
+        } else {
+            // 获取角色编码
+            List<RoleTable> roles = roleTableService.list(new QueryWrapper<RoleTable>()
+                    .inSql("role_id", "select role_id from user_role_table where user_id = " + userId));
 
-        if (roles.size() > 0) {
-            String roleSymbols = roles.stream().map(r -> "ROLE_" + r.getSymbol()).collect(Collectors.joining(","));
-            authority = roleSymbols.concat(",");
+            if (roles.size() > 0) {
+                String roleSymbols = roles.stream().map(r -> "ROLE_" + r.getSymbol()).collect(Collectors.joining(","));
+                authority = roleSymbols.concat(",");
+            }
+
+            // 获取菜单操作编码
+            List<Long> frontMenuIds = userInfoMapper.getNavMenuIds(userId);
+            if (frontMenuIds.size() > 0) {
+                List<FrontMenuTable> menus = frontMenuTableService.listByIds(frontMenuIds);
+                String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+                authority = authority.concat(menuPerms);
+            }
+
+            // 用户限权信息缓存一个小时
+            redisUtil.set("GrantedAuthority:" + userId, authority, 60 * 60);
         }
-
-        // 获取菜单操作编码
-        List<Long> frontMenuIds = userInfoMapper.getNavMenuIds(userId);
-        if (frontMenuIds.size() > 0) {
-            List<FrontMenuTable> menus = frontMenuTableService.listByIds(frontMenuIds);
-            String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
-            authority = authority.concat(menuPerms);
-        }
-
         return authority;
-
     }
 }

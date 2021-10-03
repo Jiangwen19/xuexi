@@ -1,3 +1,153 @@
+package org.jiangwen.service.impl;
+
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.entity.FrontMenuTable;
+import org.jiangwen.entity.RoleTable;
+import org.jiangwen.entity.UserInfo;
+import org.jiangwen.mapper.UserInfoMapper;
+import org.jiangwen.service.FrontMenuTableService;
+import org.jiangwen.service.RoleTableService;
+import org.jiangwen.service.UserInfoService;
+import org.jiangwen.utils.RedisUtil;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.stream.Collectors;
+
+/**
+ * <p>
+ * 服务实现类
+ * </p>
+ *
+ * @author name：JiangWen
+ * @since 2021-10-01
+ */
+@Service
+public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> implements UserInfoService {
+
+    @Autowired
+    RoleTableService roleTableService;
+
+    @Autowired
+    UserInfoMapper userInfoMapper;
+
+    @Autowired
+    FrontMenuTableService frontMenuTableService;
+
+    @Autowired
+    RedisUtil redisUtil;
+
+    @Override
+    public UserInfo getByUsername(String username) {
+        return getOne(new QueryWrapper<UserInfo>().eq("username", username));
+    }
+
+    @Override
+    public String getUserAuthorityInfo(long userId) {
+
+        UserInfo user = userInfoMapper.selectById(userId);
+
+        // ROLE_admin,ROLE_sys:user:list,....
+        String authority = "";
+
+        if (redisUtil.hasKey("GrantedAuthority:" + user.getUsername())) {
+            authority = (String) redisUtil.get("GrantedAuthority:" + user.getUsername());
+        } else {
+            // 获取角色编码
+            List<RoleTable> roles = roleTableService.list(new QueryWrapper<RoleTable>()
+                    .inSql("role_id", "select role_id from user_role_table where user_id = " + userId));
+
+            if (roles.size() > 0) {
+                String roleSymbols = roles.stream().map(r -> "ROLE_" + r.getSymbol()).collect(Collectors.joining(","));
+                authority = roleSymbols.concat(",");
+            }
+
+            // 获取菜单操作编码
+            List<Long> frontMenuIds = userInfoMapper.getNavMenuIds(userId);
+            if (frontMenuIds.size() > 0) {
+                List<FrontMenuTable> menus = frontMenuTableService.listByIds(frontMenuIds);
+                String menuPerms = menus.stream().map(m -> m.getPerms()).collect(Collectors.joining(","));
+                authority = authority.concat(menuPerms);
+            }
+
+            // 用户限权信息缓存一个小时
+            redisUtil.set("GrantedAuthority:" + user.getUsername(), authority, 60 * 60);
+        }
+
+
+        return authority;
+
+    }
+}
+
+-- Table: public.book_table
+
+-- DROP TABLE public.book_table;
+
+CREATE TABLE public.book_table
+(
+    book_id bigint NOT NULL DEFAULT nextval('book_table_book_id_seq'::regclass),
+    book_name_translate character varying(255) COLLATE pg_catalog."default",
+    book_name_orignal character varying(255) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    creater character varying(20) COLLATE pg_catalog."default",
+    create_time timestamp without time zone,
+    updater character varying(20) COLLATE pg_catalog."default",
+    update_time timestamp without time zone,
+    CONSTRAINT book_table_pkey PRIMARY KEY (book_id)
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.book_table
+    OWNER to postgres;
+
+
+
+
+-- Table: public.lesson_table
+
+-- DROP TABLE public.lesson_table;
+
+CREATE TABLE public.lesson_table
+(
+    book_id bigint NOT NULL,
+    lesson_id bigint NOT NULL DEFAULT nextval('lesson_table_lesson_id_seq'::regclass),
+    lesson_name_translate character varying(40) COLLATE pg_catalog."default",
+    lesson_name_orignal character varying(40) COLLATE pg_catalog."default",
+    description text COLLATE pg_catalog."default",
+    creater character varying(20) COLLATE pg_catalog."default",
+    create_time timestamp without time zone,
+    updater character varying(20) COLLATE pg_catalog."default",
+    update_time timestamp without time zone,
+    CONSTRAINT lesson_table_pkey PRIMARY KEY (book_id, lesson_id),
+    CONSTRAINT lesson_table_book_id_fkey FOREIGN KEY (book_id)
+        REFERENCES public.book_table (book_id) MATCH SIMPLE
+        ON UPDATE RESTRICT
+        ON DELETE RESTRICT
+)
+WITH (
+    OIDS = FALSE
+)
+TABLESPACE pg_default;
+
+ALTER TABLE public.lesson_table
+    OWNER to postgres;
+
+
+
+
+
+
+
+
+
+
+
 /*
  Navicat Premium Data Transfer
 
@@ -12,7 +162,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 03/10/2021 11:37:38
+ Date: 01/10/2021 04:48:49
 */
 
 
@@ -244,8 +394,8 @@ ALTER TABLE "public"."grammer_table" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."lesson_table";
 CREATE TABLE "public"."lesson_table" (
-  "lesson_id" int4 NOT NULL DEFAULT nextval('lesson_table_lesson_id_seq'::regclass),
   "book_id" int8 NOT NULL,
+  "lesson_id" int8 NOT NULL DEFAULT nextval('lesson_table_lesson_id_seq'::regclass),
   "lesson_name_translate" varchar(40) COLLATE "pg_catalog"."default",
   "lesson_name_orignal" varchar(40) COLLATE "pg_catalog"."default",
   "description" text COLLATE "pg_catalog"."default",
@@ -314,7 +464,7 @@ CREATE TABLE "public"."role_table" (
   "role_id" int8 NOT NULL,
   "role_name" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
-  "symbol" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "symbol" varchar(255) COLLATE "pg_catalog"."default",
   "statu" int4 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -337,7 +487,6 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_grammer_table";
 CREATE TABLE "public"."sentence_grammer_table" (
-  "sentence_grammer_id" int8 NOT NULL,
   "grammer_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -353,7 +502,6 @@ ALTER TABLE "public"."sentence_grammer_table" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_phrase_table";
 CREATE TABLE "public"."sentence_phrase_table" (
-  "sentence_phrase_id" int8 NOT NULL,
   "phrase_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -390,7 +538,6 @@ ALTER TABLE "public"."sentence_table" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_word_table";
 CREATE TABLE "public"."sentence_word_table" (
-  "sentence_word_id" int8 NOT NULL,
   "word_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -431,9 +578,6 @@ ALTER TABLE "public"."user_info" OWNER TO "postgres";
 BEGIN;
 INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2020-12-19 00:00:00');
 INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'no', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -478,8 +622,6 @@ BEGIN;
 INSERT INTO "public"."user_role_table" VALUES (4, 1996, 3, 'j', NULL, NULL, NULL);
 INSERT INTO "public"."user_role_table" VALUES (7, 1996, 6, 'w', '2021-09-09 00:00:00', 'o', '2021-09-10 00:00:00');
 INSERT INTO "public"."user_role_table" VALUES (13, 1997, 3, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_role_table" VALUES (1, 1998, 3, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_role_table" VALUES (2, 1998, 6, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -565,7 +707,7 @@ ALTER TABLE "public"."grammer_table" ADD CONSTRAINT "grammer_table_pkey" PRIMARY
 -- ----------------------------
 -- Primary Key structure for table lesson_table
 -- ----------------------------
-ALTER TABLE "public"."lesson_table" ADD CONSTRAINT "lesson_table_pkey" PRIMARY KEY ("lesson_id");
+ALTER TABLE "public"."lesson_table" ADD CONSTRAINT "lesson_table_pkey" PRIMARY KEY ("book_id", "lesson_id");
 
 -- ----------------------------
 -- Primary Key structure for table phrase_table
@@ -578,11 +720,6 @@ ALTER TABLE "public"."phrase_table" ADD CONSTRAINT "phrase_table_pkey" PRIMARY K
 ALTER TABLE "public"."role_menu_table" ADD CONSTRAINT "role_menu_table_pkey" PRIMARY KEY ("role_menu_table");
 
 -- ----------------------------
--- Uniques structure for table role_table
--- ----------------------------
-ALTER TABLE "public"."role_table" ADD CONSTRAINT "role_table_symbol_key" UNIQUE ("symbol");
-
--- ----------------------------
 -- Primary Key structure for table role_table
 -- ----------------------------
 ALTER TABLE "public"."role_table" ADD CONSTRAINT "role_table_pkey" PRIMARY KEY ("role_id");
@@ -590,12 +727,12 @@ ALTER TABLE "public"."role_table" ADD CONSTRAINT "role_table_pkey" PRIMARY KEY (
 -- ----------------------------
 -- Primary Key structure for table sentence_grammer_table
 -- ----------------------------
-ALTER TABLE "public"."sentence_grammer_table" ADD CONSTRAINT "sentence_grammer_table_pkey" PRIMARY KEY ("sentence_grammer_id");
+ALTER TABLE "public"."sentence_grammer_table" ADD CONSTRAINT "sentence_grammer_table_pkey" PRIMARY KEY ("grammer_id", "sentence_seq");
 
 -- ----------------------------
 -- Primary Key structure for table sentence_phrase_table
 -- ----------------------------
-ALTER TABLE "public"."sentence_phrase_table" ADD CONSTRAINT "sentence_phrase_table_pkey" PRIMARY KEY ("sentence_phrase_id");
+ALTER TABLE "public"."sentence_phrase_table" ADD CONSTRAINT "sentence_phrase_table_pkey" PRIMARY KEY ("phrase_id", "sentence_seq");
 
 -- ----------------------------
 -- Uniques structure for table sentence_table
@@ -610,7 +747,7 @@ ALTER TABLE "public"."sentence_table" ADD CONSTRAINT "sentence_table_pkey" PRIMA
 -- ----------------------------
 -- Primary Key structure for table sentence_word_table
 -- ----------------------------
-ALTER TABLE "public"."sentence_word_table" ADD CONSTRAINT "sentence_word_table_pkey" PRIMARY KEY ("sentence_word_id");
+ALTER TABLE "public"."sentence_word_table" ADD CONSTRAINT "sentence_word_table_pkey" PRIMARY KEY ("word_id", "sentence_seq");
 
 -- ----------------------------
 -- Primary Key structure for table user_info
@@ -668,7 +805,7 @@ ALTER TABLE "public"."sentence_phrase_table" ADD CONSTRAINT "sentence_phrase_tab
 -- ----------------------------
 -- Foreign Keys structure for table sentence_table
 -- ----------------------------
-ALTER TABLE "public"."sentence_table" ADD CONSTRAINT "sentence_table_lesson_id_fkey" FOREIGN KEY ("lesson_id") REFERENCES "public"."lesson_table" ("lesson_id") ON DELETE NO ACTION ON UPDATE NO ACTION;
+ALTER TABLE "public"."sentence_table" ADD CONSTRAINT "sentence_table_book_id_fkey" FOREIGN KEY ("book_id", "lesson_id") REFERENCES "public"."lesson_table" ("book_id", "lesson_id") ON DELETE RESTRICT ON UPDATE RESTRICT;
 
 -- ----------------------------
 -- Foreign Keys structure for table sentence_word_table

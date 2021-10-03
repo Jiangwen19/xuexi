@@ -1,5 +1,8 @@
 package org.jiangwen.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -9,17 +12,19 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-01
+ * @since 2021-10-03
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
+@TableName(value = "lesson_table")
 public class LessonTable extends BaseEntity {
 
     private static final long serialVersionUID = 1L;
 
-    private Long bookId;
+    @TableId(value = "lesson_id", type = IdType.AUTO)
+    private Integer lessonId;
 
-    private Long lessonId;
+    private Long bookId;
 
     private String lessonNameTranslate;
 
