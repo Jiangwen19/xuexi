@@ -36,6 +36,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     UserDetailServiceImpl userDetailService;
 
+    @Autowired
+    JwtLogoutSuccessHandler jwtLogoutSuccessHandler;
+
     @Bean
     JwtAuthenticationFilter jwtAuthenticationFilter() throws Exception {
         JwtAuthenticationFilter jwtAuthenticationFilter = new JwtAuthenticationFilter(authenticationManager());
@@ -66,9 +69,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .successHandler(loginSuccessHandler)
                 .failureHandler(loginFailureHandler)
 
-//                .and()
-//                .logout()
-//                .logoutSuccessHandler(jwtLogoutSuccessHandler)
+                .and()
+                .logout()
+                .logoutSuccessHandler(jwtLogoutSuccessHandler)
 
                 // 禁用session
                 .and()
@@ -106,7 +109,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setAuthenticationFailureHandler(loginFailureHandler);
 
 
-        //重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
+        // 重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
         filter.setAuthenticationManager(authenticationManagerBean());
         return filter;
     }
