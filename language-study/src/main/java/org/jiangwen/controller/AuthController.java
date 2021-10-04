@@ -7,7 +7,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.lang.Const;
 import org.jiangwen.entity.UserInfo;
-import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;

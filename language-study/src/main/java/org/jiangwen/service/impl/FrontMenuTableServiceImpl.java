@@ -1,13 +1,13 @@
 package org.jiangwen.service.impl;
 
-import cn.hutool.json.JSONUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.UserInfo;
 import org.jiangwen.mapper.FrontMenuTableMapper;
 import org.jiangwen.mapper.UserInfoMapper;
 import org.jiangwen.service.FrontMenuTableService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -51,7 +51,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     private List<ResMenuVo> convert(List<FrontMenuTable> menuTree) {
         List<ResMenuVo> menuDtos = new ArrayList<>();
 
-        menuTree.forEach(m->{
+        menuTree.forEach(m -> {
             ResMenuVo resMenuVo = new ResMenuVo();
 
             resMenuVo.setMenuId(m.getFrontMenuId());
@@ -60,7 +60,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
             resMenuVo.setComponent(m.getComponent());
             resMenuVo.setPath(m.getPath());
 
-            if(m.getChildren().size()>0){
+            if (m.getChildren().size() > 0) {
                 // 子节点递归调用当前方法
                 resMenuVo.setChildren(convert(m.getChildren()));
             }
@@ -94,5 +94,14 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         return finalMenus;
 
+    }
+
+    @Override
+    public List<FrontMenuTable> tree() {
+        // 获取所有菜单信息
+        List<FrontMenuTable> frontMenus = this.list(new QueryWrapper<FrontMenuTable>().orderByAsc("ordernum"));
+
+        // 转成树状结构
+        return buildTreeMenu(frontMenus);
     }
 }

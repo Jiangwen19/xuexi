@@ -7,6 +7,8 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,16 +30,20 @@ public class FrontMenuTable extends BaseEntity {
     @TableId(value = "front_menu_id", type = IdType.AUTO)
     private Long frontMenuId;
 
+    @NotNull(message = "上级菜单不能为空")
     private Long parentId;
 
+    @NotBlank(message = "菜单名称不能为空")
     private String menuName;
 
     private String path;
 
+    @NotBlank(message = "菜单授权码不能为空")
     private String perms;
 
     private String component;
 
+    @NotNull(message = "菜单类型不能为空")
     private Integer menuType;
 
     private String icon;

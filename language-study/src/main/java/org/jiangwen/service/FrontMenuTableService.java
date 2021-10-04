@@ -17,4 +17,6 @@ import java.util.List;
 public interface FrontMenuTableService extends IService<FrontMenuTable> {
 
     List<ResMenuVo> getCurrentUserNav();
+
+    List<FrontMenuTable> tree();
 }
