@@ -1,4 +1,4 @@
-package org.jiangwen.common.dto;
+package org.jiangwen.common.resvo;
 
 import lombok.Data;
 
@@ -17,14 +17,14 @@ import java.util.List;
  *                                },
  */
 @Data
-public class SysMenuDto implements Serializable {
+public class ResMenuVo implements Serializable {
 
-	private Long menuId;
-	private String name;
-	private String title;
-	private String icon;
-	private String path;
-	private String component;
-	private List<SysMenuDto> children = new ArrayList<>();
+    private Long menuId;
+    private String onlyCode;
+    private String title;
+    private String icon;
+    private String path;
+    private String component;
+    private List<ResMenuVo> children = new ArrayList<>();
 
 }

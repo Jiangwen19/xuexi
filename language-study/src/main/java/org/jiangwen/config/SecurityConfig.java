@@ -24,9 +24,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     @Autowired
     LoginSuccessHandler loginSuccessHandler;
 
-//    @Autowired
-//    CaptchaFilter captchaFilter;
-
     @Autowired
     JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
@@ -93,12 +90,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 //配置自定义的过滤器
                 .and()
                 .addFilter(jwtAuthenticationFilter())
-//                .addFilterBefore(captchaFilter, UsernamePasswordAuthenticationFilter.class)
                 .addFilterAt(customAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-
         ;
-//        http.addFilterAt(customAuthenticationFilter(),
-//                UsernamePasswordAuthenticationFilter.class);
 
     }
 
@@ -107,7 +100,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         CustomAuthenticationFilter filter = new CustomAuthenticationFilter();
         filter.setAuthenticationSuccessHandler(loginSuccessHandler);
         filter.setAuthenticationFailureHandler(loginFailureHandler);
-
 
         // 重用WebSecurityConfigurerAdapter配置的AuthenticationManager，不然要自己组装AuthenticationManager
         filter.setAuthenticationManager(authenticationManagerBean());

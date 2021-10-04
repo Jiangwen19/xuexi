@@ -1,7 +1,7 @@
 package org.jiangwen.service.impl;
 
 import cn.hutool.json.JSONUtil;
-import org.jiangwen.common.dto.SysMenuDto;
+import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.UserInfo;
 import org.jiangwen.mapper.FrontMenuTableMapper;
@@ -34,7 +34,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     UserInfoMapper userInfoMapper;
 
     @Override
-    public List<SysMenuDto> getCurrentUserNav() {
+    public List<ResMenuVo> getCurrentUserNav() {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInfo userInfo = userInfoService.getByUsername(username);
 
@@ -43,28 +43,29 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         // 转树状结构
         List<FrontMenuTable> menuTree = buildTreeMenu(menus);
-        // 实体转Dto
+        // 实体转Vo
         return convert(menuTree);
 
     }
 
-    private List<SysMenuDto> convert(List<FrontMenuTable> menuTree) {
-        List<SysMenuDto> menuDtos = new ArrayList<>();
+    private List<ResMenuVo> convert(List<FrontMenuTable> menuTree) {
+        List<ResMenuVo> menuDtos = new ArrayList<>();
 
         menuTree.forEach(m->{
-            SysMenuDto dto = new SysMenuDto();
-            dto.setMenuId(m.getFrontMenuId());
-            dto.setName(m.getPerms());
-            dto.setTitle(m.getMenuName());
-            dto.setComponent(m.getComponent());
-            dto.setPath(m.getPath());
+            ResMenuVo resMenuVo = new ResMenuVo();
+
+            resMenuVo.setMenuId(m.getFrontMenuId());
+            resMenuVo.setOnlyCode(m.getPerms());
+            resMenuVo.setTitle(m.getMenuName());
+            resMenuVo.setComponent(m.getComponent());
+            resMenuVo.setPath(m.getPath());
 
             if(m.getChildren().size()>0){
                 // 子节点递归调用当前方法
-                dto.setChildren(convert(m.getChildren()));
+                resMenuVo.setChildren(convert(m.getChildren()));
             }
 
-            menuDtos.add(dto);
+            menuDtos.add(resMenuVo);
         });
 
         return menuDtos;
@@ -89,7 +90,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         }
 
-        System.out.println(JSONUtil.toJsonStr(finalMenus));
+//        System.out.println(JSONUtil.toJsonStr(finalMenus));
 
         return finalMenus;
 

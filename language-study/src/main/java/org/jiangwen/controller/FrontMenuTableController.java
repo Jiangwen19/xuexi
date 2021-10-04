@@ -2,7 +2,7 @@ package org.jiangwen.controller;
 
 
 import cn.hutool.core.map.MapUtil;
-import org.jiangwen.common.dto.SysMenuDto;
+import org.jiangwen.common.resvo.ResMenuVo;
 import org.springframework.util.StringUtils;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.entity.UserInfo;
@@ -23,7 +23,7 @@ import java.util.List;
  * @since 2021-10-03
  */
 @RestController
-@RequestMapping("/front-menu")
+@RequestMapping("/menu")
 public class FrontMenuTableController extends BaseController {
 
     @GetMapping("/nav")
@@ -35,11 +35,11 @@ public class FrontMenuTableController extends BaseController {
         String[] authorityInfoArray = StringUtils.tokenizeToStringArray(authorityInfo, ",");
 
         // 获取导航栏信息
-        List<SysMenuDto> navs = frontMenuTableService.getCurrentUserNav();
+        List<ResMenuVo> navs = frontMenuTableService.getCurrentUserNav();
 
         return ApiRestResponse.success(MapUtil.builder()
                 .put("authoritys", authorityInfoArray)
-                .put("nav", "")
+                .put("nav", navs)
                 .map()
         );
 
