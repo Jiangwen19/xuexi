@@ -6,6 +6,8 @@ import com.google.code.kaptcha.Producer;
 import lombok.extern.slf4j.Slf4j;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.lang.Const;
+import org.jiangwen.entity.UserInfo;
+import org.jiangwen.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +16,7 @@ import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
+import java.security.Principal;
 import java.util.Base64;
 
 @Slf4j
@@ -52,5 +55,18 @@ public class AuthController extends BaseController {
         );
     }
 
+    // 获取当前用户信息
+    @GetMapping("/userInfo")
+    public ApiRestResponse userInfo(Principal principal) {
+
+        UserInfo user = userInfoService.getByUsername(principal.getName());
+        return ApiRestResponse.success(MapUtil.builder()
+                .put("userId", user.getUserId())
+                .put("username", user.getUsername())
+                .put("picture", user.getPicture())
+                .put("createTime", user.getCreateTime())
+                .map()
+        );
+    }
 
 }
