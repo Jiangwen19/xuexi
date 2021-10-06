@@ -57,7 +57,6 @@ export class LoginComponent implements OnInit {
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
 
     this.authService.login(this.userInfo)
-      .pipe(first())
       .subscribe(
         data => {
           this.router.navigate([this.returnUrl]);
@@ -79,8 +78,6 @@ export class LoginComponent implements OnInit {
       if (resData) {
         this.captchaImg = resData.data.captchaImg;
         this.userInfo.codeToken = resData.data.token;
-        console.log(this.captchaImg)
-        console.log(this.userInfo.codeToken)
       }
       this.isLoading = false;
     }, error => {
@@ -91,4 +88,5 @@ export class LoginComponent implements OnInit {
   private clear() {
     this.err = '';
   }
+
 }

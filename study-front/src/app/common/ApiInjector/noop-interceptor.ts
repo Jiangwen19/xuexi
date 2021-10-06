@@ -19,11 +19,11 @@ export class NoopInterceptor implements HttpInterceptor {
     constructor(private authService: AuthenticationService) { }
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
 
-        let accessToken = this.authService.getAuthToken();
-        let refreshToken = this.authService.getRefreshAuthToken();
+        const accessToken = this.authService.getAuthToken();
+        const refreshToken = this.authService.getRefreshAuthToken();
 
         if (accessToken && refreshToken) {
-            let token = request.url.endsWith("refresh-token") ? refreshToken : accessToken;
+            const token = request.url.endsWith("refresh-token") ? refreshToken : accessToken;
             request = request.clone({
                 setHeaders: {
                     'Authorization': `Bearer ${token}`

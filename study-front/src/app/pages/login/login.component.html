@@ -3,14 +3,14 @@
     <div class="box" *ngIf="!isLoading">
         <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
             <div class="pic">
-                <nz-avatar [nzSize]="64" nzIcon="user" style="background-color:#87d068;"></nz-avatar>
+                <nz-avatar [nzSize]="64" nzSrc="http://localhost:4200/assets/images/WechatIMG1.jpeg"></nz-avatar>
             </div>
             <div class="login">
                 <h1>Sign in to Tanoshii</h1>
                 <div class="auth-form">
                     <span>Username or email address</span>
                     <nz-form-item>
-                        <nz-form-control nzErrorTip="Please input your username!">
+                        <nz-form-control nzErrorTip="">
                             <nz-input-group nzPrefixIcon="user">
                                 <input type="text" class="form-control" nz-input formControlName="username" />
                             </nz-input-group>
@@ -19,7 +19,7 @@
 
                     <span>Password</span>
                     <nz-form-item>
-                        <nz-form-control nzErrorTip="Please input your Password!">
+                        <nz-form-control nzErrorTip="">
                             <nz-input-group nzPrefixIcon="lock">
                                 <input type="password" class="form-control" nz-input formControlName="password" />
                             </nz-input-group>
@@ -28,7 +28,7 @@
 
                     <div class="code">
                         <nz-form-item>
-                            <nz-form-control nzErrorTip="Please input Code!">
+                            <nz-form-control nzErrorTip="">
                                 <div class="input-code">
                                     <input type="text" class="form-control" nz-input formControlName="verificationCode" />
                                 </div>
