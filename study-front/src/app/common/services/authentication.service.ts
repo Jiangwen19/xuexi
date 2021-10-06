@@ -1,15 +1,15 @@
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from 'src/environments/environment';
+import { ApiResponse } from '../model/api.response';
 import { Tokens, TOKENS } from '../model/auth/tokens';
 import { UserInfoVo } from '../model/auth/user.info.vo';
 import { StorageUtils } from '../utility/storage-utils';
 import { BaseService } from './base.service';
 import { MessageService } from './message.service';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { ApiResponse } from '../model/api.response';
-import { environment } from 'src/environments/environment';
 
 const helper = new JwtHelperService();
 
@@ -44,7 +44,7 @@ export class AuthenticationService extends BaseService {
     return this.postToBackEnd(signupUser, 'signup');
   }
 
-  private postToBackEnd<T>(user: UserInfoVo, url: string): Observable<T> {
+  private postToBackEnd(user: UserInfoVo, url: string): Observable<ApiResponse> {
     // `${this.API_URL}/${url}?`+qs.stringify(user)
     return this.http.post<any>(`${this.API_URL}/${url}`, { 'username': user.username, 'password': user.password, 'codeToken': user.codeToken, 'verificationCode': user.verificationCode },
       Object.assign(this.httpOptions, {
@@ -56,7 +56,7 @@ export class AuthenticationService extends BaseService {
         observe: 'response' as 'body'
       }))
       .pipe(map(tokens => {
-        if (tokens) {
+        if (JSON.parse(tokens.body).status === 200) {
           localStorage.setItem(TOKENS, JSON.stringify(tokens.headers.get("Authorization")));
           this.logined$.emit(true);
         }
@@ -108,6 +108,6 @@ export class AuthenticationService extends BaseService {
    * 是否登陆
    */
   loginedIn(): boolean {
-    return !this.isRefreshTokenExpired();
+    return !this.getAuthToken();
   }
 }

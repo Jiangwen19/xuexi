@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterStateSnapshot } from '@angular/router';
-import { first } from 'rxjs/internal/operators';
 import { AuthGuard } from 'src/app/common/guard/auth-guard';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
@@ -12,7 +11,6 @@ import { AuthenticationService } from 'src/app/common/services/authentication.se
   styleUrls: ['./login.component.less']
 })
 export class LoginComponent implements OnInit {
-
   validateForm!: FormGroup;
   userInfo: UserInfoVo = new UserInfoVo();
   captchaImg: String;
@@ -56,22 +54,17 @@ export class LoginComponent implements OnInit {
     this.userInfo.password = this.validateForm.value.password;
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
 
-    this.authService.login(this.userInfo)
-      .subscribe(
-        data => {
-          this.router.navigate([this.returnUrl]);
-        },
-        error => {
-          if (error && error.status === 401) {
-            this.err = '用户名或密码不正确';
-          } else {
-            this.err = '其他错误';
-          }
-        },
-        () => {
-          submitted = false;
-        }
-      );
+    this.authService.login(this.userInfo).subscribe(data => {
+      if (data && data.status === 400) {
+        this.err = '用户名或密码不正确';
+      } else {
+        this.err = '验证码不正确';
+      }
+      this.router.navigate([this.returnUrl]);
+    }, () => {
+      submitted = false;
+    }
+    );
   }
   refreshCode(): void {
     this.authService.captcha().subscribe((resData) => {
