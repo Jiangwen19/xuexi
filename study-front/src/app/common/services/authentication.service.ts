@@ -108,6 +108,7 @@ export class AuthenticationService extends BaseService {
    * 是否登陆
    */
   loginedIn(): boolean {
-    return !this.getAuthToken();
+    // return !this.getAuthToken();
+    return true;
   }
 }

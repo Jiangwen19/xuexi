@@ -1,5 +1,16 @@
-<app-header></app-header>
-<app-meun></app-meun>
-<app-footer></app-footer>
-<a [routerLink]="['./new-book']" >book</a>
-<router-outlet></router-outlet>
+<nz-layout>
+  <app-header></app-header>
+  <nz-layout>
+    <nz-sider>
+      <app-menu></app-menu>
+    </nz-sider>
+    <nz-layout>
+      <nz-content>
+        <router-outlet></router-outlet>
+      </nz-content>
+      <nz-footer>
+        <app-footer></app-footer>
+      </nz-footer>
+    </nz-layout>
+  </nz-layout>
+</nz-layout>

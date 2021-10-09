@@ -12,12 +12,13 @@ import { LoginComponent } from './pages/login/login.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { MainComponent } from './pages/main/main.component';
 import { HeaderComponent } from './layout/header/header.component';
-import { MeunComponent } from './layout/meun/meun.component';
 import { FooterComponent } from './layout/footer/footer.component';
+import { MenuComponent } from './layout/menu/menu.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
+import { httpInterceptorProviders } from './common/ApiInjector/interceptor-index';
 import zh from '@angular/common/locales/zh';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
-import { httpInterceptorProviders } from './common/ApiInjector/interceptor-index';
+import { IndexComponent } from './pages/main/index/index.component';
 
 
 registerLocaleData(zh);
@@ -29,10 +30,11 @@ registerLocaleData(zh);
     RegisterComponent,
     MainComponent,
     HeaderComponent,
-    MeunComponent,
     FooterComponent,
     PageNotFoundComponent,
-    NewBookComponent
+    NewBookComponent,
+    MenuComponent,
+    IndexComponent
   ],
   imports: [
     BrowserModule,

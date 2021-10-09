@@ -1,1 +1,41 @@
-<p>header works!</p>
+<div nz-row>
+  <div class="header">
+    <div nz-col nzSpan="6">
+      <div class="header-logo">
+        <div class="logo">
+          <img
+            src="../../../assets/images/gold-stack.png"
+            width="37px"
+            height="37px"
+            alt="书中自有黄金屋"
+          />
+          <span>&nbsp;&nbsp;Tanoshii</span>
+          <span></span>
+        </div>
+      </div>
+    </div>
+    <div nz-col nzSpan="12">
+      <div class="title"><p>みんなの日本語后台管理</p></div>
+    </div>
+    <div nz-col nzSpan="6">
+      <div class="header-avatar">
+        <nz-avatar
+          [nzSize]="39"
+          nzSrc="http://localhost:4200/assets/images/admin.jpeg"
+        ></nz-avatar>
+        <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
+          Click me
+          <i nz-icon nzType="down"></i>
+        </a>
+        <nz-dropdown-menu #menu="nzDropdownMenu">
+          <ul nz-menu>
+            <li nz-menu-item>个人中心</li>
+            <li nz-menu-item>退出</li>
+          </ul>
+        </nz-dropdown-menu>
+        <a href="https://www.google.com" target="_blank">微信</a>
+        <a href="https://www.google.com" target="_blank">GitHub</a>
+      </div>
+    </div>
+  </div>
+</div>
