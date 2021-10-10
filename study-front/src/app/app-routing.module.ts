@@ -13,6 +13,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'home-refresh', redirectTo: 'main' },
+  { path: 'main', redirectTo: 'main/index', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
       { path: 'index', component: IndexComponent },
