@@ -72,7 +72,7 @@ export class MenuComponent implements OnInit {
         {
           level: 2,
           title: '菜单管理',
-          path: '/new',
+          path: 'menu-manage',
           icon: 'bars',
           selected: false,
           disabled: false

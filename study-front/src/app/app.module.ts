@@ -19,6 +19,7 @@ import { httpInterceptorProviders } from './common/ApiInjector/interceptor-index
 import zh from '@angular/common/locales/zh';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
 import { IndexComponent } from './pages/main/index/index.component';
+import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
 
 
 registerLocaleData(zh);
@@ -34,7 +35,8 @@ registerLocaleData(zh);
     PageNotFoundComponent,
     NewBookComponent,
     MenuComponent,
-    IndexComponent
+    IndexComponent,
+    MenuManageComponent
   ],
   imports: [
     BrowserModule,

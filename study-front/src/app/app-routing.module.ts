@@ -5,6 +5,7 @@ import { LoginComponent } from './pages/login/login.component';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
 import { IndexComponent } from './pages/main/index/index.component';
 import { MainComponent } from './pages/main/main.component';
+import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 
@@ -17,6 +18,7 @@ const routes: Routes = [
   {
     path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
       { path: 'index', component: IndexComponent },
+      { path: 'menu-manage', component: MenuManageComponent },
       { path: 'new-book', component: NewBookComponent }
     ]
   },

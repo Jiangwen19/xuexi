@@ -1,0 +1,61 @@
+<div class="menu-manage">
+  <div class="add">
+    <button nz-button nzType="primary">新增菜单</button>
+  </div>
+
+  <div class="detail">
+    <nz-table
+      #expandTable
+      nzBordered
+      [nzData]="listOfMapData"
+      nzTableLayout="fixed"
+      [nzScroll]="{ y: '500px' }"
+    >
+      <thead>
+        <tr>
+          <th nzWidth="16%">名称</th>
+          <th nzWidth="11%">权限编码</th>
+          <th nzWidth="10%">图标</th>
+          <th nzWidth="10%">类型</th>
+          <th nzWidth="11%">菜单URL</th>
+          <th nzWidth="10%">菜单组件</th>
+          <th nzWidth="10%">排序号</th>
+          <th nzWidth="7%">状态</th>
+          <th>操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let data of expandTable.data">
+          <ng-container *ngFor="let item of mapOfExpandedData[data.key]">
+            <tr *ngIf="(item.parent && item.parent.expand) || !item.parent">
+              <td
+                [nzIndentSize]="item.level! * 20"
+                [nzShowExpand]="!!item.children"
+                [(nzExpand)]="item.expand"
+                (nzExpandChange)="
+                  collapse(mapOfExpandedData[data.key], item, $event)
+                "
+              >
+                {{ item.name }}
+              </td>
+              <td>{{ item.age }}</td>
+              <td>{{ item.address }}</td>
+              <td>
+                <nz-tag [nzColor]="'green'">{{ item.aaaaa }}</nz-tag>
+              </td>
+              <td>{{ item.bbbbb }}</td>
+              <td>{{ item.ccccc }}</td>
+              <td>{{ item.ddddd }}</td>
+              <td>
+                <nz-tag [nzColor]="'green'">{{ item.eeeee }}</nz-tag>
+              </td>
+              <td>
+                <span><a></a> | <a></a></span>
+              </td>
+            </tr>
+          </ng-container>
+        </ng-container>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
