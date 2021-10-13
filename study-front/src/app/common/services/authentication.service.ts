@@ -87,9 +87,19 @@ export class AuthenticationService extends BaseService {
     return request.clone({ setHeaders: { Authorization: token } });
   }
 
-  logout() {
-    localStorage.removeItem(TOKENS);
-    this.logined$.emit(false);
+  /**
+   * 退出登录
+   */
+  logout(): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/logout`, null).pipe(
+      map(res => {
+        if (res.status === 200) {
+          localStorage.removeItem(TOKENS);
+          this.logined$.emit(false);
+        }
+        return res;
+      })
+    );
   }
 
   /**

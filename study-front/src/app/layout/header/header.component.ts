@@ -1,5 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { UserService } from 'src/app/common/services/user.service';
 
 @Component({
@@ -9,8 +11,12 @@ import { UserService } from 'src/app/common/services/user.service';
 })
 export class HeaderComponent implements OnInit {
 
+  public logoutOk$: EventEmitter<boolean>;
+
   userInfo: UserInfoVo = new UserInfoVo();
-  constructor(private userService: UserService) { }
+  constructor(private router: Router, private userService: UserService, private authService: AuthenticationService) {
+    this.logoutOk$ = new EventEmitter();
+  }
 
   ngOnInit() {
     this.getUserInfo();
@@ -23,9 +29,9 @@ export class HeaderComponent implements OnInit {
     });
   }
 
-  getUserLogout(): void {
-    this.userService.getUserLogout().subscribe((resData) => {
-      localStorage.clear();
+  userLogout(): void {
+    this.authService.logout().subscribe((resData) => {
+      this.router.navigate(['/login'])
     });
   }
 

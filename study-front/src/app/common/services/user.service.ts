@@ -22,7 +22,4 @@ export class UserService {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/userInfo`);
   }
 
-  getUserLogout(): Observable<ApiResponse> {
-    return this.http.post<ApiResponse>(`${environment.baseUrl}/logout`, null);
-  }
 }
