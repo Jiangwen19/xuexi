@@ -54,17 +54,19 @@ export class LoginComponent implements OnInit {
     this.userInfo.password = this.validateForm.value.password;
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
 
-    this.authService.login(this.userInfo).subscribe(data => {
-      if (data && data.status === 400) {
-        this.err = '用户名或密码不正确';
-      } else {
-        this.err = '验证码不正确';
-      }
-      this.router.navigate([this.returnUrl]);
-    }, () => {
-      submitted = false;
-    }
-    );
+    this.authService.login(this.userInfo)
+      .subscribe(
+        data => {
+          if (data && data.status === 400) {
+            this.err = '用户名或密码不正确';
+          } else {
+            this.err = '验证码不正确';
+          }
+          this.router.navigate([this.returnUrl]);
+        }, () => {
+          submitted = false;
+        }
+      );
   }
   refreshCode(): void {
     this.authService.captcha().subscribe((resData) => {

@@ -33,7 +33,7 @@ public class JwtLogoutSuccessHandler implements LogoutSuccessHandler {
 
         response.setHeader(jwtUtils.getHeader(), "");
 
-        ApiRestResponse apiRestResponse = ApiRestResponse.success("");
+        ApiRestResponse apiRestResponse = ApiRestResponse.success("退出成功");
 
         outputStream.write(JSONUtil.toJsonStr(apiRestResponse).getBytes("UTF-8"));
 

@@ -37,6 +37,11 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
 
         String jwt = request.getHeader(jwtUtils.getHeader());
+
+//        if (jwt.startsWith("Bearer ")) {
+//            jwt = jwt.substring(7);
+//        }
+
         if (StrUtil.isBlankOrUndefined(jwt)) {
             chain.doFilter(request, response);
             return;

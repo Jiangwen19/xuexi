@@ -1,3 +1,4 @@
+import { StrigUtil } from './../utility/string-util';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -70,19 +71,20 @@ export class AuthenticationService extends BaseService {
 
   getAuthToken(): string {
     let tokens: Tokens = StorageUtils.getTokens();
-    return tokens ? tokens.token : '';
+    return StrigUtil.isEmpty(tokens.token) ? '' : tokens.token.substring(1, tokens.token.length - 1);
   }
 
   getRefreshAuthToken(): string {
-    let tokens: Tokens = StorageUtils.getTokens();
-    return tokens ? tokens.refreshToken : '';
+    let tokens: Tokens = StorageUtils.getRefreshTokens();
+    return StrigUtil.isEmpty(tokens.refreshToken) ? '' : tokens.refreshToken.substring(1, tokens.refreshToken.length - 1);
   }
 
   /**
    * 在Request的header中追加验证token
    */
   addTokenToRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
-    return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+    // return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
+    return request.clone({ setHeaders: { Authorization: token } });
   }
 
   logout() {

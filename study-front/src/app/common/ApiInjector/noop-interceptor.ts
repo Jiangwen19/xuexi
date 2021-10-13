@@ -26,7 +26,8 @@ export class NoopInterceptor implements HttpInterceptor {
             const token = request.url.endsWith("refresh-token") ? refreshToken : accessToken;
             request = request.clone({
                 setHeaders: {
-                    'Authorization': `Bearer ${token}`
+                    // 'Authorization': `Bearer ${token}`
+                    'Authorization': token
                 }
             });
 

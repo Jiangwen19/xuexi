@@ -24,13 +24,13 @@
           nzSrc="http://localhost:4200/assets/images/admin.jpeg"
         ></nz-avatar>
         <a nz-dropdown nzTrigger="click" [nzDropdownMenu]="menu">
-          Click me
+          {{ userInfo.username }}
           <i nz-icon nzType="down"></i>
         </a>
         <nz-dropdown-menu #menu="nzDropdownMenu">
           <ul nz-menu>
-            <li nz-menu-item>个人中心</li>
-            <li nz-menu-item>退出</li>
+            <li nz-menu-item (click)="getUserInfo()">个人中心</li>
+            <li nz-menu-item (click)="getUserLogout()">退出</li>
           </ul>
         </nz-dropdown-menu>
         <a href="https://www.google.com" target="_blank">微信</a>
