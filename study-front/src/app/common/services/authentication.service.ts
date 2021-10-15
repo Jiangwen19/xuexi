@@ -56,11 +56,12 @@ export class AuthenticationService extends BaseService {
         observe: 'response' as 'body'
       }))
       .pipe(map(tokens => {
-        if (JSON.parse(tokens.body).status === 200) {
+        let token = JSON.parse(tokens.body);
+        if (token.status === 200) {
           localStorage.setItem(TOKENS, JSON.stringify(tokens.headers.get("Authorization")));
           this.logined$.emit(true);
         }
-        return JSON.parse(tokens.body);
+        return token;
       }));
   }
 
@@ -70,13 +71,11 @@ export class AuthenticationService extends BaseService {
 
   getAuthToken(): string {
     let tokens: Tokens = StorageUtils.getTokens();
-    // return StrigUtil.isEmpty(tokens.token) ? '' : tokens.token.substring(1, tokens.token.length - 1);
     return tokens.token ? tokens.token.substring(1, tokens.token.length - 1) : '';
   }
 
   getRefreshAuthToken(): string {
     let tokens: Tokens = StorageUtils.getRefreshTokens();
-    // return StrigUtil.isEmpty(tokens.refreshToken) ? '' : tokens.refreshToken.substring(1, tokens.refreshToken.length - 1);
     return tokens.refreshToken ? tokens.refreshToken.substring(1, tokens.refreshToken.length - 1) : '';
   }
 
@@ -84,7 +83,6 @@ export class AuthenticationService extends BaseService {
    * 在Request的header中追加验证token
    */
   addTokenToRequest(request: HttpRequest<any>, token: string): HttpRequest<any> {
-    // return request.clone({ setHeaders: { Authorization: `Bearer ${token}` } });
     return request.clone({ setHeaders: { Authorization: token } });
   }
 

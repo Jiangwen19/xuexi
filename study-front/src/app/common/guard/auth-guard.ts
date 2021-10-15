@@ -3,7 +3,7 @@ import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot } from
 import { AuthenticationService } from './../services/authentication.service';
 
 /**
- * 前端的拦截器
+ * 路由守卫
  *
  * 如果没有登录就跳转到login页面
  */
