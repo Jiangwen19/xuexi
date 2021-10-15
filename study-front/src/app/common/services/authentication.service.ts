@@ -1,4 +1,3 @@
-import { StrigUtil } from './../utility/string-util';
 import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { EventEmitter, Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -71,12 +70,14 @@ export class AuthenticationService extends BaseService {
 
   getAuthToken(): string {
     let tokens: Tokens = StorageUtils.getTokens();
-    return StrigUtil.isEmpty(tokens.token) ? '' : tokens.token.substring(1, tokens.token.length - 1);
+    // return StrigUtil.isEmpty(tokens.token) ? '' : tokens.token.substring(1, tokens.token.length - 1);
+    return tokens.token ? tokens.token.substring(1, tokens.token.length - 1) : '';
   }
 
   getRefreshAuthToken(): string {
     let tokens: Tokens = StorageUtils.getRefreshTokens();
-    return StrigUtil.isEmpty(tokens.refreshToken) ? '' : tokens.refreshToken.substring(1, tokens.refreshToken.length - 1);
+    // return StrigUtil.isEmpty(tokens.refreshToken) ? '' : tokens.refreshToken.substring(1, tokens.refreshToken.length - 1);
+    return tokens.refreshToken ? tokens.refreshToken.substring(1, tokens.refreshToken.length - 1) : '';
   }
 
   /**
@@ -120,7 +121,6 @@ export class AuthenticationService extends BaseService {
    * 是否登陆
    */
   loginedIn(): boolean {
-    // return !this.getAuthToken();
-    return true;
+    return !this.getAuthToken();
   }
 }

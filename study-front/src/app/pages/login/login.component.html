@@ -1,6 +1,7 @@
 <!-- <div mdbModal #frame class="modal fade top" id="frameModalTop" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
     aria-hidden="true"> -->
     <div class="box" *ngIf="!isLoading">
+        <!-- <nz-alert *ngIf="!isLogout" nzType="success" nzMessage="postmanService.logoutAlert"></nz-alert> -->
         <form nz-form [formGroup]="validateForm" class="login-form" (ngSubmit)="submitForm()">
             <div class="pic">
                 <nz-avatar [nzSize]="64" nzSrc="http://localhost:4200/assets/images/WechatIMG1.jpeg"></nz-avatar>

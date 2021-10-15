@@ -4,6 +4,7 @@ import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthGuard } from 'src/app/common/guard/auth-guard';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { PostmanService } from 'src/app/common/services/postman.service';
 
 @Component({
   selector: 'app-login',
@@ -18,7 +19,7 @@ export class LoginComponent implements OnInit {
   isLoading: boolean = true;
   err = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService,
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService, private postmanService: PostmanService,
     private authGuard: AuthGuard) {
     this.authGuard.routerStateSnapshot$.subscribe((state: RouterStateSnapshot) => {
       // 赋值给跳转URL
@@ -79,6 +80,15 @@ export class LoginComponent implements OnInit {
       console.log(error);
     });
   }
+
+  // isLogout(): boolean {
+  //   if (this.postmanService.isLogout === true) {
+  //     this.postmanService.isLogout = false;
+  //     return true;
+  //   } else {
+  //     return false;
+  //   }
+  // }
 
   private clear() {
     this.err = '';

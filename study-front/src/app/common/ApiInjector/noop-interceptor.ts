@@ -2,7 +2,6 @@ import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest } from '@angular/c
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { AuthenticationService } from '../services/authentication.service';
-import { StrigUtil } from '../utility/string-util';
 
 /** Pass untouched request through to the next request handler. */
 @Injectable()
