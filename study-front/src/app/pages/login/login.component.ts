@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router, RouterStateSnapshot } from '@angular/router';
 import { AuthGuard } from 'src/app/common/guard/auth-guard';
+import { TOKENS } from 'src/app/common/model/auth/tokens';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { PostmanService } from 'src/app/common/services/postman.service';
@@ -28,6 +29,8 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    localStorage.removeItem(TOKENS);
+    this.authService.logined$.emit(false);
     this.initForm();
     this.refreshCode();
   }
