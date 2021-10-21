@@ -59,6 +59,10 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
             resMenuVo.setTitle(m.getMenuName());
             resMenuVo.setComponent(m.getComponent());
             resMenuVo.setPath(m.getPath());
+            resMenuVo.setIcon(m.getIcon());
+            resMenuVo.setMenuType(m.getMenuType());
+            resMenuVo.setOrderNum(m.getOrdernum());
+            resMenuVo.setState(m.getStatu());
 
             if (m.getChildren().size() > 0) {
                 // 子节点递归调用当前方法

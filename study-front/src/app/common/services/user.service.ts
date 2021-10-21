@@ -18,8 +18,4 @@ export class UserService {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/register`, params);
   }
 
-  getUserInfo(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.baseUrl}/userInfo`);
-  }
-
 }

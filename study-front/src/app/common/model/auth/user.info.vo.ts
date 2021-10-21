@@ -1,4 +1,4 @@
-export class UserInfoVo{
+export class UserInfoVo {
   userId: number;
   username: String;
   password: String;

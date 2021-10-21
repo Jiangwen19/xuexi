@@ -36,8 +36,12 @@ export class AuthenticationService extends BaseService {
     return this.postToBackEnd(loginUser, 'login');
   }
 
-  myInfo(): Observable<any> {
-    return this.http.get<any>(`${this.API_URL}/currentUser`);
+  getUserInfo(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/userInfo`);
+  }
+
+  getMenuAndAuthoritys(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/menu/nav`);
   }
 
   signup(signupUser: UserInfoVo) {

@@ -5,7 +5,6 @@ import { AuthGuard } from 'src/app/common/guard/auth-guard';
 import { TOKENS } from 'src/app/common/model/auth/tokens';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
-import { PostmanService } from 'src/app/common/services/postman.service';
 
 @Component({
   selector: 'app-login',
@@ -20,7 +19,7 @@ export class LoginComponent implements OnInit {
   isLoading: boolean = true;
   err = '';
 
-  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService, private postmanService: PostmanService,
+  constructor(private fb: FormBuilder, private router: Router, private authService: AuthenticationService,
     private authGuard: AuthGuard) {
     this.authGuard.routerStateSnapshot$.subscribe((state: RouterStateSnapshot) => {
       // 赋值给跳转URL

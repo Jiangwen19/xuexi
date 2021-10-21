@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { MenuAuthoritys } from 'src/app/common/model/auth/menu-authoritys';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { StorageUtils } from 'src/app/common/utility/storage-utils';
 
 @Component({
   selector: 'app-menu',
@@ -107,9 +110,10 @@ export class MenuComponent implements OnInit {
       ]
     }
   ];
-  constructor(private router: Router) { }
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
   ngOnInit() {
+
   }
 
 
