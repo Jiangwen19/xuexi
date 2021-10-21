@@ -1,4 +1,5 @@
 
+import { Route } from '@angular/compiler/src/core';
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './common/guard/auth-guard';
@@ -14,14 +15,14 @@ import { RegisterComponent } from './pages/register/register.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegisterComponent },
-  { path: 'home-refresh', redirectTo: 'main' },
+  // { path: 'register', component: RegisterComponent },
+  // { path: 'home-refresh', redirectTo: 'main' },
   { path: 'main', redirectTo: 'main/index', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
       { path: 'index', component: IndexComponent },
-      { path: 'menu-manage', component: MenuManageComponent },
-      { path: 'new-book', component: NewBookComponent }
+      // { path: 'menu-manage', component: MenuManageComponent },
+      // { path: 'new-book', component: NewBookComponent }
     ]
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
@@ -34,17 +35,16 @@ const routes: Routes = [
 })
 export class AppRoutingModule {
   constructor(router: Router, private navConvertService: NavConvertService, private authService: AuthenticationService) {
-    this.authService.getMenuAndAuthoritys().subscribe((resData) => {
-      if (resData) {
-        // let level: number = 0;
-        // let key: string = '';
-        let resNav = resData.data.nav;
-        console.log(navConvertService.getMenus(resNav))
-        navConvertService.getMenus(resNav);
-
-
-      }
-    });
+    
+    console.log(router.url)
+    // this.authService.getMenuAndAuthoritys().subscribe((resData) => {
+    //   if (resData) {
+    //     let resNav = resData.data.nav;
+    //     console.log(navConvertService.getMenus(resNav))
+    //     navConvertService.getMenus(resNav);
+    //   }
+    // });
+    console.log('Routes: ', JSON.stringify(router.config));
   }
 }
 // console.log('Routes: ', JSON.stringify(router.config));

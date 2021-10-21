@@ -1,0 +1,283 @@
+{
+	"info": {
+		"_postman_id": "df855352-68e3-409a-9d43-f6b7eb3497ef",
+		"name": "后台管理接口测试",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "登录接口",
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"exec": [
+							"pm.sendRequest(\"http://localhost:8080/captcha\", function (err, response) {",
+							"    console.log(response.json());",
+							"});"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\": \"showen\",\n    \"password\": \"111111\",\n    \"codeToken\": \"aaaaaa\",\n    \"verificationCode\": \"11111\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "test方法接口",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzMzIyNTE1MywiZXhwIjoxNjMzODI5OTUzfQ.GOmqzDIsR7o3Oa0-92p9ppajJa2HpYXVMWQdlNh3UMkcUAuumSViPyxftS3z3cmwZklaAsvZPRXa8UzsbYmCuA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/test",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"test"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/menu/nav",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzMzkzNzcxMCwiZXhwIjoxNjM0NTQyNTEwfQ.ZQhnHWQtYxa2pVhirzRMVRn-BWQmGx2iy1GZrMuIWA_0S4belIwg5GsYFzXkp6N8tS12AywF6pV4vkjODLfMRA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/nav",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"nav"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/userInfo",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNDA1OTY0NCwiZXhwIjoxNjM0NjY0NDQ0fQ.hp919tjP-itfU4Tc5SaKKVQxSyJQhawP0c2DHA1l1Y5vB7bWJDzbauvhBN11A4YNA9LTG8v6VyOxc48cbUdajw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/userInfo",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"userInfo"
+					]
+				},
+				"description": "获取当前用户名及头像信息"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/logout",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/logout",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"logout"
+					]
+				},
+				"description": "登出接口"
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/captcha",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNDE1MTk3NCwiZXhwIjoxNjM0NzU2Nzc0fQ.HQU_QaBcTvq1ZbZOp2UFOLeDsVlwEa0wJyuRyudLkNPPSfhymkoc9PQxCptkWQX5lrhiM9FWr0GmbVVLYQmPMQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/captcha",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"captcha"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/menu/list",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJzaG93ZW4iLCJpYXQiOjE2MzQ0ODUwNzgsImV4cCI6MTYzNTA4OTg3OH0.okiWH44VAmqlYpnvglT4RPM-xvbypbU0UmF3dHk2jqiC1oz8UAMfo-myZq1hJP56-Eag0CZLaX2rpqcbDiDx4Q",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "普通用户获取菜单信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjM0NDk0MTg5LCJleHAiOjE2MzUwOTg5ODl9.R6Yc-HBN8nXSwIv3WOV4US19qXBcs9FnUhyGIG8q35ancQC-NXB-59lvFT37uXIa2mmqSyeMALoHOL4jNUOq1g",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/nav",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"nav"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": "",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "超级管理员获取菜单信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNDQ5NDMyMywiZXhwIjoxNjM1MDk5MTIzfQ.tV07qPrrDBbsq_4FOPJ0LvmO1kocD21DekZwGBXpjpbN5IO0MXHo8PZqhPaQhzNTlhX7TTP5EbZYZcaOw80nhA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/nav",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"nav"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "普通用户获取全部菜单信息",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjM0NDk0NDI2LCJleHAiOjE2MzUwOTkyMjZ9.Qx5hso0sWZPFHh1KGioP0qZ-o-k_w5k9GIN9-bDS-my-PmVpMt6eA6hNu1aZxGyZw8zWDi9b91420GU5YU4Gbg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/list",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"list"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}

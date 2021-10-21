@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 03/10/2021 11:37:38
+ Date: 22/10/2021 06:04:03
 */
 
 
@@ -193,12 +193,12 @@ ALTER TABLE "public"."favourites_table" OWNER TO "postgres";
 DROP TABLE IF EXISTS "public"."front_menu_table";
 CREATE TABLE "public"."front_menu_table" (
   "front_menu_id" int8 NOT NULL,
-  "parent_id" int8,
+  "parent_id" int8 NOT NULL,
   "menu_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "path" varchar(255) COLLATE "pg_catalog"."default",
-  "perms" varchar(255) COLLATE "pg_catalog"."default",
+  "perms" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "component" varchar(255) COLLATE "pg_catalog"."default",
-  "menu_type" int4,
+  "menu_type" int4 NOT NULL,
   "icon" varchar(20) COLLATE "pg_catalog"."default",
   "ordernum" int4,
   "statu" int4,
@@ -220,6 +220,21 @@ INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', '/sys/role
 INSERT INTO "public"."front_menu_table" VALUES (4, 1, '菜单管理', '/sys/menus', 'sys:menu:list', 'sys/Menu', 1, 'el-icon-menu', 3, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'el-icon-s-tools', 2, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (6, 5, '数字字典', '/sys/dicts', 'sys:dict:list', 'sys/Dict', 1, 'el-icon-s-order', 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (7, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (8, 2, '修改用户', NULL, 'sys:user:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (9, 2, '删除用户', NULL, 'sys:user:delete
+', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (10, 2, '分配角色', NULL, 'sys:user:role
+', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (11, 2, '重置密码', NULL, 'sys:user:repass
+', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (12, 3, '添加角色', NULL, 'sys:role:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (13, 3, '修改角色', NULL, 'sys:role:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (14, 3, '删除角色', NULL, 'sys:role:delete', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (15, 3, '分配限权', NULL, 'sys:role:perm', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (16, 4, '添加菜单', NULL, 'sys:menu:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (17, 4, '修改菜单', NULL, 'sys:menu:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (18, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -304,6 +319,18 @@ INSERT INTO "public"."role_menu_table" VALUES (77, 6, 6, NULL, NULL, NULL, NULL)
 INSERT INTO "public"."role_menu_table" VALUES (96, 3, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (97, 3, 2, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (98, 3, 3, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (99, 6, 7, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (100, 6, 8, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (101, 6, 9, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (102, 6, 10, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (103, 6, 11, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (104, 6, 12, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (105, 6, 13, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (106, 6, 14, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (107, 6, 15, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (108, 6, 16, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (109, 6, 17, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (110, 6, 18, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -330,6 +357,7 @@ ALTER TABLE "public"."role_table" OWNER TO "postgres";
 BEGIN;
 INSERT INTO "public"."role_table" VALUES (3, '普通用户', '只有基本查看功能', 'normal', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
 INSERT INTO "public"."role_table" VALUES (6, '超级管理员', '系统默认最高权限，不可以编辑和任意修改', 'admin', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
+INSERT INTO "public"."role_table" VALUES (9, '一般管理员', '能对普通用户进行管理，对图书进行增删查改', 'general', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -431,9 +459,9 @@ ALTER TABLE "public"."user_info" OWNER TO "postgres";
 BEGIN;
 INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2020-12-19 00:00:00');
 INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'no', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'no', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
+INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -480,6 +508,12 @@ INSERT INTO "public"."user_role_table" VALUES (7, 1996, 6, 'w', '2021-09-09 00:0
 INSERT INTO "public"."user_role_table" VALUES (13, 1997, 3, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."user_role_table" VALUES (1, 1998, 3, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."user_role_table" VALUES (2, 1998, 6, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (3, 1996, 9, '3', NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (5, 1998, 9, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (6, 8888, 3, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (10, 9999, 3, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (8, 8888, 9, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_role_table" VALUES (9, 9999, 9, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
