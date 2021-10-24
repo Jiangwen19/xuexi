@@ -1,48 +1,54 @@
-import { MenuAuthoritys, MENUAUTHS } from "../model/auth/menu-authoritys";
+import { MENUKEY, PERMITKEY } from "../model/auth/menu-authoritys";
 import { Tokens } from "../model/auth/tokens";
 
 export class StorageUtils {
 
     static tokens: Tokens = new Tokens();
-    static menuAuthoritys: MenuAuthoritys = new MenuAuthoritys();
+
     /**
      * 从Localstorage中获取指定Key的值
      */
     public static get(key: string): any {
         return localStorage.getItem(key);
     }
+
     /**
-     * 从Localstorage中获取Tokens
+     * 从Localstorage中获取tokens
      */
-    public static getTokens(): Tokens {
-        this.tokens.token = <string>localStorage.getItem('tokens');
+    public static getTokenAll(): Tokens {
         return this.tokens ? this.tokens : null;
     }
+
+    /**
+     * 从Localstorage中获取Token
+     */
+    public static getTokens(): string {
+        this.tokens.token = <string>localStorage.getItem('tokens');
+        return this.tokens.token;
+    }
+
     /**
      * 从Localstorage中获取refreshToken
      */
-    public static getRefreshTokens(): Tokens {
+    public static getRefreshTokens(): string {
         this.tokens.refreshToken = <string>localStorage.getItem('tokens');
-        return this.tokens ? this.tokens : null;
+        return this.tokens.refreshToken;
     }
+
     /**
-     * 将菜单列表存储到全局变量中
+     * 从sessionStorage中获取menuList
      */
-    public static setMenuList(menuList: any[]) {
-        this.menuAuthoritys.menuList = menuList;
-        console.log(this.menuAuthoritys.menuList)
+    public static getMenuList(): any {
+        let menuList = JSON.parse(sessionStorage.getItem(MENUKEY));
+        return menuList ? menuList : null;
     }
+
     /**
-     * 将限权存储到全局变量中
+     * 从sessionStorage中获取PermList
      */
-    public static setPermList(authoritys: any[]) {
-        this.menuAuthoritys.permList = authoritys;
+    public static getPermList(): any {
+        let permList = JSON.parse(sessionStorage.getItem(PERMITKEY));
+        return permList ? permList : null;
     }
-    /**
-     * 修改路由缓存状态
-     */
-    public static changeRouteStatus(hasRoute: boolean) {
-        this.menuAuthoritys.hasRoute = hasRoute;
-        sessionStorage.setItem(MENUAUTHS, JSON.stringify(hasRoute));
-    }
+
 }

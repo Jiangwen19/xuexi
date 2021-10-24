@@ -3,7 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
 import { UserService } from 'src/app/common/services/user.service';
-import { StrigUtil } from 'src/app/common/utility/string-util';
+import { StringUtil } from 'src/app/common/utility/string-util';
 
 @Component({
   selector: 'app-register',
@@ -21,7 +21,7 @@ export class RegisterComponent implements OnInit {
     this.userInfoVo.passwordAgain = '';
   }
   isDisabled(): boolean {
-    if (!StrigUtil.isEmpty(this.userInfoVo.username) && !StrigUtil.isEmpty(this.userInfoVo.password) && !StrigUtil.isEmpty(this.userInfoVo.passwordAgain)) {
+    if (!StringUtil.isEmpty(this.userInfoVo.username) && !StringUtil.isEmpty(this.userInfoVo.password) && !StringUtil.isEmpty(this.userInfoVo.passwordAgain)) {
       return false;
     } else {
       return true;

@@ -9,11 +9,11 @@ export class NavConvertService {
   key: string = '';
   constructor() { }
 
-  getMenus(resNav: MenuModel[]): MenuModel[] {
+  getMenus(resNav: any[]): MenuModel[] {
     return this.navConvert(this.level, this.key, resNav)
   }
 
-  navConvert(level: number, key: string, element: any): MenuModel[] {
+  navConvert(level: number, key: string, element: any[]): MenuModel[] {
     let menus: Array<MenuModel> = new Array<MenuModel>();
     level++;
     for (let i: number = 0; i < element.length; i++) {

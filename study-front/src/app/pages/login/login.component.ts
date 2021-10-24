@@ -29,7 +29,6 @@ export class LoginComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.removeItem(TOKENS);
-    this.authService.logined$.emit(false);
     this.initForm();
     this.refreshCode();
   }
@@ -58,18 +57,10 @@ export class LoginComponent implements OnInit {
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
 
     this.authService.login(this.userInfo)
-      .subscribe(
-        data => {
-          if (data && data.status === 400) {
-            this.err = '用户名或密码不正确';
-          } else {
-            this.err = '验证码不正确';
-          }
-          this.router.navigate([this.returnUrl]);
-        }, () => {
-          submitted = false;
-        }
-      );
+      .subscribe(() => {
+        this.router.navigate([this.returnUrl]);
+        submitted = false;
+      });
   }
   refreshCode(): void {
     this.authService.captcha().subscribe((resData) => {
@@ -82,15 +73,6 @@ export class LoginComponent implements OnInit {
       console.log(error);
     });
   }
-
-  // isLogout(): boolean {
-  //   if (this.postmanService.isLogout === true) {
-  //     this.postmanService.isLogout = false;
-  //     return true;
-  //   } else {
-  //     return false;
-  //   }
-  // }
 
   private clear() {
     this.err = '';

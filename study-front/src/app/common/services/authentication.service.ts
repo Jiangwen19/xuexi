@@ -8,6 +8,7 @@ import { ApiResponse } from '../model/api.response';
 import { Tokens, TOKENS } from '../model/auth/tokens';
 import { UserInfoVo } from '../model/auth/user.info.vo';
 import { StorageUtils } from '../utility/storage-utils';
+import { StringUtil } from '../utility/string-util';
 import { BaseService } from './base.service';
 import { MessageService } from './message.service';
 
@@ -19,13 +20,13 @@ const helper = new JwtHelperService();
 })
 export class AuthenticationService extends BaseService {
 
-
   public logined$: EventEmitter<boolean>;
+  public loadMain$: EventEmitter<boolean>;
 
-  constructor(private http: HttpClient,
-    messageService: MessageService) {
+  constructor(private http: HttpClient, messageService: MessageService) {
     super(messageService);
     this.logined$ = new EventEmitter();
+    this.loadMain$ = new EventEmitter();
   }
 
   captcha(): Observable<ApiResponse> {
@@ -74,13 +75,13 @@ export class AuthenticationService extends BaseService {
   }
 
   getAuthToken(): string {
-    let tokens: Tokens = StorageUtils.getTokens();
-    return tokens.token ? tokens.token.substring(1, tokens.token.length - 1) : '';
+    let token: string = StorageUtils.getTokens();
+    return token ? token.substring(1, token.length - 1) : '';
   }
 
   getRefreshAuthToken(): string {
-    let tokens: Tokens = StorageUtils.getRefreshTokens();
-    return tokens.refreshToken ? tokens.refreshToken.substring(1, tokens.refreshToken.length - 1) : '';
+    let refreshToken: string = StorageUtils.getRefreshTokens();
+    return refreshToken ? refreshToken.substring(1, refreshToken.length - 1) : '';
   }
 
   /**
@@ -123,6 +124,41 @@ export class AuthenticationService extends BaseService {
    * 是否登陆
    */
   loginedIn(): boolean {
-    return !this.getAuthToken();
+    return !StringUtil.isEmpty(this.getAuthToken());
   }
+
+  /**
+   * 获取路由相关菜单信息
+   */
+  getMenu(): any {
+    return StorageUtils.getMenuList();
+  }
+
+  /**
+   * 获取菜单相关限权信息
+   */
+  getPerm(): any {
+    return StorageUtils.getPermList();
+  }
+
+  /**
+   * 是否加载菜单信息
+   */
+  hasMenu(): boolean {
+    if (this.getMenu() === null) {
+      return false;
+    }
+    return true;
+  }
+
+  /**
+   * 是否加载限权信息
+   */
+  hasPerm(): boolean {
+    if (this.getPerm() === null) {
+      return false;
+    }
+    return true;
+  }
+
 }

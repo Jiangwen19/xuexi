@@ -1,5 +1,5 @@
 
-export class StrigUtil {
+export class StringUtil {
 
     public static isEmpty(val: any): boolean {
         if (val === '' || val === null || val === undefined) {
