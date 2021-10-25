@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { PostmanService } from 'src/app/common/services/postman.service';
 
 @Component({
   selector: 'app-main',
@@ -8,8 +8,8 @@ import { AuthenticationService } from 'src/app/common/services/authentication.se
 })
 export class MainComponent implements OnInit {
 
-  constructor(private authService: AuthenticationService) {
-    this.authService.loadMain$.emit(true);
+  constructor(private postmanService: PostmanService) {
+    this.postmanService.loadMain$.emit(true);
   }
 
   ngOnInit() { }

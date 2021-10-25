@@ -21,12 +21,10 @@ const helper = new JwtHelperService();
 export class AuthenticationService extends BaseService {
 
   public logined$: EventEmitter<boolean>;
-  public loadMain$: EventEmitter<boolean>;
 
   constructor(private http: HttpClient, messageService: MessageService) {
     super(messageService);
     this.logined$ = new EventEmitter();
-    this.loadMain$ = new EventEmitter();
   }
 
   captcha(): Observable<ApiResponse> {

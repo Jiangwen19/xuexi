@@ -33,7 +33,7 @@ export class MenuComponent implements OnInit {
           {
             level: 2,
             title: '用户管理',
-            path: '',
+            path: 'menu-manage',
             icon: 'bars',
             open: false,
             selected: false,

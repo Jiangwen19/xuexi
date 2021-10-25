@@ -4,7 +4,7 @@ import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './common/guard/auth-guard';
 import { MENUKEY, PERMITKEY } from './common/model/auth/menu-authoritys';
 import { AuthenticationService } from './common/services/authentication.service';
-import { NavConvertService } from './common/services/nav-convert.service';
+import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
 import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
 import { IndexComponent } from './pages/main/index/index.component';
@@ -37,37 +37,44 @@ const componentMap = new Map([
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   entryComponents: [
-    componentMap.get('users-manage'),
-    componentMap.get('menu-manage'),
+    NewBookComponent,
+    MenuManageComponent
   ]
 })
 export class AppRoutingModule {
-  constructor(router: Router, private authService: AuthenticationService, private navConvertService: NavConvertService) {
+  constructor(router: Router, private authService: AuthenticationService, private postmanService: PostmanService) {
 
     let setRouter = router.config[3].children;
     let hasMenu = this.authService.hasMenu();
 
-    this.authService.loadMain$.subscribe((isMain) => {
-      if (isMain && !hasMenu) {
+    this.postmanService.loadMain$.subscribe((isMain) => {
+      let hasRetainMenu = this.authService.hasMenu();
+      if (isMain && !hasRetainMenu) {
         this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
-          let meunList = this.navConvertService.getMenus(resNav.data.nav);
-          sessionStorage.setItem(MENUKEY, JSON.stringify(meunList));
-          sessionStorage.setItem(PERMITKEY, JSON.stringify(resNav.data.authoritys));
+          let menuList = resNav.data.nav;
+          let permList = resNav.data.authoritys
+          sessionStorage.setItem(MENUKEY, JSON.stringify(menuList));
+          sessionStorage.setItem(PERMITKEY, JSON.stringify(permList));
+          this.dynamicLoadMenu(setRouter, menuList);
         })
       }
     })
 
     if (hasMenu) {
-      let meunList = this.authService.getMenu();
-      for (let item of meunList) {
-        if (item.children) {
-          item.children.forEach(element => {
-            setRouter.push({ path: element.path, component: componentMap.get(element.path) })
-          });
-        }
-      }
+      let menuList = this.authService.getMenu();
+      this.dynamicLoadMenu(setRouter, menuList);
     }
 
+  }
+
+  private dynamicLoadMenu(setRouter: any[], menu: any[]) {
+    for (let item of menu) {
+      if (item.children) {
+        item.children.forEach(element => {
+          setRouter.push({ path: element.path, component: componentMap.get(element.path) })
+        });
+      }
+    }
   }
 
 }
