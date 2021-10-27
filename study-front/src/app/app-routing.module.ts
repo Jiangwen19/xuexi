@@ -30,7 +30,7 @@ const routes: Routes = [
 
 const componentMap = new Map([
   // ['main目录下url', 组件]
-  ['users-manage', NewBookComponent],
+  // ['users-manage', NewBookComponent],
   ['menu-manage', MenuManageComponent]
 ]);
 @NgModule({

@@ -14,6 +14,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -40,6 +41,8 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         List<Long> menuIds = userInfoMapper.getNavMenuIds(userInfo.getUserId());
         List<FrontMenuTable> menus = this.listByIds(menuIds);
+
+        menus.sort(Comparator.comparing(FrontMenuTable::getOrdernum));
 
         // 转树状结构
         List<FrontMenuTable> menuTree = buildTreeMenu(menus);

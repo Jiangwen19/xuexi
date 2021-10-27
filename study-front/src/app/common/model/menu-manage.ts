@@ -2,7 +2,7 @@
 export class MenuManage {
     // 菜单标识:‘1-1-2’
     key: string;
-    level?: number;
+    level: number;
     // 后端数据
     menuId: number;
     title: string;
@@ -14,5 +14,5 @@ export class MenuManage {
     orderNum: number;
     state: number;
     // 子菜单
-    children: Array<MenuManage>;
+    children?: MenuManage[];
 }

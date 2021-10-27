@@ -13,14 +13,14 @@
     >
       <thead>
         <tr>
-          <th nzWidth="16%">名称</th>
-          <th nzWidth="11%">权限编码</th>
+          <th nzWidth="15%">名称</th>
+          <th nzWidth="15%">权限编码</th>
           <th nzWidth="10%">图标</th>
-          <th nzWidth="10%">类型</th>
-          <th nzWidth="11%">菜单URL</th>
-          <th nzWidth="10%">菜单组件</th>
-          <th nzWidth="10%">排序号</th>
-          <th nzWidth="7%">状态</th>
+          <th nzWidth="5%">类型</th>
+          <th nzWidth="10%">菜单URL</th>
+          <th nzWidth="16%">菜单组件</th>
+          <th nzWidth="8%">排序号</th>
+          <th nzWidth="5%">状态</th>
           <th>操作</th>
         </tr>
       </thead>
@@ -36,18 +36,18 @@
                   collapse(mapOfExpandedData[data.key], item, $event)
                 "
               >
-                {{ item.name }}
+                {{ item.title }}
               </td>
-              <td>{{ item.age }}</td>
-              <td>{{ item.address }}</td>
+              <td>{{ item.onlyCode }}</td>
+              <td>{{ item.icon }}</td>
               <td>
-                <nz-tag [nzColor]="'green'">{{ item.aaaaa }}</nz-tag>
+                <nz-tag [nzColor]="'green'">{{ item.menuType }}</nz-tag>
               </td>
-              <td>{{ item.bbbbb }}</td>
-              <td>{{ item.ccccc }}</td>
-              <td>{{ item.ddddd }}</td>
+              <td>{{ item.path }}</td>
+              <td>{{ item.component }}</td>
+              <td>{{ item.orderNum }}</td>
               <td>
-                <nz-tag [nzColor]="'green'">{{ item.eeeee }}</nz-tag>
+                <nz-tag [nzColor]="'green'">{{ item.state }}</nz-tag>
               </td>
               <td>
                 <span><a></a> | <a></a></span>

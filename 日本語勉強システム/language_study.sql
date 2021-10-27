@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 22/10/2021 06:04:03
+ Date: 28/10/2021 02:17:06
 */
 
 
@@ -149,7 +149,8 @@ CREATE TABLE "public"."book_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "book_number" int4 NOT NULL
 )
 ;
 ALTER TABLE "public"."book_table" OWNER TO "postgres";
@@ -214,27 +215,27 @@ ALTER TABLE "public"."front_menu_table" OWNER TO "postgres";
 -- Records of front_menu_table
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', '/sys/users', 'sys:user:list', 'sys/User', 1, 'el-icon-s-custom', 1, 1, NULL, '2020-02-02 00:00:00', NULL, '2021-01-01 00:00:00');
-INSERT INTO "public"."front_menu_table" VALUES (1, 0, '系统管理', NULL, 'sys:manage', NULL, 0, 'el-icon-s-opera', 1, 1, NULL, '2020-09-09 00:00:00', NULL, '2021-09-08 00:00:00');
-INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', '/sys/roles', 'sys:role:list', 'sys/Role', 1, 'el-icon-rank', 2, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (4, 1, '菜单管理', '/sys/menus', 'sys:menu:list', 'sys/Menu', 1, 'el-icon-menu', 3, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'el-icon-s-tools', 2, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (6, 5, '数字字典', '/sys/dicts', 'sys:dict:list', 'sys/Dict', 1, 'el-icon-s-order', 1, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (7, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (8, 2, '修改用户', NULL, 'sys:user:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', 'users-manage', 'sys:user:list', NULL, 1, 'user', 1, 1, NULL, '2020-02-02 00:00:00', NULL, '2021-01-01 00:00:00');
+INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', 'roles', 'sys:role:list', NULL, 1, 'drag', 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (4, 1, '菜单管理', 'menu-manage', 'sys:menu:list', 'MenuManageComponent', 1, 'appstore', 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (6, 5, '数字字典', 'dicts', 'sys:dict:list', NULL, 1, 'container', 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'setting', 2, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (7, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, 1, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (8, 2, '修改用户', NULL, 'sys:user:update', NULL, 2, NULL, 2, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (9, 2, '删除用户', NULL, 'sys:user:delete
-', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+', NULL, 2, NULL, 3, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (10, 2, '分配角色', NULL, 'sys:user:role
-', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+', NULL, 2, NULL, 4, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (11, 2, '重置密码', NULL, 'sys:user:repass
-', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (12, 3, '添加角色', NULL, 'sys:role:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (13, 3, '修改角色', NULL, 'sys:role:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (14, 3, '删除角色', NULL, 'sys:role:delete', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (15, 3, '分配限权', NULL, 'sys:role:perm', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (16, 4, '添加菜单', NULL, 'sys:menu:save', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (17, 4, '修改菜单', NULL, 'sys:menu:update', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (18, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 2, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+', NULL, 2, NULL, 5, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (12, 3, '添加角色', NULL, 'sys:role:save', NULL, 2, NULL, 6, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (13, 3, '修改角色', NULL, 'sys:role:update', NULL, 2, NULL, 7, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (14, 3, '删除角色', NULL, 'sys:role:delete', NULL, 2, NULL, 8, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (15, 3, '分配限权', NULL, 'sys:role:perm', NULL, 2, NULL, 9, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (16, 4, '添加菜单', NULL, 'sys:menu:save', NULL, 2, NULL, 10, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (17, 4, '修改菜单', NULL, 'sys:menu:update', NULL, 2, NULL, 11, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (18, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 2, NULL, 12, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (1, 0, '系统管理', NULL, 'sys:manage', NULL, 0, 'bars', 1, 1, NULL, '2020-09-09 00:00:00', NULL, '2021-09-08 00:00:00');
 COMMIT;
 
 -- ----------------------------
@@ -267,7 +268,8 @@ CREATE TABLE "public"."lesson_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "lesson_number" int4 NOT NULL
 )
 ;
 ALTER TABLE "public"."lesson_table" OWNER TO "postgres";
@@ -408,7 +410,8 @@ CREATE TABLE "public"."sentence_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "sentence_number" int4
 )
 ;
 ALTER TABLE "public"."sentence_table" OWNER TO "postgres";

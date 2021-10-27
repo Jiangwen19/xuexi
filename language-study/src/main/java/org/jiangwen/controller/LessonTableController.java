@@ -2,16 +2,15 @@ package org.jiangwen.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
  * <p>
- *  前端控制器
+ * 前端控制器
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-03
+ * @since 2021-10-28
  */
 @RestController
 @RequestMapping("/lesson-table")

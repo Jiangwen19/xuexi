@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-03
+ * @since 2021-10-28
  */
 @Service
 public class BookTableServiceImpl extends ServiceImpl<BookTableMapper, BookTable> implements BookTableService {

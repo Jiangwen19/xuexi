@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { ConvertUtils } from 'src/app/common/utility/convert-utils';
 export interface TreeNodeInterface {
   key: string;
   level?: number;
@@ -23,9 +25,7 @@ export interface TreeNodeInterface {
   styleUrls: ['./menu-manage.component.less']
 })
 export class MenuManageComponent implements OnInit {
-
   listOfMapData: TreeNodeInterface[];
-
   mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
 
   collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
@@ -68,7 +68,11 @@ export class MenuManageComponent implements OnInit {
     }
   }
 
-  constructor() { }
+  constructor(private authService: AuthenticationService) {
+    let getNav = this.authService.getMenu();
+    this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
+    console.log(this.listOfMapData)
+  }
 
   ngOnInit() {
     this.listOfMapData.forEach(item => {
