@@ -12,9 +12,9 @@ export interface TreeNodeInterface {
   path: string;
   component: string;
   icon: string;
-  menuType: number;
+  menuType: string;
   orderNum: number;
-  state: number;
+  state: string;
 
   children?: TreeNodeInterface[];
   parent?: TreeNodeInterface;

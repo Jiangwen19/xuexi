@@ -13,9 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Comparator;
-import java.util.List;
+import java.util.*;
 
 /**
  * <p>
@@ -34,6 +32,22 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     @Autowired
     UserInfoMapper userInfoMapper;
 
+    public static final Map<Integer, String> MENUTYPE = new HashMap<>() {
+        {
+            put(0, "目录");
+            put(1, "菜单");
+            put(2, "按钮");
+        }
+    };
+
+    public static final Map<Integer, String> MENUSTATU = new HashMap<>() {
+        {
+            put(0, "正常");
+            put(1, "禁用");
+            put(2, "异常");
+        }
+    };
+
     @Override
     public List<ResMenuVo> getCurrentUserNav() {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -41,7 +55,6 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         List<Long> menuIds = userInfoMapper.getNavMenuIds(userInfo.getUserId());
         List<FrontMenuTable> menus = this.listByIds(menuIds);
-
         menus.sort(Comparator.comparing(FrontMenuTable::getOrdernum));
 
         // 转树状结构
@@ -63,9 +76,9 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
             resMenuVo.setComponent(m.getComponent());
             resMenuVo.setPath(m.getPath());
             resMenuVo.setIcon(m.getIcon());
-            resMenuVo.setMenuType(m.getMenuType());
+            resMenuVo.setMenuType(MENUTYPE.get(m.getMenuType()));
             resMenuVo.setOrderNum(m.getOrdernum());
-            resMenuVo.setState(m.getStatu());
+            resMenuVo.setState(MENUSTATU.get(m.getStatu()));
 
             if (m.getChildren().size() > 0) {
                 // 子节点递归调用当前方法
