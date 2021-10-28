@@ -30,7 +30,7 @@ const routes: Routes = [
 
 const componentMap = new Map([
   // ['main目录下url', 组件]
-  // ['users-manage', NewBookComponent],
+  ['users-manage', NewBookComponent],
   ['menu-manage', MenuManageComponent]
 ]);
 @NgModule({
@@ -47,6 +47,12 @@ export class AppRoutingModule {
     let setRouter = router.config[3].children;
     let hasMenu = this.authService.hasMenu();
 
+    this.postmanService.loadLogin$.subscribe((islogin) => {
+      if (islogin === true) {
+        setRouter.length = 0;
+        setRouter.push({ path: 'index', component: IndexComponent })
+      }
+    })
     this.postmanService.loadMain$.subscribe((isMain) => {
       let hasRetainMenu = this.authService.hasMenu();
       if (isMain && !hasRetainMenu) {

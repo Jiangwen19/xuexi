@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { ConvertUtils } from 'src/app/common/utility/convert-utils';
+import { StorageUtils } from 'src/app/common/utility/storage-utils';
 export interface TreeNodeInterface {
   key: string;
   level?: number;
@@ -25,6 +25,14 @@ export interface TreeNodeInterface {
   styleUrls: ['./menu-manage.component.less']
 })
 export class MenuManageComponent implements OnInit {
+  TagMap = new Map([
+    ['目录', 'blue'],
+    ['菜单', 'green'],
+    ['按钮', 'orange'],
+    ['正常', 'green'],
+    ['禁用', 'geekblue'],
+    ['异常', 'red'],
+  ]);
   listOfMapData: TreeNodeInterface[];
   mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
 
@@ -68,10 +76,9 @@ export class MenuManageComponent implements OnInit {
     }
   }
 
-  constructor(private authService: AuthenticationService) {
-    let getNav = this.authService.getMenu();
+  constructor() {
+    let getNav = StorageUtils.getMenuList();
     this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
-    console.log(this.listOfMapData)
   }
 
   ngOnInit() {

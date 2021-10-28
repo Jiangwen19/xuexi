@@ -41,13 +41,13 @@
               <td>{{ item.onlyCode }}</td>
               <td>{{ item.icon }}</td>
               <td>
-                <nz-tag [nzColor]="'green'">{{ item.menuType }}</nz-tag>
+                <nz-tag [nzColor]="TagMap.get(item.menuType)">{{ item.menuType }}</nz-tag>
               </td>
               <td>{{ item.path }}</td>
               <td>{{ item.component }}</td>
               <td>{{ item.orderNum }}</td>
               <td>
-                <nz-tag [nzColor]="'green'">{{ item.state }}</nz-tag>
+                <nz-tag [nzColor]="TagMap.get(item.state)">{{ item.state }}</nz-tag>
               </td>
               <td>
                 <span><a></a> | <a></a></span>

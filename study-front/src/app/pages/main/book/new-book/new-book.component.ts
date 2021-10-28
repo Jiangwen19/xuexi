@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { StorageUtils } from 'src/app/common/utility/storage-utils';
 
 @Component({
   selector: 'app-new-book',
@@ -8,13 +7,8 @@ import { StorageUtils } from 'src/app/common/utility/storage-utils';
 })
 export class NewBookComponent implements OnInit {
 
-  constructor() { 
-    // console.log('THIS IS BOOK')
-    // console.log(StorageUtils.menuAuthoritys.menuList)
-    // console.log('THIS IS BOOK')
-  }
+  constructor() { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
 }
