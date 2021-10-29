@@ -8,6 +8,7 @@
         <li
           *ngIf="!menu.children"
           nz-menu-item
+          nzMatchRouter
           [nzPaddingLeft]="menu.level * 24"
           [nzDisabled]="menu.disabled"
           [nzSelected]="menu.selected"

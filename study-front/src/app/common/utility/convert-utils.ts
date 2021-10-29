@@ -2,7 +2,9 @@ import { Menu } from "../model/menu";
 import { MenuManage } from "../model/menu-manage";
 
 export class ConvertUtils {
-    public static menuConvert(level: number, incept: any[]): any[] {
+
+    public static openKeyMap = new Map();
+    public static menuConvert(level: number, incept: any[], parents?: number): any[] {
 
         let menus: any[] = [];
         level++;
@@ -21,19 +23,23 @@ export class ConvertUtils {
             ];
         }
 
-        for (let item of incept) {
+        for (let i: number = 0; i < incept.length; i++) {
             let menu: Menu = new Menu();
 
             menu.level = level;
-            menu.title = item.title;
-            menu.path = item.path;
-            menu.icon = item.icon;
+            menu.title = incept[i].title;
+            menu.path = incept[i].path;
+            menu.icon = incept[i].icon;
             menu.open = false;
             menu.selected = false;
             menu.disabled = false;
+            if (parents) {
+                menu.parents = parents;
+                ConvertUtils.openKeyMap.set(incept[i].path, parents);
+            }
 
-            if (item.children && level < 2) {
-                menu.children = this.menuConvert(level, item.children);
+            if (incept[i].children && level < 2) {
+                menu.children = this.menuConvert(level, incept[i].children, i + 1);
             }
             menus.push(menu);
 

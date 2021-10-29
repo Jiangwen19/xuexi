@@ -49,8 +49,7 @@ export class AppRoutingModule {
 
     this.postmanService.loadLogin$.subscribe((islogin) => {
       if (islogin === true) {
-        setRouter.length = 0;
-        setRouter.push({ path: 'index', component: IndexComponent })
+        setRouter.length = 1;
       }
     })
     this.postmanService.loadMain$.subscribe((isMain) => {

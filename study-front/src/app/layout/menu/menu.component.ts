@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { ConvertUtils } from 'src/app/common/utility/convert-utils';
 
@@ -8,11 +9,13 @@ import { ConvertUtils } from 'src/app/common/utility/convert-utils';
   styleUrls: ['./menu.component.less']
 })
 export class MenuComponent implements OnInit {
-  mode = false;
-  dark = false;
-  menus: any[];
 
-  constructor(private authService: AuthenticationService) {
+  openKeyMap: Map<string, number>
+  mode = false
+  dark = false
+  menus: any[]
+
+  constructor(private router: Router, private authService: AuthenticationService) {
     if (this.authService.hasMenu()) {
       let getMenus = this.authService.getMenu();
       this.menus = ConvertUtils.menuConvert(0, getMenus);
@@ -22,9 +25,20 @@ export class MenuComponent implements OnInit {
         this.menus = ConvertUtils.menuConvert(0, getMenus);
       })
     }
+    this.openKeyMap = ConvertUtils.openKeyMap;
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.searchOpenKey()
+  }
 
+  searchOpenKey() {
+    for (let key of this.openKeyMap.keys()) {
+      if (this.router.url.match(key)) {
+        let openKey = this.openKeyMap.get(key);
+        this.menus[openKey].open = true;
+      }
+    }
+  }
 }
 

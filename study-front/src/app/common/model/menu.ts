@@ -6,5 +6,6 @@ export class Menu {
     open: boolean;
     selected: boolean;
     disabled: boolean;
+    parents?: number;
     children?: Menu[];
 }
