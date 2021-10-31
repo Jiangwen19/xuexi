@@ -19,7 +19,7 @@ const routes: Routes = [
   { path: 'main', redirectTo: 'main/index', pathMatch: 'full' },
   {
     path: 'main', component: MainComponent, canActivate: [AuthGuard], children: [
-      { path: 'index', component: IndexComponent }
+      { path: 'index', component: IndexComponent, data: { breadcrumb: '首页' } }
       // => loading...
     ]
   },
@@ -76,7 +76,10 @@ export class AppRoutingModule {
     for (let item of menu) {
       if (item.children) {
         item.children.forEach(element => {
-          setRouter.push({ path: element.path, component: componentMap.get(element.path) })
+          setRouter.push({
+            path: element.path, component: componentMap.get(element.path),
+            data: { breadcrumb: element.title }
+          })
         });
       }
     }

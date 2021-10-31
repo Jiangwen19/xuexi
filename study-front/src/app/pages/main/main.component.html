@@ -7,18 +7,16 @@
     <nz-layout>
       <nz-content>
         <div class="breadcrumb">
-          <nz-breadcrumb>
+          <nz-breadcrumb nzSeparator=">">
             <nz-breadcrumb-item>
-              <i nz-icon nzType="home"></i>
+              <i routerLink="/main/index" nz-icon nzType="home"></i>
             </nz-breadcrumb-item>
-            <nz-breadcrumb-item>
-              <a> Application List </a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>
-              <a> Application List </a>
-            </nz-breadcrumb-item>
-            <nz-breadcrumb-item>
-              <a> Application List </a>
+            <nz-breadcrumb-item *ngFor="let breadcrumb of breadcrumbs">
+              <!-- <nz-breadcrumb-item *ngFor="let item of breadcrumb"> -->
+              <a [routerLink]="[breadcrumb.url, breadcrumb.params]">
+                <span>{{ breadcrumb.label }}</span>
+              </a>
+              <!-- </nz-breadcrumb-item> -->
             </nz-breadcrumb-item>
           </nz-breadcrumb>
         </div>
