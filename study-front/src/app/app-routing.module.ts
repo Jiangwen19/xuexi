@@ -6,10 +6,12 @@ import { MENUKEY, PERMITKEY } from './common/model/auth/menu-authoritys';
 import { AuthenticationService } from './common/services/authentication.service';
 import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
-import { NewBookComponent } from './pages/main/book/new-book/new-book.component';
+import { BookListComponent } from './pages/main/book/book-list/book-list.component';
 import { IndexComponent } from './pages/main/index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
+import { RoleManageComponent } from './pages/main/role-manage/role-manage.component';
+import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 
@@ -30,15 +32,19 @@ const routes: Routes = [
 
 const componentMap = new Map([
   // ['main目录下url', 组件]
-  ['users-manage', NewBookComponent],
-  ['menu-manage', MenuManageComponent]
+  ['users-manage', UserManageComponent],
+  ['menu-manage', MenuManageComponent],
+  ['roles-manage', RoleManageComponent],
+  ['booklist', BookListComponent]
 ]);
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
   entryComponents: [
-    NewBookComponent,
-    MenuManageComponent
+    UserManageComponent,
+    MenuManageComponent,
+    RoleManageComponent,
+    BookListComponent
   ]
 })
 export class AppRoutingModule {
