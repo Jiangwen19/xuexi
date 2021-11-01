@@ -8,6 +8,7 @@ import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.RoleMenuTable;
 import org.jiangwen.entity.UserInfo;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -48,17 +49,20 @@ public class FrontMenuTableController extends BaseController {
     }
 
     @GetMapping("/info/{menuId}")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
     public ApiRestResponse menuInfo(@PathVariable(name = "menuId") Long menuId) {
         return ApiRestResponse.success(frontMenuTableService.getById(menuId));
     }
 
     @GetMapping("/list")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
     public ApiRestResponse list() {
         List<FrontMenuTable> menus = frontMenuTableService.tree();
         return ApiRestResponse.success(menus);
     }
 
     @PostMapping("/save")
+    @PreAuthorize("hasAuthority('sys:menu:save')")
     public ApiRestResponse save(@Validated @RequestBody FrontMenuTable frontMenuTable, Principal principal) {
         frontMenuTable.setCreater(principal.getName());
         frontMenuTable.setCreateTime(LocalDateTime.now());
@@ -67,6 +71,7 @@ public class FrontMenuTableController extends BaseController {
     }
 
     @PostMapping("/update")
+    @PreAuthorize("hasAuthority('sys:menu:update')")
     public ApiRestResponse update(@Validated @RequestBody FrontMenuTable frontMenuTable, Principal principal) {
         frontMenuTable.setUpdater(principal.getName());
         frontMenuTable.setUpdateTime(LocalDateTime.now());
@@ -78,6 +83,7 @@ public class FrontMenuTableController extends BaseController {
     }
 
     @PostMapping("/delete/{menuId}")
+    @PreAuthorize("hasAuthority('sys:menu:delete')")
     public ApiRestResponse delete(@PathVariable("menuId") Long menuId) {
         FrontMenuTable frontMenuTable = frontMenuTableService.getById(menuId);
         // 判断菜单是否有子菜单
