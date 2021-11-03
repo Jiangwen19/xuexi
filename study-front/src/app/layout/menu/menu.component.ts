@@ -17,10 +17,16 @@ export class MenuComponent implements OnInit {
 
   constructor(private router: Router, private authService: AuthenticationService) {
 
-    this.authService.getMenuAndAuthoritys().subscribe((resMenu) => {
-      let getMenus = resMenu.data.nav;
+    if (this.authService.hasMenu()) {
+      let getMenus = this.authService.getMenu();
       this.menus = ConvertUtils.menuConvert(0, getMenus);
-    })
+    } else {
+      this.authService.getMenuAndAuthoritys().subscribe((resMenu) => {
+        let getMenus = resMenu.data.nav;
+        this.menus = ConvertUtils.menuConvert(0, getMenus);
+      })
+    }
+
     this.openKeyMap = ConvertUtils.openKeyMap;
   }
 

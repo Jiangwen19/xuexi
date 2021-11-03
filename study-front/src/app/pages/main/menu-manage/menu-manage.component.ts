@@ -77,7 +77,6 @@ export class MenuManageComponent implements OnInit {
   }
 
   constructor(private authService: AuthenticationService) { }
-
   ngOnInit() {
     this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
       let getNav = resNav.data.nav;
@@ -86,7 +85,6 @@ export class MenuManageComponent implements OnInit {
         this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
       });
     })
-
   }
 
 }
