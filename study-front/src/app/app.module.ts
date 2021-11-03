@@ -21,6 +21,7 @@ import { RoleManageComponent } from './pages/main/role-manage/role-manage.compon
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
 
 
 
@@ -40,7 +41,8 @@ registerLocaleData(zh);
     MenuManageComponent,
     RoleManageComponent,
     UserManageComponent,
-    BookListComponent
+    BookListComponent,
+    DictsUploadComponent
   ],
   imports: [
     BrowserModule,

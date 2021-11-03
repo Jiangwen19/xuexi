@@ -58,7 +58,6 @@ export class LoginComponent implements OnInit {
     this.userInfo.username = this.validateForm.value.username;
     this.userInfo.password = this.validateForm.value.password;
     this.userInfo.verificationCode = this.validateForm.value.verificationCode;
-
     this.authService.login(this.userInfo)
       .subscribe(() => {
         this.router.navigate([this.returnUrl]);

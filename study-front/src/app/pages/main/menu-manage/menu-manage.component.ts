@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from 'src/app/common/services/authentication.service';
 import { ConvertUtils } from 'src/app/common/utility/convert-utils';
-import { StorageUtils } from 'src/app/common/utility/storage-utils';
 export interface TreeNodeInterface {
   key: string;
   level?: number;
@@ -76,15 +76,17 @@ export class MenuManageComponent implements OnInit {
     }
   }
 
-  constructor() {
-    let getNav = StorageUtils.getMenuList();
-    this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
-  }
+  constructor(private authService: AuthenticationService) { }
 
   ngOnInit() {
-    this.listOfMapData.forEach(item => {
-      this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
-    });
+    this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
+      let getNav = resNav.data.nav;
+      this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
+      this.listOfMapData.forEach(item => {
+        this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
+      });
+    })
+
   }
 
 }

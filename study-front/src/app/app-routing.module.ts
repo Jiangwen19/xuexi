@@ -7,6 +7,7 @@ import { AuthenticationService } from './common/services/authentication.service'
 import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
 import { BookListComponent } from './pages/main/book/book-list/book-list.component';
+import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
 import { IndexComponent } from './pages/main/index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
@@ -30,22 +31,17 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }
 ];
 
-const componentMap = new Map([
-  // ['main目录下url', 组件]
-  ['users-manage', UserManageComponent],
-  ['menu-manage', MenuManageComponent],
-  ['roles-manage', RoleManageComponent],
-  ['booklist', BookListComponent]
-]);
+const component: any[] = [
+  UserManageComponent,
+  MenuManageComponent,
+  RoleManageComponent,
+  BookListComponent,
+  DictsUploadComponent
+];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],
   exports: [RouterModule],
-  entryComponents: [
-    UserManageComponent,
-    MenuManageComponent,
-    RoleManageComponent,
-    BookListComponent
-  ]
+  entryComponents: component
 })
 export class AppRoutingModule {
   constructor(router: Router, private authService: AuthenticationService, private postmanService: PostmanService) {
@@ -63,9 +59,7 @@ export class AppRoutingModule {
       if (isMain && !hasRetainMenu) {
         this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
           let menuList = resNav.data.nav;
-          let permList = resNav.data.authoritys
           sessionStorage.setItem(MENUKEY, JSON.stringify(menuList));
-          sessionStorage.setItem(PERMITKEY, JSON.stringify(permList));
           this.dynamicLoadMenu(setRouter, menuList);
         })
       }
@@ -75,20 +69,32 @@ export class AppRoutingModule {
       let menuList = this.authService.getMenu();
       this.dynamicLoadMenu(setRouter, menuList);
     }
-
   }
 
   private dynamicLoadMenu(setRouter: any[], menu: any[]) {
     for (let item of menu) {
-      if (item.children) {
-        item.children.forEach(element => {
-          setRouter.push({
-            path: element.path, component: componentMap.get(element.path),
-            data: { breadcrumb: element.title }
-          })
-        });
+
+      let index = this.hasComponent(item)
+      if (index !== -1) {
+        setRouter.push({
+          path: item.path, component: component[index],
+          data: { breadcrumb: item.title }
+        })
+      }
+
+      if (item.children.length !== 0) {
+        this.dynamicLoadMenu(setRouter, item.children)
       }
     }
+
+  }
+  private hasComponent(item: any): number {
+    for (let i = 0; i < component.length; i++) {
+      if (item.component === component[i].name) {
+        return i;
+      }
+    }
+    return -1;
   }
 
 }
