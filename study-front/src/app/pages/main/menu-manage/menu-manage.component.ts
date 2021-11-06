@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
 import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { Constants } from 'src/app/common/utility/constants';
 import { ConvertUtils } from 'src/app/common/utility/convert-utils';
 export interface TreeNodeInterface {
   key: string;
@@ -25,17 +27,26 @@ export interface TreeNodeInterface {
   styleUrls: ['./menu-manage.component.less']
 })
 export class MenuManageComponent implements OnInit {
-  TagMap = new Map([
-    ['目录', 'blue'],
-    ['菜单', 'green'],
-    ['按钮', 'orange'],
-    ['正常', 'green'],
-    ['禁用', 'geekblue'],
-    ['异常', 'red'],
-  ]);
+  // 动态一览
+  menuType = Constants.MenuType;
+  menuState = Constants.MenuState;
   listOfMapData: TreeNodeInterface[];
   mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
 
+  // 编辑模态框
+  isVisible = false;
+  isConfirmLoading = false;
+
+  // 绑定到子组件的menuId
+  menuId: number;
+
+  /**
+   * 一览相关
+   * @param array 
+   * @param data 
+   * @param $event 
+   * @returns 
+   */
   collapse(array: TreeNodeInterface[], data: TreeNodeInterface, $event: boolean): void {
     if (!$event) {
       if (data.children) {
@@ -76,8 +87,23 @@ export class MenuManageComponent implements OnInit {
     }
   }
 
-  constructor(private authService: AuthenticationService) { }
+  /**
+   * 构造方法
+   * @param authService 
+   */
+  constructor(private authService: AuthenticationService, private nzMessageService: NzMessageService) { }
+
+  /**
+   * 获取菜单list
+   */
   ngOnInit() {
+    this.getMenuList()
+  }
+
+  /**
+   * 获取菜单list
+   */
+  getMenuList() {
     this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
       let getNav = resNav.data.nav;
       this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
@@ -86,5 +112,46 @@ export class MenuManageComponent implements OnInit {
       });
     })
   }
+
+  /**
+   * 接受子组件更新消息
+   * @param isUpdate
+   */
+  accept() {
+    this.getMenuList();
+    this.handleCancel();
+  }
+
+  /**
+   * 模态框操作
+   */
+  showModal(menuId: number): void {
+    this.menuId = menuId;
+    this.isVisible = true;
+  }
+
+  // handleOk(): void {
+  //   this.isConfirmLoading = true;
+  //   setTimeout(() => {
+  //     this.isVisible = false;
+  //     this.isConfirmLoading = false;
+  //   }, 1000);
+  // }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  /**
+   * 删除气泡确认框
+   */
+  cancel(): void {
+    this.nzMessageService.info('click cancel');
+  }
+
+  confirm(): void {
+    this.nzMessageService.info('click confirm');
+  }
+
 
 }

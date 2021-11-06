@@ -41,22 +41,30 @@
               <td>{{ item.onlyCode }}</td>
               <td>{{ item.icon }}</td>
               <td>
-                <nz-tag [nzColor]="TagMap.get(item.menuType)">{{
-                  item.menuType
+                <nz-tag [nzColor]="menuType.get(item.menuType)[1]">{{
+                  menuType.get(item.menuType)[0]
                 }}</nz-tag>
               </td>
               <td>{{ item.path }}</td>
               <td>{{ item.component }}</td>
               <td>{{ item.orderNum }}</td>
               <td>
-                <nz-tag [nzColor]="TagMap.get(item.state)">{{
-                  item.state
+                <nz-tag [nzColor]="menuState.get(item.state)[1]">{{
+                  menuState.get(item.state)[0]
                 }}</nz-tag>
               </td>
               <td>
-                <a href="#">编辑</a>
+                <a (click)="showModal(item.menuId)"> 编辑 </a>
                 <nz-divider nzType="vertical"></nz-divider>
-                <a href="#">删除</a>
+                <a
+                  nz-popconfirm
+                  nzPopconfirmTitle="Are you sure delete this task?"
+                  nzPopconfirmPlacement="bottom"
+                  (nzOnConfirm)="confirm()"
+                  (nzOnCancel)="cancel()"
+                >
+                  删除
+                </a>
               </td>
             </tr>
           </ng-container>
@@ -64,4 +72,40 @@
       </tbody>
     </nz-table>
   </div>
+</div>
+
+<div class="editModal">
+  <nz-modal
+    [nzStyle]="{ top: '18px' }"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+  >
+    <!-- 模态框显示内容 -->
+    <ng-template #modalTitle>菜单信息</ng-template>
+    <ng-template #modalContent>
+      <app-menu-edit
+        [childMenuId]="menuId"
+        [mapOfExpandedData]="mapOfExpandedData"
+        (updateEmit)="accept($event)"
+      ></app-menu-edit>
+    </ng-template>
+
+    <!-- <ng-template #modalFooter>
+      <span>Modal Footer:</span>
+      <button nz-button nzType="default" (click)="handleCancel()">
+        Custom Callback
+      </button>
+      <button
+        nz-button
+        nzType="primary"
+        (click)="handleOk()"
+        [nzLoading]="isConfirmLoading"
+      >
+        Custom Submit
+      </button>
+    </ng-template> -->
+  </nz-modal>
 </div>

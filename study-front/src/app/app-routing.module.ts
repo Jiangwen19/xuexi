@@ -31,6 +31,7 @@ const routes: Routes = [
   { path: '**', component: PageNotFoundComponent }
 ];
 
+// 加入到导航中的组件
 const component: any[] = [
   UserManageComponent,
   MenuManageComponent,

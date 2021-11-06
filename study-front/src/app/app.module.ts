@@ -22,6 +22,7 @@ import { UserManageComponent } from './pages/main/user-manage/user-manage.compon
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
+import { MenuEditComponent } from './pages/main/menu-manage/menu-edit/menu-edit.component';
 
 
 
@@ -42,7 +43,8 @@ registerLocaleData(zh);
     RoleManageComponent,
     UserManageComponent,
     BookListComponent,
-    DictsUploadComponent
+    DictsUploadComponent,
+    MenuEditComponent
   ],
   imports: [
     BrowserModule,

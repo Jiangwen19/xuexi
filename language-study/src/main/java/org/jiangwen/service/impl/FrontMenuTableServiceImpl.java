@@ -31,22 +31,22 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
     @Autowired
     UserInfoMapper userInfoMapper;
-
-    public static final Map<Integer, String> MENUTYPE = new HashMap<>() {
-        {
-            put(0, "目录");
-            put(1, "菜单");
-            put(2, "按钮");
-        }
-    };
-
-    public static final Map<Integer, String> MENUSTATU = new HashMap<>() {
-        {
-            put(0, "正常");
-            put(1, "禁用");
-            put(2, "异常");
-        }
-    };
+//
+//    public static final Map<Integer, String> MENUTYPE = new HashMap<>() {
+//        {
+//            put(0, "目录");
+//            put(1, "菜单");
+//            put(2, "按钮");
+//        }
+//    };
+//
+//    public static final Map<Integer, String> MENUSTATU = new HashMap<>() {
+//        {
+//            put(0, "正常");
+//            put(1, "禁用");
+//            put(2, "异常");
+//        }
+//    };
 
     @Override
     public List<ResMenuVo> getCurrentUserNav() {
@@ -76,9 +76,9 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
             resMenuVo.setComponent(m.getComponent());
             resMenuVo.setPath(m.getPath());
             resMenuVo.setIcon(m.getIcon());
-            resMenuVo.setMenuType(MENUTYPE.get(m.getMenuType()));
+            resMenuVo.setMenuType(m.getMenuType());
             resMenuVo.setOrderNum(m.getOrdernum());
-            resMenuVo.setState(MENUSTATU.get(m.getStatu()));
+            resMenuVo.setState(m.getStatu());
 
             if (m.getChildren().size() > 0) {
                 // 子节点递归调用当前方法

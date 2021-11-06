@@ -27,9 +27,9 @@ public class ResMenuVo implements Serializable {
     private String title;
     private String icon;
     private String path;
-    private String menuType;
+    private Integer menuType;
     private Integer orderNum;
-    private String state;
+    private Integer state;
     private String component;
     private List<ResMenuVo> children = new ArrayList<>();
 
