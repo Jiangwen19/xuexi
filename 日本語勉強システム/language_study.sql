@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 07/11/2021 15:38:47
+ Date: 07/11/2021 21:43:48
 */
 
 
@@ -43,6 +43,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."favourites_table_favourites_id_seq";
 CREATE SEQUENCE "public"."favourites_table_favourites_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for front_menu_table_front_menu_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."front_menu_table_front_menu_id_seq";
+CREATE SEQUENCE "public"."front_menu_table_front_menu_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -193,7 +204,7 @@ ALTER TABLE "public"."favourites_table" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."front_menu_table";
 CREATE TABLE "public"."front_menu_table" (
-  "front_menu_id" int8 NOT NULL,
+  "front_menu_id" int8 NOT NULL DEFAULT nextval('front_menu_table_front_menu_id_seq'::regclass),
   "parent_id" int8 NOT NULL,
   "menu_name" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
   "path" varchar(255) COLLATE "pg_catalog"."default",
@@ -217,7 +228,6 @@ ALTER TABLE "public"."front_menu_table" OWNER TO "postgres";
 BEGIN;
 INSERT INTO "public"."front_menu_table" VALUES (6, 5, '数字字典', 'dicts', 'sys:dict:list', 'DictsUploadComponent', 1, 'container', 1, 0, NULL, NULL, 'jiangwen', '2021-11-07 15:00:41.364004');
 INSERT INTO "public"."front_menu_table" VALUES (1, 0, '系统管理', NULL, 'sys:manage', NULL, 0, 'bars', 1, 0, NULL, '2020-09-09 00:00:00', NULL, '2021-09-08 00:00:00');
-INSERT INTO "public"."front_menu_table" VALUES (101, 0, '测试02', 'test02', 'sys:test02', 'ss', 0, 'book', 5, 0, NULL, NULL, 'jiangwen', '2021-11-07 15:28:09.655251');
 INSERT INTO "public"."front_menu_table" VALUES (4, 1, '菜单管理', 'menu-manage', 'sys:menu:list', 'MenuManageComponent', 1, 'appstore', 3, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (8, 2, '修改用户', NULL, 'sys:user:update', NULL, 2, NULL, 2, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (10, 2, '分配角色', NULL, 'sys:user:role
@@ -229,11 +239,14 @@ INSERT INTO "public"."front_menu_table" VALUES (13, 3, '修改角色', NULL, 'sy
 INSERT INTO "public"."front_menu_table" VALUES (14, 3, '删除角色', NULL, 'sys:role:delete', NULL, 2, NULL, 8, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (15, 3, '分配限权', NULL, 'sys:role:perm', NULL, 2, NULL, 9, 2, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (16, 4, '添加菜单', NULL, 'sys:menu:save', NULL, 2, NULL, 10, 2, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (101, 0, '测试02', 'test02', 'sys:test02', 'ss', 0, 'book', 5, 0, NULL, NULL, 'jiangwen', '2021-11-07 15:48:28.61293');
 INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'setting', 3, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (19, 0, '图书管理', NULL, 'book:manage', NULL, 0, 'book', 2, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (102, 0, 'TEST', 'mnm', 'sys:yyy', 'show', 1, 'bars', 11, 0, 'jiangwen', '2021-11-07 21:37:52.116502', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', 'users-manage', 'sys:user:list', 'UserManageComponent', 1, 'user', 1, 0, NULL, '2020-02-02 00:00:00', NULL, '2021-01-01 00:00:00');
 INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', 'roles-manage', 'sys:role:list', 'RoleManageComponent', 1, 'drag', 2, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (20, 19, '书本一览', 'booklist', 'book:list', 'BookListComponent', 1, 'windows', 1, 0, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (103, 0, 'TEST', 'mnm', 'sys:yyy', 'wen', 1, 'bars', 11, 0, 'jiangwen', '2021-11-07 21:38:18.516417', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (7, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, 1, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (9, 2, '删除用户', NULL, 'sys:user:delete
 ', NULL, 2, NULL, 3, 1, NULL, NULL, NULL, NULL);
@@ -568,6 +581,7 @@ SELECT setval('"public"."code_table_code_id_seq"', 2, false);
 ALTER SEQUENCE "public"."favourites_table_favourites_id_seq"
 OWNED BY "public"."favourites_table"."favourites_id";
 SELECT setval('"public"."favourites_table_favourites_id_seq"', 2, false);
+SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 104, true);
 ALTER SEQUENCE "public"."grammer_table_grammer_id_seq"
 OWNED BY "public"."grammer_table"."grammer_id";
 SELECT setval('"public"."grammer_table_grammer_id_seq"', 2, false);

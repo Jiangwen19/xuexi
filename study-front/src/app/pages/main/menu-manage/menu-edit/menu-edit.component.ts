@@ -76,10 +76,8 @@ export class MenuEditComponent implements OnInit {
   }
 
   MenuUpdateById(menuVo: MenuVo) {
-    this.menuService.MenuUpdateById(menuVo).subscribe((resMenu) => {
-      if (resMenu.status === 200) {
-        this.updateEmit.emit(true);
-      }
+    this.menuService.MenuUpdateById(menuVo).subscribe(() => {
+      this.updateEmit.emit(true);
     });
   }
 
