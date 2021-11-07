@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
-import { AuthenticationService } from 'src/app/common/services/authentication.service';
+import { MenuService } from 'src/app/common/services/menu.service';
 import { Constants } from 'src/app/common/utility/constants';
 import { ConvertUtils } from 'src/app/common/utility/convert-utils';
 export interface TreeNodeInterface {
@@ -92,7 +92,7 @@ export class MenuManageComponent implements OnInit {
    * 构造方法
    * @param authService 
    */
-  constructor(private authService: AuthenticationService, private nzMessageService: NzMessageService) { }
+  constructor(private menuService: MenuService, private nzMessageService: NzMessageService) { }
 
   /**
    * 获取菜单list
@@ -105,9 +105,9 @@ export class MenuManageComponent implements OnInit {
    * 获取菜单list
    */
   getMenuList() {
-    this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
-      let getNav = resNav.data.nav;
-      this.listOfMapData = ConvertUtils.navConvert(0, '', getNav);
+    this.menuService.getMenuList().subscribe((resList) => {
+      let menuList = resList.data;
+      this.listOfMapData = ConvertUtils.navConvert(0, '', menuList);
       this.listOfMapData.forEach(item => {
         this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
       });

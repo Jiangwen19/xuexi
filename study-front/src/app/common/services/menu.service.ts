@@ -23,4 +23,8 @@ export class MenuService {
   addMenu(menuVo: MenuVo): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/menu/save`, menuVo);
   }
+
+  getMenuList(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/menu/list`);
+  }
 }

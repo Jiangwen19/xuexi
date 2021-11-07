@@ -38,7 +38,7 @@ export class ConvertUtils {
                 ConvertUtils.openKeyMap.set(incept[i].path, parents);
             }
 
-            if (incept[i].children && level < 2) {
+            if (incept[i].children.length !== 0 && level < 2) {
                 menu.children = this.menuConvert(level, incept[i].children, i + 1);
             }
             menus.push(menu);
@@ -60,15 +60,15 @@ export class ConvertUtils {
             } else {
                 menuItem.key = `${key}-${i + 1}`;
             }
-            menuItem.menuId = element[i].menuId;
-            menuItem.title = element[i].title;
-            menuItem.onlyCode = element[i].onlyCode;
+            menuItem.menuId = element[i].frontMenuId;
+            menuItem.title = element[i].menuName;
+            menuItem.onlyCode = element[i].perms;
             menuItem.path = element[i].path;
             menuItem.component = element[i].component;
             menuItem.icon = element[i].icon;
             menuItem.menuType = element[i].menuType;
-            menuItem.orderNum = element[i].orderNum;
-            menuItem.state = element[i].state;
+            menuItem.orderNum = element[i].ordernum;
+            menuItem.state = element[i].statu;
             if (element[i].children.length !== 0) {
                 menuItem.children = this.navConvert(level, menuItem.key, element[i].children);
             }
