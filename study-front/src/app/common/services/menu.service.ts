@@ -27,4 +27,8 @@ export class MenuService {
   getMenuList(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/menu/list`);
   }
+
+  deleteMenuById(menuId: number): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/menu/delete/${menuId}`, null);
+  }
 }

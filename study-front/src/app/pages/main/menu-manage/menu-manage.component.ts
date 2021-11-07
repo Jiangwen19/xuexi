@@ -157,8 +157,11 @@ export class MenuManageComponent implements OnInit {
     this.nzMessageService.info('click cancel');
   }
 
-  confirm(): void {
-    this.nzMessageService.info('click confirm');
+  confirm(menuId: number): void {
+    this.menuService.deleteMenuById(menuId).subscribe((res) => {
+      this.nzMessageService.info(res.msg);
+      this.getMenuList();
+    })
   }
 
 

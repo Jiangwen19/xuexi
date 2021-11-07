@@ -63,7 +63,6 @@ export class MenuAddComponent implements OnInit {
 
   // 添加菜单
   addMenu(menuVo: MenuVo) {
-    console.log(menuVo)
     this.menuService.addMenu(menuVo).subscribe(() => {
       this.updateEmit.emit(true);
     })

@@ -60,7 +60,7 @@
                   nz-popconfirm
                   nzPopconfirmTitle="Are you sure delete this task?"
                   nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="confirm()"
+                  (nzOnConfirm)="confirm(item.menuId)"
                   (nzOnCancel)="cancel()"
                 >
                   删除
