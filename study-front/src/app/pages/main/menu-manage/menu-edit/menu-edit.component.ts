@@ -22,8 +22,6 @@ export class MenuEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private menuService: MenuService) {
     this.validateForm = this.fb.group({
-      // userName: ['', [Validators.required], [this.userNameAsyncValidator]],
-      // email: ['', [Validators.email, Validators.required]],
       frontMenuId: [0, [Validators.required]],
       parentId: ['', [Validators.required]],
       menuName: ['', [Validators.required]],
@@ -43,6 +41,7 @@ export class MenuEditComponent implements OnInit {
 
   // 将动态菜单放入Map
   fetchTitleArray() {
+    this.titleArray.push([0, '0'])
     for (let item in this.mapOfExpandedData) {
       this.mapOfExpandedData[item].forEach((element) => {
         if (element.menuId === this.childMenuId) {
@@ -51,8 +50,7 @@ export class MenuEditComponent implements OnInit {
           if (element.parent) {
             this.selectTop = element.parent.title;
           } else {
-            this.selectTop = '0';
-            this.titleArray.unshift([0, this.selectTop])
+            this.selectTop = '当前菜单为顶级菜单';
           }
         }
 

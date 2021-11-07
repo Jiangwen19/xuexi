@@ -1,0 +1,110 @@
+<div class="menu-list">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+        <!-- 上级菜单 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>上级菜单</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+        <nz-select nzPlaceHolder="请选择父级菜单" [ngModel]="selectedValue" formControlName="parentId">
+            <nz-option [nzValue]="title[0]" [nzLabel]="title[1]" *ngFor="let title of titleArray"></nz-option>
+        </nz-select>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- 菜单名称 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>菜单名称</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="titleErrorTpl">
+            <input nz-input formControlName="menuName"/>
+            <ng-template #titleErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入菜单名称</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 权限编码 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>权限编码</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="onlyCodeErrorTpl">
+            <input nz-input formControlName="perms" placeholder="sys:manage"/>
+            <ng-template #onlyCodeErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入菜单唯一编码</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 图标 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>图标</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <input nz-input formControlName="icon" placeholder="bars"/>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 菜单URL -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>菜单URL</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <input nz-input formControlName="path" placeholder="users-manage"/>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 菜单组件 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>菜单组件</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="componentErrorTpl">
+            <input nz-input formControlName="component" placeholder="UserManageComponent"/>
+            <ng-template #componentErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">菜单类型需要输入组件</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- 类型 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>类型</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-radio-group formControlName="menuType">
+                <label nz-radio [nzValue]="0">目录</label>
+                <label nz-radio [nzValue]="1">菜单</label>
+                <label nz-radio [nzValue]="2">按钮</label>
+            </nz-radio-group>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- 状态 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>状态</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-radio-group formControlName="statu">
+                <label nz-radio [nzValue]="0">正常</label>
+                <label nz-radio [nzValue]="1">禁用</label>
+                <label nz-radio [nzValue]="2">异常</label>
+            </nz-radio-group>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- 排序号 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>排序号</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-slider formControlName="ordernum" [nzDisabled]="false"></nz-slider>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzErrorTip="Please input your password!">
+            <input nz-input type="password" formControlName="password" (ngModelChange)="validateConfirmPassword()" />
+        </nz-form-control>
+        </nz-form-item> -->
+
+        <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+            <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+        </nz-form-item>
+
+    </form>
+</div>
