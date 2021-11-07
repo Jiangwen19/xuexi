@@ -34,8 +34,9 @@ export class MenuManageComponent implements OnInit {
   mapOfExpandedData: { [key: string]: TreeNodeInterface[] } = {};
 
   // 编辑模态框
+  isMenuAdd: boolean;
+  popupsTitle: string;
   isVisible = false;
-  isConfirmLoading = false;
 
   // 绑定到子组件的menuId
   menuId: number;
@@ -126,7 +127,14 @@ export class MenuManageComponent implements OnInit {
    * 模态框操作
    */
   showModal(menuId: number): void {
-    this.menuId = menuId;
+    if (menuId === -1) {
+      this.isMenuAdd = true
+      this.popupsTitle = "新增菜单";
+    } else {
+      this.menuId = menuId;
+      this.isMenuAdd = false;
+      this.popupsTitle = "修改菜单";
+    }
     this.isVisible = true;
   }
 

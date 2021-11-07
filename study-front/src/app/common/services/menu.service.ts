@@ -19,4 +19,8 @@ export class MenuService {
   MenuUpdateById(menuVo: MenuVo): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/menu/update`, menuVo);
   }
+
+  addMenu(menuVo: MenuVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/menu/save`, menuVo);
+  }
 }

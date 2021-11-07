@@ -14,16 +14,16 @@ import { HeaderComponent } from './layout/header/header.component';
 import { MenuComponent } from './layout/menu/menu.component';
 import { LoginComponent } from './pages/login/login.component';
 import { BookListComponent } from './pages/main/book/book-list/book-list.component';
+import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
 import { IndexComponent } from './pages/main/index/index.component';
 import { MainComponent } from './pages/main/main.component';
+import { MenuAddComponent } from './pages/main/menu-manage/menu-add/menu-add.component';
+import { MenuEditComponent } from './pages/main/menu-manage/menu-edit/menu-edit.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
 import { RoleManageComponent } from './pages/main/role-manage/role-manage.component';
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
-import { MenuEditComponent } from './pages/main/menu-manage/menu-edit/menu-edit.component';
-
 
 
 registerLocaleData(zh);
@@ -44,7 +44,8 @@ registerLocaleData(zh);
     UserManageComponent,
     BookListComponent,
     DictsUploadComponent,
-    MenuEditComponent
+    MenuEditComponent,
+    MenuAddComponent
   ],
   imports: [
     BrowserModule,

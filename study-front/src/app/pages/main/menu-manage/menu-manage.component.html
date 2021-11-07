@@ -1,6 +1,6 @@
 <div class="menu-manage">
   <div class="add">
-    <button nz-button nzType="primary">新增菜单</button>
+    <button nz-button nzType="primary" (click)="showModal(-1)">新增菜单</button>
   </div>
 
   <div class="detail">
@@ -82,15 +82,22 @@
     [nzContent]="modalContent"
     [nzFooter]="null"
     (nzOnCancel)="handleCancel()"
+    [ngSwitch]="isMenuAdd"
   >
     <!-- 模态框显示内容 -->
-    <ng-template #modalTitle>菜单信息</ng-template>
+    <ng-template #modalTitle>{{ popupsTitle }}</ng-template>
     <ng-template #modalContent>
       <app-menu-edit
+        *ngSwitchCase="false"
         [childMenuId]="menuId"
         [mapOfExpandedData]="mapOfExpandedData"
         (updateEmit)="accept($event)"
       ></app-menu-edit>
+      <app-menu-add
+        *ngSwitchCase="true"
+        [mapOfExpandedData]="mapOfExpandedData"
+        (updateEmit)="accept($event)"
+      ></app-menu-add>
     </ng-template>
 
     <!-- <ng-template #modalFooter>
