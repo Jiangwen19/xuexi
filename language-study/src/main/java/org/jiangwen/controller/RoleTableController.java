@@ -47,9 +47,21 @@ public class RoleTableController extends BaseController {
         return ApiRestResponse.success(roleTable);
     }
 
+    @GetMapping("/list/{name}")
+    @PreAuthorize("hasAuthority('sys:role:list')")
+    public ApiRestResponse list(@PathVariable("name") String name) {
+
+        Page<RoleTable> pageData = roleTableService.page(getPage(),
+                new QueryWrapper<RoleTable>()
+                        .like(StrUtil.isNotBlank(name), "role_name", name)
+        );
+
+        return ApiRestResponse.success(pageData);
+    }
+
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:role:list')")
-    public ApiRestResponse list(String name) {
+    public ApiRestResponse listAll(String name) {
 
         Page<RoleTable> pageData = roleTableService.page(getPage(),
                 new QueryWrapper<RoleTable>()

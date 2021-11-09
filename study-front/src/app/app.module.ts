@@ -24,6 +24,9 @@ import { RoleManageComponent } from './pages/main/role-manage/role-manage.compon
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { RoleAddComponent } from './pages/main/role-manage/role-add/role-add.component';
+import { RoleAssignComponent } from './pages/main/role-manage/role-assign/role-assign.component';
+import { RoleEditComponent } from './pages/main/role-manage/role-edit/role-edit.component';
 
 
 registerLocaleData(zh);
@@ -45,7 +48,10 @@ registerLocaleData(zh);
     BookListComponent,
     DictsUploadComponent,
     MenuEditComponent,
-    MenuAddComponent
+    MenuAddComponent,
+    RoleAddComponent,
+    RoleAssignComponent,
+    RoleEditComponent
   ],
   imports: [
     BrowserModule,

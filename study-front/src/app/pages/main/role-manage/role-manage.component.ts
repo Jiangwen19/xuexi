@@ -1,10 +1,15 @@
 import { Component, OnInit } from '@angular/core';
+import { NzMessageService } from 'ng-zorro-antd/message';
+import { RoleService } from 'src/app/common/services/role.service';
+import { Constants } from 'src/app/common/utility/constants';
 export interface Data {
-  id: number;
-  name: string;
-  age: number;
-  address: string;
-  disabled: boolean;
+  id: number,
+  roleId: number,
+  roleName: string,
+  symbol: string,
+  remark: string,
+  statu: number,
+  disabled: boolean
 }
 @Component({
   selector: 'app-role-manage',
@@ -13,6 +18,8 @@ export interface Data {
 })
 export class RoleManageComponent implements OnInit {
 
+  menuState = Constants.MenuState;
+
   checked = false;
   loading = false;
   indeterminate = false;
@@ -20,16 +27,70 @@ export class RoleManageComponent implements OnInit {
   listOfCurrentPageData: readonly Data[] = [];
   setOfCheckedId = new Set<number>();
 
-  constructor() { }
+  // 编辑模态框
+  popupsHandle: number;
+  popupsTitle: string;
+  isVisible = false;
+
+  // 绑定到子组件的roleId
+  roleId: number;
+
+  constructor(private roleService: RoleService, private nzMessageService: NzMessageService) { }
 
   ngOnInit() {
-    this.listOfData = new Array(100).fill(0).map((_, index) => ({
-      id: index,
-      name: `Edward King ${index}`,
-      age: 32,
-      address: `London, Park Lane no. ${index}`,
-      disabled: index % 2 === 0
-    }));
+    this.getRoleList()
+  }
+
+  getRoleList() {
+    this.roleService.getRoleList().subscribe((roleDta) => {
+      let roles = roleDta.data.records;
+      this.listOfData = roles.map((role, index) => ({
+        id: index,
+        roleId: role.roleId,
+        roleName: role.roleName,
+        symbol: role.symbol,
+        remark: role.remark,
+        statu: role.statu,
+        disabled: false
+      }))
+    })
+  }
+
+  /**
+   * 模态框操作
+   * @param handleNum 
+   * @param roleId 
+   */
+  showModal(handleNum: number, roleId?: number): void {
+
+    if (handleNum === 1) {
+      this.popupsHandle = 1
+      this.popupsTitle = "新增角色";
+    } else if (handleNum === 2) {
+      this.roleId = roleId;
+      this.popupsHandle = 2;
+      this.popupsTitle = "分配限权";
+    } else if (handleNum === 3) {
+      this.roleId = roleId;
+      this.popupsHandle = 3;
+      this.popupsTitle = "编辑";
+    }
+    this.isVisible = true;
+  }
+
+  handleCancel(): void {
+    this.isVisible = false;
+  }
+
+  /**
+   * 删除气泡确认框
+   */
+  cancel(): void {
+    this.nzMessageService.info('click cancel');
+  }
+
+  confirm(menuId: number): void {
+    this.nzMessageService.info('click cancel');
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
