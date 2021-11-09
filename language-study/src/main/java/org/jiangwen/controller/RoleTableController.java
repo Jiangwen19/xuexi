@@ -77,7 +77,6 @@ public class RoleTableController extends BaseController {
     public ApiRestResponse save(@Validated @RequestBody RoleTable roleTable) {
 
         roleTable.setCreateTime(LocalDateTime.now());
-        roleTable.setStatu(Const.STATUS_ON);
 
         roleTableService.save(roleTable);
         return ApiRestResponse.success(roleTable);

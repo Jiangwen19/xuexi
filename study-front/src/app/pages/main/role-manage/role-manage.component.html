@@ -104,8 +104,15 @@
     <!-- 模态框显示内容 -->
     <ng-template #modalTitle>{{ popupsTitle }}</ng-template>
     <ng-template #modalContent>
-      <app-role-add *ngSwitchCase="1"></app-role-add>
-      <app-role-assign *ngSwitchCase="2"></app-role-assign>
+      <app-role-add
+        *ngSwitchCase="1"
+        (updateEmit)="accept($event)"
+      ></app-role-add>
+      <app-role-assign
+        *ngSwitchCase="2"
+        [assignRoleId]="roleId"
+        (updateEmit)="accept($event)"
+      ></app-role-assign>
       <app-role-edit *ngSwitchCase="3"></app-role-edit>
     </ng-template>
   </nz-modal>

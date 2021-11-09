@@ -1,11 +1,16 @@
 <nz-checkbox-wrapper style="width: 100%" (nzOnChange)="log($event)">
   <div nz-row>
-    <div nz-col nzSpan="8">
-      <label nz-checkbox nzValue="A" [ngModel]="true">A</label>
-    </div>
-    <div nz-col nzSpan="8"><label nz-checkbox nzValue="B">B</label></div>
-    <div nz-col nzSpan="8"><label nz-checkbox nzValue="C">C</label></div>
-    <div nz-col nzSpan="8"><label nz-checkbox nzValue="D">D</label></div>
-    <div nz-col nzSpan="8"><label nz-checkbox nzValue="E">E</label></div>
+    <div class="row">
+      <ng-template #recursiveList let-MenuList>
+        <li *ngFor="let item of MenuList">
+          <label nz-checkbox [nzValue]="item.frontMenuId" [ngModel]="roleHasMenuIds.indexOf(item.frontMenuId) !== -1">{{item.menuName}}</label>
+          <ul *ngIf="item.children.length>0">
+            <ng-container *ngTemplateOutlet="recursiveList;context:{$implicit:item.children}"></ng-container>
+          </ul>
+        </li>
+      </ng-template>
+      <ng-container *ngTemplateOutlet="recursiveList;context:{$implicit:MenuList}"></ng-container>
+    </div>   
   </div>
+  <button nz-button nzType="primary">Submit</button>
 </nz-checkbox-wrapper>

@@ -28,6 +28,7 @@ export class RoleManageComponent implements OnInit {
   setOfCheckedId = new Set<number>();
 
   // 编辑模态框
+  isConfirmLoading: boolean;
   popupsHandle: number;
   popupsTitle: string;
   isVisible = false;
@@ -78,8 +79,20 @@ export class RoleManageComponent implements OnInit {
     this.isVisible = true;
   }
 
+  /**
+   * 模态框取消
+   */
   handleCancel(): void {
     this.isVisible = false;
+  }
+
+  /**
+   * 接受子组件更新消息
+   * @param isUpdate
+   */
+  accept() {
+    this.getRoleList();
+    this.handleCancel();
   }
 
   /**
@@ -89,7 +102,7 @@ export class RoleManageComponent implements OnInit {
     this.nzMessageService.info('click cancel');
   }
 
-  confirm(menuId: number): void {
+  confirm(roleId: number): void {
     this.nzMessageService.info('click cancel');
   }
 

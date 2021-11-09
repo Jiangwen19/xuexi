@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { MenuService } from 'src/app/common/services/menu.service';
+import { RoleService } from 'src/app/common/services/role.service';
 
 @Component({
   selector: 'app-role-assign',
@@ -7,9 +9,34 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RoleAssignComponent implements OnInit {
 
-  constructor() { }
+  @Output() updateEmit = new EventEmitter<boolean>();
+  @Input() assignRoleId: number;
+  roleHasMenuIds: number[];
+  MenuList: any[];
+
+  constructor(private roleService: RoleService, private menuService: MenuService) { }
 
   ngOnInit() {
+    this.getMenuList()
+    this.getRoleInfo(this.assignRoleId)
+  }
+
+  /**
+   * 获取角色限权信息
+   */
+  getRoleInfo(roleId: number) {
+    this.roleService.getRoleInfo(roleId).subscribe((roleInfo) => {
+      this.roleHasMenuIds = roleInfo.data.menuIds;
+    })
+  }
+
+  /**
+   * 获取所有菜单权限
+   */
+  getMenuList() {
+    this.menuService.getMenuList().subscribe((resList) => {
+      this.MenuList = resList.data
+    })
   }
 
   log(value: string[]): void {

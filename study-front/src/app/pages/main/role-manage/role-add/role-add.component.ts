@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { RoleVo } from 'src/app/common/model/vo/role-vo';
 import { RoleService } from 'src/app/common/services/role.service';
@@ -10,16 +10,16 @@ import { RoleService } from 'src/app/common/services/role.service';
 })
 export class RoleAddComponent implements OnInit {
 
+  @Output() updateEmit = new EventEmitter<boolean>();
   validateForm: FormGroup;
   selectedValue = null;
 
   constructor(private fb: FormBuilder, private roleService: RoleService) {
     this.validateForm = this.fb.group({
-      roleId: [0, [Validators.required]],
       roleName: ['', [Validators.required]],
       symbol: ['', [Validators.required]],
       remark: [''],
-      statu: ['', [Validators.required]],
+      statu: [0, [Validators.required]],
     });
   }
 
@@ -32,7 +32,15 @@ export class RoleAddComponent implements OnInit {
         this.validateForm.controls[key].updateValueAndValidity();
       }
     }
+    this.addRole(roleVo);
   }
+
+  addRole(roleVo: RoleVo) {
+    this.roleService.addRole(roleVo).subscribe(() => {
+      this.updateEmit.emit(true)
+    })
+  }
+
 
   resetForm(e: MouseEvent): void {
     e.preventDefault();
