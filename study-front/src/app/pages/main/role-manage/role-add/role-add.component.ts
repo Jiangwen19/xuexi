@@ -35,10 +35,11 @@ export class RoleAddComponent implements OnInit {
     this.addRole(roleVo);
   }
 
+  // 添加角色
   addRole(roleVo: RoleVo) {
     this.roleService.addRole(roleVo).subscribe(() => {
-      this.updateEmit.emit(true)
-    })
+      this.updateEmit.emit(true);
+    });
   }
 
 

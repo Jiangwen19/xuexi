@@ -5,7 +5,7 @@
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>角色名称</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="roleNameErrorTpl">
-            <input nz-input formControlName="roleName"/>
+            <input nz-input formControlName="roleName" [ngModel]="roleInfo?roleInfo.roleName:''"/>
             <ng-template #roleNameErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">请输入角色名称</ng-container>
             </ng-template>
@@ -16,7 +16,7 @@
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>权限编码</nz-form-label>
         <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="symbolErrorTpl">
-            <input nz-input formControlName="symbol" placeholder="admin"/>
+            <input nz-input formControlName="symbol" [ngModel]="roleInfo?roleInfo.symbol:0"/>
             <ng-template #symbolErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">请输入角色编码</ng-container>
             </ng-template>
@@ -27,7 +27,7 @@
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>相关描述</nz-form-label>
         <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
-            <input nz-input formControlName="remark"/>
+            <input nz-input formControlName="remark" [ngModel]="roleInfo?roleInfo.remark:''"/>
         </nz-form-control>
         </nz-form-item>
 
@@ -35,7 +35,7 @@
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>状态</nz-form-label>
         <nz-form-control [nzSpan]="12">
-            <nz-radio-group formControlName="statu">
+            <nz-radio-group formControlName="statu" [ngModel]="roleInfo?roleInfo.statu:''">
                 <label nz-radio [nzValue]="0">正常</label>
                 <label nz-radio [nzValue]="1">禁用</label>
                 <label nz-radio [nzValue]="2">异常</label>

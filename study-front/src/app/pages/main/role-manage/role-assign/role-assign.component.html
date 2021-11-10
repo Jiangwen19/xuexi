@@ -12,5 +12,5 @@
       <ng-container *ngTemplateOutlet="recursiveList;context:{$implicit:MenuList}"></ng-container>
     </div>   
   </div>
-  <button nz-button nzType="primary">Submit</button>
+  <button nz-button nzType="primary" (click)="commit()">Submit</button>
 </nz-checkbox-wrapper>

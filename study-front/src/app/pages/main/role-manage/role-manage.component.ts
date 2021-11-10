@@ -11,6 +11,7 @@ export interface Data {
   statu: number,
   disabled: boolean
 }
+
 @Component({
   selector: 'app-role-manage',
   templateUrl: './role-manage.component.html',
@@ -39,12 +40,12 @@ export class RoleManageComponent implements OnInit {
   constructor(private roleService: RoleService, private nzMessageService: NzMessageService) { }
 
   ngOnInit() {
-    this.getRoleList()
+    this.getRoleListAll();
   }
 
-  getRoleList() {
-    this.roleService.getRoleList().subscribe((roleDta) => {
-      let roles = roleDta.data.records;
+  getRoleListAll() {
+    this.roleService.getRoleListAll().subscribe((roleDta) => {
+      let roles = roleDta.data;
       this.listOfData = roles.map((role, index) => ({
         id: index,
         roleId: role.roleId,
@@ -91,7 +92,7 @@ export class RoleManageComponent implements OnInit {
    * @param isUpdate
    */
   accept() {
-    this.getRoleList();
+    this.getRoleListAll();
     this.handleCancel();
   }
 

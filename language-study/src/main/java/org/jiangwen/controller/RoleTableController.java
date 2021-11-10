@@ -5,7 +5,6 @@ import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jiangwen.common.lang.ApiRestResponse;
-import org.jiangwen.common.lang.Const;
 import org.jiangwen.entity.RoleMenuTable;
 import org.jiangwen.entity.RoleTable;
 import org.jiangwen.entity.UserRoleTable;
@@ -14,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -61,25 +61,29 @@ public class RoleTableController extends BaseController {
 
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:role:list')")
-    public ApiRestResponse listAll(String name) {
+    public ApiRestResponse lists() {
 
-        Page<RoleTable> pageData = roleTableService.page(getPage(),
-                new QueryWrapper<RoleTable>()
-                        .like(StrUtil.isNotBlank(name), "role_name", name)
-        );
+        Page<RoleTable> pageData = roleTableService.page(getPage());
 
         return ApiRestResponse.success(pageData);
+    }
+
+    @GetMapping("/lists")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
+    public ApiRestResponse listAll() {
+        List<RoleTable> roles = roleTableService.list();
+        return ApiRestResponse.success(roles);
     }
 
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sys:role:save')")
-    public ApiRestResponse save(@Validated @RequestBody RoleTable roleTable) {
-
+    public ApiRestResponse save(@Validated @RequestBody RoleTable roleTable, Principal principal) {
+        roleTable.setCreater(principal.getName());
         roleTable.setCreateTime(LocalDateTime.now());
-
         roleTableService.save(roleTable);
         return ApiRestResponse.success(roleTable);
+
     }
 
     @PostMapping("/update")

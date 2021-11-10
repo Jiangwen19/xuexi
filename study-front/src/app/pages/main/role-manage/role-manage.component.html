@@ -113,7 +113,11 @@
         [assignRoleId]="roleId"
         (updateEmit)="accept($event)"
       ></app-role-assign>
-      <app-role-edit *ngSwitchCase="3"></app-role-edit>
+      <app-role-edit 
+        *ngSwitchCase="3" 
+        [editRoleId]="roleId"
+        (updateEmit)="accept($event)" 
+      ></app-role-edit>
     </ng-template>
   </nz-modal>
 </div>

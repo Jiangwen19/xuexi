@@ -12,7 +12,11 @@ export class RoleService {
 
   constructor(private http: HttpClient) { }
 
-  getRoleList(): Observable<ApiResponse> {
+  getRoleListAll(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/role/lists`);
+  }
+
+  getRoleListPage(): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/role/list`);
   }
 
@@ -22,5 +26,13 @@ export class RoleService {
 
   addRole(roleVo: RoleVo): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/role/save`, roleVo);
+  }
+
+  roleUpdateById(roleVo: RoleVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/role/update`, roleVo);
+  }
+
+  roleAddPermById(roleId: number, menuIds: number[]): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/role/perm/${roleId}`, menuIds);
   }
 }

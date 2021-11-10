@@ -85,7 +85,7 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     public void clearUserAuthorityInfoByRoleId(long roleId) {
 
         List<UserInfo> userInfos = this.list(new QueryWrapper<UserInfo>()
-                .inSql("user_id", "select user_id form user_role_table where role_id = " + roleId));
+                .inSql("user_id", "select user_id from user_role_table where role_id = " + roleId));
 
         userInfos.forEach(u -> {
             this.clearUserAuthorityInfo(u.getUserId());
