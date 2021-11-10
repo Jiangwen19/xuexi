@@ -103,8 +103,24 @@ export class RoleManageComponent implements OnInit {
     this.nzMessageService.info('click cancel');
   }
 
+  /**
+   * 删除点击事件
+   * @param roleId 
+   */
   confirm(roleId: number): void {
-    this.nzMessageService.info('click cancel');
+    let roleIdArr: number[] = [roleId];
+    this.delateRoles(roleIdArr);
+  }
+
+  /**
+   * 批量删除角色信息
+   * @param roleIds 
+   */
+  delateRoles(roleIds: number[]) {
+    this.roleService.deleteRoleByIds(roleIds).subscribe((res) => {
+      this.nzMessageService.info(res.msg);
+      this.getRoleListAll();
+    })
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -140,8 +156,9 @@ export class RoleManageComponent implements OnInit {
 
   sendRequest(): void {
     this.loading = true;
-    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id));
-    console.log(requestData);
+    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
+      .map(val => val.roleId);
+    this.delateRoles(requestData);
     setTimeout(() => {
       this.setOfCheckedId.clear();
       this.refreshCheckedStatus();

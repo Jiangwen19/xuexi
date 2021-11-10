@@ -35,4 +35,8 @@ export class RoleService {
   roleAddPermById(roleId: number, menuIds: number[]): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/role/perm/${roleId}`, menuIds);
   }
+
+  deleteRoleByIds(roleIds: number[]): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/role/delete`, roleIds);
+  }
 }
