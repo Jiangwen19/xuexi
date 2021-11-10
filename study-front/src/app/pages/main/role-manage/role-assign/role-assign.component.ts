@@ -52,8 +52,6 @@ export class RoleAssignComponent implements OnInit {
    * 分配角色限权
    */
   commit() {
-    console.log(this.assignRoleId);
-    console.log(this.selectMenuIds);
     this.roleService.roleAddPermById(this.assignRoleId, this.selectMenuIds).subscribe(() => {
       this.updateEmit.emit(true);
     })
