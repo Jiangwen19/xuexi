@@ -24,7 +24,7 @@ public class RoleTableServiceImpl extends ServiceImpl<RoleTableMapper, RoleTable
     public List<RoleTable> listRolesByUserId(Long userId) {
 
         List<RoleTable> roles = this.list(new QueryWrapper<RoleTable>()
-                .inSql("user_role_id", "select role_id from user_role_table where user_id=" + userId));
+                .inSql("role_id", "select role_id from user_role_table where user_id=" + userId));
 
         return roles;
     }
