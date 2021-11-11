@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, KeyValueDiffer, KeyValueDiffers, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { RoleService } from 'src/app/common/services/role.service';
 import { Constants } from 'src/app/common/utility/constants';
@@ -19,6 +19,9 @@ export interface Data {
 })
 export class RoleManageComponent implements OnInit {
 
+  // 监听绑定属性值变化
+  differ: KeyValueDiffer<string, any>;
+  // 拿到状态码对应信息
   menuState = Constants.MenuState;
 
   checked = false;
@@ -27,35 +30,86 @@ export class RoleManageComponent implements OnInit {
   listOfData: readonly Data[] = [];
   listOfCurrentPageData: readonly Data[] = [];
   setOfCheckedId = new Set<number>();
-
   // 编辑模态框
   isConfirmLoading: boolean;
   popupsHandle: number;
   popupsTitle: string;
   isVisible = false;
-
   // 绑定到子组件的roleId
   roleId: number;
+  // 搜索参数
+  searchInfo: string = '';
+  // 批量删除提交数据
+  requestData: number[];
 
-  constructor(private roleService: RoleService, private nzMessageService: NzMessageService) { }
+  constructor(private differs: KeyValueDiffers, private roleService: RoleService, private nzMessageService: NzMessageService) {
+    this.differ = this.differs.find({}).create();
+  }
+
+  /**
+   * 监听属性绑定值变化
+   */
+  ngDoCheck() {
+    const change = this.differ.diff(this);
+    if (change) {
+      change.forEachChangedItem(item => {
+        if (item.key === 'searchInfo' && item.previousValue !== '' && item.currentValue === '') {
+          this.getRoleListAll();
+        }
+      });
+    }
+  }
 
   ngOnInit() {
     this.getRoleListAll();
   }
 
+  /**
+   * 按条件查询
+   * 条件为空搜索所有
+   */
+  search() {
+    if (this.searchInfo !== '') {
+      this.searchRoles();
+    } else {
+      this.getRoleListAll();
+    }
+  }
+
+  /**
+   * 查询符合条件的信息
+   */
+  searchRoles() {
+    this.roleService.searchRoles(this.searchInfo).subscribe((res) => {
+      let roles = res.data.records;
+      this.convertRoles(roles);
+    })
+  }
+
+  /**
+   * 获取所有角色信息
+   */
   getRoleListAll() {
     this.roleService.getRoleListAll().subscribe((roleDta) => {
       let roles = roleDta.data;
-      this.listOfData = roles.map((role, index) => ({
-        id: index,
-        roleId: role.roleId,
-        roleName: role.roleName,
-        symbol: role.symbol,
-        remark: role.remark,
-        statu: role.statu,
-        disabled: false
-      }))
+      this.convertRoles(roles);
     })
+  }
+
+  /**
+   * role显示格式转换
+   * @param roles 
+   */
+  convertRoles(roles: any) {
+    this.listOfData = roles.map((role, index) => ({
+      id: index,
+      roleId: role.roleId,
+      roleName: role.roleName,
+      symbol: role.symbol,
+      remark: role.remark,
+      statu: role.statu,
+      disabled: false
+    }))
   }
 
   /**
@@ -109,18 +163,30 @@ export class RoleManageComponent implements OnInit {
    */
   confirm(roleId: number): void {
     let roleIdArr: number[] = [roleId];
-    this.delateRoles(roleIdArr);
+    if (this.delateRoles(roleIdArr)) {
+      let index = this.requestData.indexOf(roleId);
+      if (index !== -1) {
+        this.requestData.slice(index, 1);
+      }
+    }
   }
 
   /**
    * 批量删除角色信息
    * @param roleIds 
    */
-  delateRoles(roleIds: number[]) {
+  delateRoles(roleIds: number[]): boolean {
+    let deleteOk: boolean;
     this.roleService.deleteRoleByIds(roleIds).subscribe((res) => {
       this.nzMessageService.info(res.msg);
-      this.getRoleListAll();
+      if (res.status === 200) {
+        this.getRoleListAll();
+        deleteOk = true;
+      } else {
+        deleteOk = false;
+      }
     })
+    return deleteOk;
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
@@ -156,9 +222,9 @@ export class RoleManageComponent implements OnInit {
 
   sendRequest(): void {
     this.loading = true;
-    const requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
+    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
       .map(val => val.roleId);
-    this.delateRoles(requestData);
+    this.delateRoles(this.requestData);
     setTimeout(() => {
       this.setOfCheckedId.clear();
       this.refreshCheckedStatus();

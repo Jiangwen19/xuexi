@@ -16,9 +16,9 @@ export class RoleService {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/role/lists`);
   }
 
-  getRoleListPage(): Observable<ApiResponse> {
-    return this.http.get<ApiResponse>(`${environment.baseUrl}/role/list`);
-  }
+  // getRoleListPage(): Observable<ApiResponse> {
+  //   return this.http.get<ApiResponse>(`${environment.baseUrl}/role/list`);
+  // }
 
   getRoleInfo(roleId: number): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/role/info/${roleId}`);
@@ -38,5 +38,9 @@ export class RoleService {
 
   deleteRoleByIds(roleIds: number[]): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/role/delete`, roleIds);
+  }
+
+  searchRoles(message: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/role/list/${message}`);
   }
 }
