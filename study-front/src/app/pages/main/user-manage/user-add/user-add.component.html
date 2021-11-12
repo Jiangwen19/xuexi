@@ -1,1 +1,56 @@
-<p>user-add works!</p>
+<div class="user-list">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+        <!-- 用户名 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>用户名</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="usernameErrorTpl">
+            <input nz-input formControlName="username"/>
+            <ng-template #usernameErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入用户名</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 邮箱 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>邮箱</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="emailErrorTpl">
+            <input nz-input formControlName="email" placeholder="abc@xxx.com" type="email"/>
+            <ng-template #emailErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('email')">邮箱格式不正确!</ng-container>
+            <ng-container *ngIf="control.hasError('required')">请输入邮箱</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 手机号 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>手机号</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <input nz-input formControlName="mobile"/>
+        </nz-form-control>
+        </nz-form-item>
+
+        <!-- 状态 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>状态</nz-form-label>
+        <nz-form-control [nzSpan]="12">
+            <nz-radio-group formControlName="statu">
+                <label nz-radio [nzValue]="0">正常</label>
+                <label nz-radio [nzValue]="1">禁用</label>
+            </nz-radio-group>
+        </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+            <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+        </nz-form-item>
+
+    </form>
+</div>
+
+

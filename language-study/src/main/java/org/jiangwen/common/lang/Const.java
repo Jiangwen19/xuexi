@@ -12,6 +12,7 @@ public class Const {
 
     public final static String DEFULT_PASSWORD = "888888";
 
-    public final static String DEFULT_AVATAR = "http://localhost:4200/assets/images/admin.jpeg";
+    // public final static String DEFULT_AVATAR = "http://localhost:4200/assets/images/admin.jpeg";
+    public final static String DEFULT_AVATAR = "user";
 
 }

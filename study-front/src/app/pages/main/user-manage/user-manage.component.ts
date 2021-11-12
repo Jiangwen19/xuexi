@@ -6,12 +6,13 @@ import { Constants } from 'src/app/common/utility/constants';
 export interface Data {
   id: number,
   userId: number,
+  picture: string,
   username: string,
-  roleName: string,
+  roles: {}[],
   email: string,
   mobile: string,
-  statu:number,
-  createTime:string,
+  statu: number,
+  createTime: string,
   disabled: boolean
 }
 @Component({
@@ -46,11 +47,45 @@ export class UserManageComponent implements OnInit {
   constructor(private nzMessageService: NzMessageService, private userService: UserService) { }
 
   ngOnInit() {
+    this.getUserListOfAll();
   }
 
-  search() {
+  search() { }
 
+  /**
+   * 获取所有用户信息
+   */
+  getUserListOfAll() {
+    this.userService.getUserListOfAll().subscribe((res) => {
+      let users = res.data;
+      this.convertUsers(users);
+    })
   }
+
+  /**
+  * users显示格式转换
+  * @param users
+  */
+  convertUsers(users: any) {
+    this.listOfData = users.map((user, index) => ({
+      id: index,
+      userId: user.userId,
+      picture: user.picture,
+      username: user.username,
+      roles: user.roles,
+      email: user.email,
+      mobile: user.mobile,
+      statu: user.statu,
+      createTime: user.createTime,
+      disabled: false
+    }))
+  }
+
+  /**
+   * 对话框弹出switch
+   * @param handleNum 
+   * @param userId 
+   */
 
   showModal(handleNum: number, userId?: number): void {
 
@@ -81,7 +116,7 @@ export class UserManageComponent implements OnInit {
    * @param isUpdate
    */
   accept() {
-    // this.getRoleListAll();
+    this.getUserListOfAll();
     this.handleCancel();
   }
 

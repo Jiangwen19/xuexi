@@ -69,12 +69,23 @@ public class UserInfoController extends BaseController {
         return ApiRestResponse.success(pageData);
     }
 
+    @GetMapping("/lists")
+    @PreAuthorize("hasAuthority('sys:menu:list')")
+    public ApiRestResponse listAll() {
+        List<UserInfo> users = userInfoService.list();
+        users.forEach(u -> {
+            u.setRoles(roleTableService.listRolesByUserId(u.getUserId()));
+        });
+
+        return ApiRestResponse.success(users);
+    }
+
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sys:user:save')")
     public ApiRestResponse save(@Validated @RequestBody UserInfo userInfo) {
 
         userInfo.setCreateTime(LocalDateTime.now());
-        userInfo.setStatu(Const.STATUS_ON);
+        userInfo.setStatu(userInfo.getStatu());
 
         // 默认密码
         String password = passwordEncoder.encode(Const.DEFULT_PASSWORD);

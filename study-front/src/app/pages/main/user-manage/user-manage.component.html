@@ -46,20 +46,20 @@
       <thead>
         <tr>
           <th
-            nzWidth="5%"
+            nzWidth="3%"
             nzShowCheckbox="true"
             [nzChecked]="checked"
             [nzIndeterminate]="indeterminate"
             (nzCheckedChange)="onAllChecked($event)"
           ></th>
-          <th nzWidth="">头像</th>
-          <th nzWidth="">用户名</th>
-          <th nzWidth="">角色名称</th>
-          <th nzWidth="">邮箱</th>
-          <th nzWidth="">手机号</th>
-          <th nzWidth="">状态</th>
-          <th nzWidth="">创建时间</th>
-          <th nzWidth="">操作</th>
+          <th nzWidth="4%">头像</th>
+          <th nzWidth="9%">用户名</th>
+          <th nzWidth="20%">角色名称</th>
+          <th nzWidth="15%">邮箱</th>
+          <th nzWidth="10%">手机号</th>
+          <th nzWidth="5%">状态</th>
+          <th nzWidth="15%">创建时间</th>
+          <th nzWidth="16%">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -70,17 +70,26 @@
             [nzDisabled]="data.disabled"
             (nzCheckedChange)="onItemChecked(data.id, $event)"
           ></td>
-          <td>{{ data.picture }}</td>
+          <td>
+            <nz-avatar
+              [nzIcon]="data.picture"
+              style="background-color: #87d068"
+            ></nz-avatar>
+          </td>
           <td>{{ data.username }}</td>
-          <td>{{ data.roleName }}</td>
+          <td>
+            <nz-tag *ngFor="let role of data.roles">{{ role.roleName }}</nz-tag>
+          </td>
           <td>{{ data.email }}</td>
           <td>{{ data.mobile }}</td>
           <td>
-            <nz-tag [nzColor]="menuState.get(data.statu)[1]">{{
-              menuState.get(data.statu)[0]
-            }}</nz-tag>
+            <nz-tag class="statu" [nzColor]="menuState.get(data.statu)[1]">
+              {{ menuState.get(data.statu)[0] }}
+            </nz-tag>
           </td>
-          <td>{{ data.createTime }}</td>
+          <td style="font-size: 10px">
+            {{ data.createTime | date: "yyyy-MM-dd HH:mm:ss" }}
+          </td>
           <td>
             <a (click)="showModal(2, data.userId)"> 分配角色 </a>
             <nz-divider nzType="vertical"></nz-divider>

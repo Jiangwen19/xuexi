@@ -18,4 +18,12 @@ export class UserService {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/register`, params);
   }
 
+  getUserListOfAll(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/user/lists`);
+  }
+
+  addUser(userInfoVo: UserInfoVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/save`, userInfoVo);
+  }
+
 }
