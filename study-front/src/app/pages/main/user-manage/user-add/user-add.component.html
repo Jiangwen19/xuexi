@@ -4,8 +4,9 @@
         <!-- 用户名 -->
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>用户名</nz-form-label>
+        <nz-tag>初始密码为:888888</nz-tag>
         <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="usernameErrorTpl">
-            <input nz-input formControlName="username"/>
+            <input nz-input formControlName="username" placeholder="请输入用户名"/>
             <ng-template #usernameErrorTpl let-control>
             <ng-container *ngIf="control.hasError('required')">请输入用户名</ng-container>
             </ng-template>
