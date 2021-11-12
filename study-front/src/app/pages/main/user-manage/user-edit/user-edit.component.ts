@@ -1,4 +1,7 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { UserInfoVo } from 'src/app/common/model/auth/user.info.vo';
+import { UserService } from 'src/app/common/services/user.service';
 
 @Component({
   selector: 'app-user-edit',
@@ -8,10 +11,51 @@ import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
 export class UserEditComponent implements OnInit {
 
   @Output() updateEmit = new EventEmitter<boolean>();
-  @Input() editUserId: number
-  constructor() { }
+  @Input() editUserId: number;
+  validateForm: FormGroup;
+  selectedValue = null;
+  userInfo: any;
 
-  ngOnInit() {
+  constructor(private fb: FormBuilder, private userService: UserService) {
+    this.validateForm = this.fb.group({
+      username: ['', [Validators.required]],
+      email: ['', [Validators.email, Validators.required]],
+      mobile: [''],
+      statu: [0, [Validators.required]],
+    });
+  }
+
+  ngOnInit() { this.userInfoById(this.editUserId) }
+
+  submitForm(userInfoVo: UserInfoVo): void {
+    userInfoVo.userId = this.editUserId;
+    this.updateUser(userInfoVo);
+  }
+
+  // 根据Id获取用户信息
+  userInfoById(userId: number) {
+    this.userService.userInfoById(userId).subscribe((res) => {
+      this.userInfo = res.data;
+    });
+  }
+
+  // 更新用户
+  updateUser(userInfoVo: UserInfoVo) {
+    this.userService.updateUser(userInfoVo).subscribe(() => {
+      this.updateEmit.emit(true);
+    });
+  }
+
+
+  resetForm(e: MouseEvent): void {
+    e.preventDefault();
+    this.validateForm.reset();
+    for (const key in this.validateForm.controls) {
+      if (this.validateForm.controls.hasOwnProperty(key)) {
+        this.validateForm.controls[key].markAsPristine();
+        this.validateForm.controls[key].updateValueAndValidity();
+      }
+    }
   }
 
 }

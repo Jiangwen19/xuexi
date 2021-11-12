@@ -26,4 +26,12 @@ export class UserService {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/user/save`, userInfoVo);
   }
 
+  updateUser(userInfoVo: UserInfoVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/update`, userInfoVo);
+  }
+
+  userInfoById(userId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/user/info/${userId}`);
+  }
+
 }
