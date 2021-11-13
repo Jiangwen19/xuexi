@@ -1,1 +1,13 @@
-<p>user-assign works!</p>
+<nz-checkbox-wrapper style="width: 100%" (nzOnChange)="log($event)">
+  <div nz-row>
+    <div *ngFor="let item of roles">
+      <label
+        nz-checkbox
+        [nzValue]="item.roleId"
+        [ngModel]="userRoles.indexOf(item.roleId) !== -1"
+        >{{ item.roleName }}</label
+      >
+    </div>
+  </div>
+  <button nz-button nzType="primary" (click)="commit()">Submit</button>
+</nz-checkbox-wrapper>

@@ -34,4 +34,8 @@ export class UserService {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/user/info/${userId}`);
   }
 
+  userAddRolesById(userId: number, roleIds: number[]): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/role/${userId}`, roleIds);
+  }
+
 }

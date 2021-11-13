@@ -12,7 +12,8 @@ export class RoleAssignComponent implements OnInit {
   @Output() updateEmit = new EventEmitter<boolean>();
   @Input() assignRoleId: number;
   roleHasMenuIds: number[] = [];
-  selectMenuIds: number[];
+  selectMenuIds: number[] = [];
+  checkboxChange: boolean = false;
   MenuList: any[];
 
   constructor(private roleService: RoleService, private menuService: MenuService) { }
@@ -45,6 +46,7 @@ export class RoleAssignComponent implements OnInit {
    * @param value 
    */
   log(value: number[]): void {
+    this.checkboxChange = true;
     this.selectMenuIds = value;
   }
 
@@ -52,6 +54,9 @@ export class RoleAssignComponent implements OnInit {
    * 分配角色限权
    */
   commit() {
+    if (!this.checkboxChange) {
+      this.selectMenuIds = this.roleHasMenuIds;
+    }
     this.roleService.roleAddPermById(this.assignRoleId, this.selectMenuIds).subscribe(() => {
       this.updateEmit.emit(true);
     })
