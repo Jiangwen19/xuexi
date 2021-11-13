@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, KeyValueDiffer, KeyValueDiffers, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { UserService } from 'src/app/common/services/user.service';
 import { Constants } from 'src/app/common/utility/constants';
@@ -22,6 +22,9 @@ export interface Data {
 })
 export class UserManageComponent implements OnInit {
 
+  // 监听绑定属性值变化
+  differ: KeyValueDiffer<string, any>;
+
   username: string;
   // 拿到状态码对应信息
   menuState = Constants.MenuState;
@@ -44,13 +47,49 @@ export class UserManageComponent implements OnInit {
   // 批量删除提交数据
   requestData: number[] = [];
 
-  constructor(private nzMessageService: NzMessageService, private userService: UserService) { }
+  constructor(private differs: KeyValueDiffers, private nzMessageService: NzMessageService, private userService: UserService) {
+    this.differ = this.differs.find({}).create();
+  }
 
   ngOnInit() {
     this.getUserListOfAll();
   }
 
-  search() { }
+  /**
+   * 按条件查询
+   * 条件为空搜索所有
+   */
+  search() {
+    if (this.searchInfo !== '') {
+      this.searchUsers();
+    } else {
+      this.getUserListOfAll();
+    }
+  }
+
+  /**
+   * 查询用户
+   */
+  searchUsers() {
+    this.userService.searchUsers(this.searchInfo).subscribe((res) => {
+      let users = res.data;
+      this.convertUsers(users);
+    })
+  }
+
+  /**
+   * 监听属性绑定值变化
+   */
+  ngDoCheck() {
+    const change = this.differ.diff(this);
+    if (change) {
+      change.forEachChangedItem(item => {
+        if (item.key === 'searchInfo' && item.previousValue !== '' && item.currentValue === '') {
+          this.getUserListOfAll();
+        }
+      });
+    }
+  }
 
   /**
    * 获取所有用户信息
@@ -131,9 +170,19 @@ export class UserManageComponent implements OnInit {
    * 删除点击事件
    * @param roleId 
    */
-  confirm(roleId: number, dataId?: number): void {
-    let roleIdArr: number[] = [roleId];
-    this.delateUsers(roleIdArr, dataId);
+  confirm(userId: number, dataId?: number): void {
+    let userIdArr: number[] = [userId];
+    this.delateUsers(userIdArr, dataId);
+  }
+
+  /**
+   * 重置密码
+   * @param userId 
+   */
+  repass(userId: number) {
+    this.userService.repass(userId).subscribe((res) => {
+      this.nzMessageService.info(res.msg);
+    })
   }
 
   /**

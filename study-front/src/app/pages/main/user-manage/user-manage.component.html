@@ -5,7 +5,7 @@
         type="text"
         nz-input
         placeholder="请输入用户名"
-        [(ngModel)]="username"
+        [(ngModel)]="searchInfo"
       />
     </nz-input-group>
     <ng-template #suffixIconButton>
@@ -56,10 +56,10 @@
           <th nzWidth="9%">用户名</th>
           <th nzWidth="20%">角色名称</th>
           <th nzWidth="15%">邮箱</th>
-          <th nzWidth="10%">手机号</th>
+          <th nzWidth="9%">手机号</th>
           <th nzWidth="5%">状态</th>
-          <th nzWidth="15%">创建时间</th>
-          <th nzWidth="16%">操作</th>
+          <th nzWidth="12%">创建时间</th>
+          <th nzWidth="20%">操作</th>
         </tr>
       </thead>
       <tbody>
@@ -92,6 +92,16 @@
           </td>
           <td>
             <a (click)="showModal(2, data.userId)"> 分配角色 </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="确定要重置密码吗?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="repass(data.userId)"
+              (nzOnCancel)="cancel()"
+            >
+              重置密码
+            </a>
             <nz-divider nzType="vertical"></nz-divider>
             <a (click)="showModal(3, data.userId)"> 编辑 </a>
             <nz-divider nzType="vertical"></nz-divider>

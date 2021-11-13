@@ -42,4 +42,12 @@ export class UserService {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/user/delete`, userIds);
   }
 
+  repass(userId: number): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/repass`, userId);
+  }
+
+  searchUsers(str: string): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/user/list/${str}`);
+  }
+
 }

@@ -1,6 +1,5 @@
 package org.jiangwen.controller;
 
-import cn.hutool.core.util.StrUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jiangwen.common.dto.PassDto;
@@ -9,8 +8,6 @@ import org.jiangwen.common.lang.Const;
 import org.jiangwen.entity.RoleTable;
 import org.jiangwen.entity.UserInfo;
 import org.jiangwen.entity.UserRoleTable;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -54,18 +51,38 @@ public class UserInfoController extends BaseController {
         return ApiRestResponse.success(userInfo);
     }
 
-    @GetMapping("/list")
+    @GetMapping("/list/{str}")
     @PreAuthorize("hasAuthority('sys:user:list')")
-    public ApiRestResponse list(String username) {
+    public ApiRestResponse list(@PathVariable("str") String str) {
 
-        Page<UserInfo> pageData = userInfoService.page(getPage(), new QueryWrapper<UserInfo>()
-                .like(StrUtil.isNotBlank(username), "username", username));
+//        Page<UserInfo> pageData = userInfoService.page(getPage(), new QueryWrapper<UserInfo>()
+//                .like(StrUtil.isNotBlank(username), "username", username));
+//
+//        pageData.getRecords().forEach(u -> {
+//
+//            u.setRoles(roleTableService.listRolesByUserId(u.getUserId()));
+//        });
+//
+//        return ApiRestResponse.success(pageData);
 
-        pageData.getRecords().forEach(u -> {
 
+        List<UserInfo> users = userInfoService.list(new QueryWrapper<UserInfo>().like("username", str));
+        users.forEach(u -> {
             u.setRoles(roleTableService.listRolesByUserId(u.getUserId()));
         });
 
+        return ApiRestResponse.success(users);
+
+    }
+
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('sys:user:list')")
+    public ApiRestResponse lists() {
+
+        Page<UserInfo> pageData = userInfoService.page(getPage());
+        pageData.getRecords().forEach(u -> {
+            u.setRoles(roleTableService.listRolesByUserId(u.getUserId()));
+        });
         return ApiRestResponse.success(pageData);
     }
 
