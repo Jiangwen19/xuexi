@@ -38,4 +38,8 @@ export class UserService {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/user/role/${userId}`, roleIds);
   }
 
+  deleteUserByIds(userIds: number[]): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/delete`, userIds);
+  }
+
 }

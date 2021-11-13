@@ -161,32 +161,30 @@ export class RoleManageComponent implements OnInit {
    * 删除点击事件
    * @param roleId 
    */
-  confirm(roleId: number): void {
+  confirm(roleId: number, dataId?: number): void {
     let roleIdArr: number[] = [roleId];
-    if (this.delateRoles(roleIdArr)) {
-      let index = this.requestData.indexOf(roleId);
-      if (index !== -1) {
-        this.requestData.slice(index, 1);
-      }
-    }
+    this.delateRoles(roleIdArr, dataId);
   }
 
   /**
    * 批量删除角色信息
    * @param roleIds 
    */
-  delateRoles(roleIds: number[]): boolean {
-    let deleteOk: boolean;
-    this.roleService.deleteRoleByIds(roleIds).subscribe((res) => {
-      this.nzMessageService.info(res.msg);
-      if (res.status === 200) {
+  delateRoles(roleIds: number[], dataId?: number) {
+    if (dataId) {
+      this.roleService.deleteRoleByIds(roleIds).subscribe((res) => {
+        this.nzMessageService.info(res.msg);
+        if (res.status === 200) {
+          if (this.setOfCheckedId.has(dataId)) { this.setOfCheckedId.delete(dataId); }
+          this.getRoleListAll();
+        }
+      })
+    } else {
+      this.roleService.deleteRoleByIds(roleIds).subscribe((res) => {
+        this.nzMessageService.info(res.msg);
         this.getRoleListAll();
-        deleteOk = true;
-      } else {
-        deleteOk = false;
-      }
-    })
-    return deleteOk;
+      })
+    }
   }
 
   updateCheckedSet(id: number, checked: boolean): void {

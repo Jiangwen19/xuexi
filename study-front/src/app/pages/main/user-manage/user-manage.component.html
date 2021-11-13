@@ -99,7 +99,7 @@
               nz-popconfirm
               nzPopconfirmTitle="Are you sure delete this task?"
               nzPopconfirmPlacement="bottom"
-              (nzOnConfirm)="confirm(data.userId)"
+              (nzOnConfirm)="confirm(data.userId, data.id)"
               (nzOnCancel)="cancel()"
             >
               删除

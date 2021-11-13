@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 07/11/2021 21:43:48
+ Date: 13/11/2021 20:37:47
 */
 
 
@@ -94,6 +94,28 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for role_menu_table_role_menu_table_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."role_menu_table_role_menu_table_seq";
+CREATE SEQUENCE "public"."role_menu_table_role_menu_table_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 129
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for role_table_role_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."role_table_role_id_seq";
+CREATE SEQUENCE "public"."role_table_role_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for sentence_table_line_no_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."sentence_table_line_no_seq";
@@ -131,6 +153,17 @@ CACHE 1;
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."user_practice_history_history_id_seq";
 CREATE SEQUENCE "public"."user_practice_history_history_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for user_role_table_user_role_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."user_role_table_user_role_id_seq";
+CREATE SEQUENCE "public"."user_role_table_user_role_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -213,7 +246,7 @@ CREATE TABLE "public"."front_menu_table" (
   "menu_type" int4 NOT NULL,
   "icon" varchar(20) COLLATE "pg_catalog"."default",
   "ordernum" int4,
-  "statu" int4,
+  "statu" int4 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
@@ -239,17 +272,17 @@ INSERT INTO "public"."front_menu_table" VALUES (13, 3, '修改角色', NULL, 'sy
 INSERT INTO "public"."front_menu_table" VALUES (14, 3, '删除角色', NULL, 'sys:role:delete', NULL, 2, NULL, 8, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (15, 3, '分配限权', NULL, 'sys:role:perm', NULL, 2, NULL, 9, 2, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (16, 4, '添加菜单', NULL, 'sys:menu:save', NULL, 2, NULL, 10, 2, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (101, 0, '测试02', 'test02', 'sys:test02', 'ss', 0, 'book', 5, 0, NULL, NULL, 'jiangwen', '2021-11-07 15:48:28.61293');
 INSERT INTO "public"."front_menu_table" VALUES (5, 0, '系统工具', NULL, 'sys:tools', NULL, 0, 'setting', 3, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (19, 0, '图书管理', NULL, 'book:manage', NULL, 0, 'book', 2, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (102, 0, 'TEST', 'mnm', 'sys:yyy', 'show', 1, 'bars', 11, 0, 'jiangwen', '2021-11-07 21:37:52.116502', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', 'users-manage', 'sys:user:list', 'UserManageComponent', 1, 'user', 1, 0, NULL, '2020-02-02 00:00:00', NULL, '2021-01-01 00:00:00');
 INSERT INTO "public"."front_menu_table" VALUES (3, 1, '角色管理', 'roles-manage', 'sys:role:list', 'RoleManageComponent', 1, 'drag', 2, 0, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (20, 19, '书本一览', 'booklist', 'book:list', 'BookListComponent', 1, 'windows', 1, 0, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (103, 0, 'TEST', 'mnm', 'sys:yyy', 'wen', 1, 'bars', 11, 0, 'jiangwen', '2021-11-07 21:38:18.516417', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (7, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, 1, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (9, 2, '删除用户', NULL, 'sys:user:delete
 ', NULL, 2, NULL, 3, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (103, 101, 'TEST', 'mnm', 'sys:yyy', 'wen', 1, 'bars', 11, 1, 'jiangwen', '2021-11-07 21:38:18.516417', 'jiangwen', '2021-11-07 22:10:46.776066');
+INSERT INTO "public"."front_menu_table" VALUES (102, 101, 'TEST', 'mnm', 'sys:yyy', 'show', 1, 'bars', 11, 1, 'jiangwen', '2021-11-07 21:37:52.116502', 'jiangwen', '2021-11-07 22:10:55.7756');
+INSERT INTO "public"."front_menu_table" VALUES (101, 0, '测试02', 'test02', 'sys:test02', 'ss', 0, 'book', 5, 0, NULL, NULL, 'jiangwen', '2021-11-11 19:09:24.584524');
 INSERT INTO "public"."front_menu_table" VALUES (17, 4, '修改菜单', NULL, 'sys:menu:update', NULL, 2, NULL, 11, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (18, 4, '删除菜单', NULL, 'sys:menu:delete', NULL, 2, NULL, 12, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (100, 0, '测试', 'test', 'sys:test', NULL, 0, 'book', 4, 0, NULL, NULL, NULL, NULL);
@@ -314,7 +347,7 @@ ALTER TABLE "public"."phrase_table" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."role_menu_table";
 CREATE TABLE "public"."role_menu_table" (
-  "role_menu_table" int8 NOT NULL,
+  "role_menu_table" int8 NOT NULL DEFAULT nextval('role_menu_table_role_menu_table_seq'::regclass),
   "role_id" int8 NOT NULL,
   "front_menu_id" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -347,14 +380,10 @@ INSERT INTO "public"."role_menu_table" VALUES (107, 6, 15, NULL, NULL, NULL, NUL
 INSERT INTO "public"."role_menu_table" VALUES (108, 6, 16, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (109, 6, 17, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (110, 6, 18, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (111, 3, 19, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (112, 3, 20, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (113, 6, 19, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (114, 6, 20, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (115, 9, 19, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (116, 9, 20, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (117, 3, 5, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (118, 3, 6, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (119, 9, 1, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (120, 9, 2, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (121, 9, 5, NULL, NULL, NULL, NULL);
@@ -365,6 +394,10 @@ INSERT INTO "public"."role_menu_table" VALUES (125, 9, 11, NULL, NULL, NULL, NUL
 INSERT INTO "public"."role_menu_table" VALUES (126, 9, 7, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (127, 9, 9, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (128, 6, 100, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (137, 3, 19, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (138, 3, 20, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (139, 3, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (140, 3, 6, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -372,7 +405,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."role_table";
 CREATE TABLE "public"."role_table" (
-  "role_id" int8 NOT NULL,
+  "role_id" int8 NOT NULL DEFAULT nextval('role_table_role_id_seq'::regclass),
   "role_name" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "remark" varchar(255) COLLATE "pg_catalog"."default",
   "symbol" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
@@ -392,6 +425,10 @@ BEGIN;
 INSERT INTO "public"."role_table" VALUES (3, '普通用户', '只有基本查看功能', 'normal', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
 INSERT INTO "public"."role_table" VALUES (6, '超级管理员', '系统默认最高权限，不可以编辑和任意修改', 'admin', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
 INSERT INTO "public"."role_table" VALUES (9, '一般管理员', '能对普通用户进行管理，对图书进行增删查改', 'general', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
+INSERT INTO "public"."role_table" VALUES (32, 'xx', 'xx', 'xx', 0, NULL, '2021-11-09 18:31:36.49554', NULL, '2021-11-11 02:07:09.244288');
+INSERT INTO "public"."role_table" VALUES (48, 'uyhy', 'fgbg', 'fgfg', 2, NULL, '2021-11-09 21:02:32.634815', NULL, '2021-11-11 02:07:33.948219');
+INSERT INTO "public"."role_table" VALUES (79, 'dcc', 'cdc', 'dcd', 0, 'jiangwen', '2021-11-11 02:11:38.99343', NULL, NULL);
+INSERT INTO "public"."role_table" VALUES (72, 'ttt1', 'ttt', 'ttt', 0, 'jiangwen', '2021-11-11 02:06:40.556765', NULL, '2021-11-11 02:15:33.861632');
 COMMIT;
 
 -- ----------------------------
@@ -470,15 +507,15 @@ ALTER TABLE "public"."sentence_word_table" OWNER TO "postgres";
 DROP TABLE IF EXISTS "public"."user_info";
 CREATE TABLE "public"."user_info" (
   "user_id" int8 NOT NULL DEFAULT nextval('user_info_user_id_seq'::regclass),
-  "username" varchar(20) COLLATE "pg_catalog"."default",
-  "password" varchar(255) COLLATE "pg_catalog"."default",
-  "authority" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "username" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
+  "password" varchar(255) COLLATE "pg_catalog"."default" NOT NULL,
+  "authority" varchar(255) COLLATE "pg_catalog"."default",
   "password_history" varchar(255) COLLATE "pg_catalog"."default",
   "description" text COLLATE "pg_catalog"."default",
   "picture" text COLLATE "pg_catalog"."default",
-  "email" varchar(20) COLLATE "pg_catalog"."default",
+  "email" varchar(20) COLLATE "pg_catalog"."default" NOT NULL,
   "mobile" varchar(20) COLLATE "pg_catalog"."default",
-  "statu" int4,
+  "statu" int4 NOT NULL,
   "last_login" timestamp(6),
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -492,11 +529,16 @@ ALTER TABLE "public"."user_info" OWNER TO "postgres";
 -- Records of user_info
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', 'old_password', 'description', 'picture', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2020-12-19 00:00:00');
+INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
+INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
+INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, 'user', '11@ll.com', NULL, 2, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', NULL, NULL, 'user', '11@ll.com', NULL, 2, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (26, 'sdcs', '$2a$10$k5HbV58h/3uNVlw5W80ps.1WC3gZaP4H1RQtcLBHVhWDFCl1i5ahe', NULL, NULL, NULL, 'user', 'ttt@xff', 'xs', 0, NULL, NULL, '2021-11-13 20:24:34.87021', NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (27, 'we', '$2a$10$Ome5enuaGg3rkhIO3WVof.XyTuD/QiYNtyVOy1s8LxyuXNkVECj7.', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:24:45.557302', NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (29, '是', '$2a$10$UPMNN0wz16JYVmhotQhECO//2TpqjcyWblcnOsuairuK6VlG324x2', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:24:59.204076', NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (28, 'ppoo', '$2a$10$mkT12N52EyjY3s39flGHpeXxY0wewe5kIll6Q3Jm32HOGrTtbZzkO', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:24:52.014422', NULL, NULL);
+INSERT INTO "public"."user_info" VALUES (30, 'sax', '$2a$10$sX1.HtKY.P6CIwgLObYqTeyR3XmM.bP6U78L8IJn.8JRAvsLJpZwK', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:25:05.170494', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -523,7 +565,7 @@ ALTER TABLE "public"."user_practice_history" OWNER TO "postgres";
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."user_role_table";
 CREATE TABLE "public"."user_role_table" (
-  "user_role_id" int8 NOT NULL,
+  "user_role_id" int8 NOT NULL DEFAULT nextval('user_role_table_user_role_id_seq'::regclass),
   "user_id" int8 NOT NULL,
   "role_id" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -581,7 +623,7 @@ SELECT setval('"public"."code_table_code_id_seq"', 2, false);
 ALTER SEQUENCE "public"."favourites_table_favourites_id_seq"
 OWNED BY "public"."favourites_table"."favourites_id";
 SELECT setval('"public"."favourites_table_favourites_id_seq"', 2, false);
-SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 104, true);
+SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 106, true);
 ALTER SEQUENCE "public"."grammer_table_grammer_id_seq"
 OWNED BY "public"."grammer_table"."grammer_id";
 SELECT setval('"public"."grammer_table_grammer_id_seq"', 2, false);
@@ -591,6 +633,8 @@ SELECT setval('"public"."lesson_table_lesson_id_seq"', 2, false);
 ALTER SEQUENCE "public"."phrase_table_phrase_id_seq"
 OWNED BY "public"."phrase_table"."phrase_id";
 SELECT setval('"public"."phrase_table_phrase_id_seq"', 2, false);
+SELECT setval('"public"."role_menu_table_role_menu_table_seq"', 146, true);
+SELECT setval('"public"."role_table_role_id_seq"', 93, true);
 ALTER SEQUENCE "public"."sentence_table_line_no_seq"
 OWNED BY "public"."sentence_table"."line_no";
 SELECT setval('"public"."sentence_table_line_no_seq"', 2, false);
@@ -599,10 +643,11 @@ OWNED BY "public"."sentence_table"."sentence_seq";
 SELECT setval('"public"."sentence_table_sentence_seq_seq"', 2, false);
 ALTER SEQUENCE "public"."user_info_user_id_seq"
 OWNED BY "public"."user_info"."user_id";
-SELECT setval('"public"."user_info_user_id_seq"', 2, false);
+SELECT setval('"public"."user_info_user_id_seq"', 41, true);
 ALTER SEQUENCE "public"."user_practice_history_history_id_seq"
 OWNED BY "public"."user_practice_history"."history_id";
 SELECT setval('"public"."user_practice_history_history_id_seq"', 2, false);
+SELECT setval('"public"."user_role_table_user_role_id_seq"', 23, true);
 ALTER SEQUENCE "public"."word_table_word_id_seq"
 OWNED BY "public"."word_table"."word_id";
 SELECT setval('"public"."word_table_word_id_seq"', 2, false);
@@ -681,6 +726,11 @@ ALTER TABLE "public"."sentence_table" ADD CONSTRAINT "sentence_table_pkey" PRIMA
 -- Primary Key structure for table sentence_word_table
 -- ----------------------------
 ALTER TABLE "public"."sentence_word_table" ADD CONSTRAINT "sentence_word_table_pkey" PRIMARY KEY ("sentence_word_id");
+
+-- ----------------------------
+-- Uniques structure for table user_info
+-- ----------------------------
+ALTER TABLE "public"."user_info" ADD CONSTRAINT "用户名" UNIQUE ("username");
 
 -- ----------------------------
 -- Primary Key structure for table user_info

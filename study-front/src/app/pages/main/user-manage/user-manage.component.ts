@@ -42,7 +42,7 @@ export class UserManageComponent implements OnInit {
   // 搜索参数
   searchInfo: string = '';
   // 批量删除提交数据
-  requestData: number[];
+  requestData: number[] = [];
 
   constructor(private nzMessageService: NzMessageService, private userService: UserService) { }
 
@@ -131,32 +131,30 @@ export class UserManageComponent implements OnInit {
    * 删除点击事件
    * @param roleId 
    */
-  confirm(roleId: number): void {
+  confirm(roleId: number, dataId?: number): void {
     let roleIdArr: number[] = [roleId];
-    if (this.delateUsers(roleIdArr)) {
-      let index = this.requestData.indexOf(roleId);
-      if (index !== -1) {
-        this.requestData.slice(index, 1);
-      }
-    }
+    this.delateUsers(roleIdArr, dataId);
   }
 
   /**
    * 批量删除角色信息
-   * @param roleIds 
+   * @param userIds
    */
-  delateUsers(userIds: number[]): boolean {
-    let deleteOk: boolean;
-    // this.userService.deleteUserByIds(userIds).subscribe((res) => {
-    //   this.nzMessageService.info(res.msg);
-    //   if (res.status === 200) {
-    //     this.getUserAll();
-    //     deleteOk = true;
-    //   } else {
-    //     deleteOk = false;
-    //   }
-    // })
-    return deleteOk;
+  delateUsers(userIds: number[], dataId?: number) {
+    if (dataId) {
+      this.userService.deleteUserByIds(userIds).subscribe((res) => {
+        this.nzMessageService.info(res.msg);
+        if (res.status === 200) {
+          if (this.setOfCheckedId.has(dataId)) { this.setOfCheckedId.delete(dataId); }
+          this.getUserListOfAll();
+        }
+      })
+    } else {
+      this.userService.deleteUserByIds(userIds).subscribe((res) => {
+        this.nzMessageService.info(res.msg);
+        this.getUserListOfAll();
+      })
+    }
   }
 
   updateCheckedSet(id: number, checked: boolean): void {
