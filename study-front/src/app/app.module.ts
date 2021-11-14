@@ -30,6 +30,7 @@ import { RoleEditComponent } from './pages/main/role-manage/role-edit/role-edit.
 import { UserAddComponent } from './pages/main/user-manage/user-add/user-add.component';
 import { UserEditComponent } from './pages/main/user-manage/user-edit/user-edit.component';
 import { UserAssignComponent } from './pages/main/user-manage/user-assign/user-assign.component';
+import { ConfirmpswDirective } from './common/directive/confirmpsw.directive';
 
 
 registerLocaleData(zh);
@@ -57,7 +58,8 @@ registerLocaleData(zh);
     RoleEditComponent,
     UserAddComponent,
     UserEditComponent,
-    UserAssignComponent
+    UserAssignComponent,
+    ConfirmpswDirective
   ],
   imports: [
     BrowserModule,

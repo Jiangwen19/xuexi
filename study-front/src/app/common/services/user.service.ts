@@ -4,6 +4,7 @@ import { Observable } from "rxjs";
 import { environment } from "src/environments/environment";
 import { ApiResponse } from "../model/api.response";
 import { UserInfoVo } from "../model/auth/user.info.vo";
+import { PasswordVo } from "../model/vo/password-vo";
 
 
 @Injectable({
@@ -48,6 +49,10 @@ export class UserService {
 
   searchUsers(str: string): Observable<ApiResponse> {
     return this.http.get<ApiResponse>(`${environment.baseUrl}/user/list/${str}`);
+  }
+
+  updatePass(passwordVo: PasswordVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/user/updatePass`, passwordVo);
   }
 
 }
