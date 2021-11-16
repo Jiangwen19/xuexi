@@ -2,13 +2,13 @@
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './common/guard/auth-guard';
-import { MENUKEY, PERMITKEY } from './common/model/auth/menu-authoritys';
+import { MENUKEY } from './common/model/auth/menu-authoritys';
 import { AuthenticationService } from './common/services/authentication.service';
 import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
-import { BookListComponent } from './pages/main/book/book-list/book-list.component';
+import { BookManageComponent } from './pages/main/book-manage/book-manage.component';
 import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
-import { IndexComponent } from './pages/main/index/index.component';
+import { IndexComponent } from './pages/main/main-index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
 import { RoleManageComponent } from './pages/main/role-manage/role-manage.component';
@@ -36,8 +36,8 @@ const component: any[] = [
   UserManageComponent,
   MenuManageComponent,
   RoleManageComponent,
-  BookListComponent,
-  DictsUploadComponent
+  DictsUploadComponent,
+  BookManageComponent
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

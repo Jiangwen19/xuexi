@@ -1,5 +1,5 @@
 <div class="menu-list">
-    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+    <form nz-form [formGroup]="validateForm"  (ngSubmit)="submitForm(validateForm.value)">
 
         <!-- 上级菜单 -->
         <nz-form-item>
@@ -52,11 +52,8 @@
         <!-- 菜单组件 -->
         <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>菜单组件</nz-form-label>
-        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="componentErrorTpl">
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
             <input nz-input formControlName="component" placeholder="UserManageComponent" [ngModel]="this.menu.component"/>
-            <ng-template #componentErrorTpl let-control>
-            <ng-container *ngIf="control.hasError('required')">菜单类型需要输入组件</ng-container>
-            </ng-template>
         </nz-form-control>
         </nz-form-item>
 
@@ -91,6 +88,11 @@
             <nz-slider formControlName="ordernum" [ngModel]="this.menu.orderNum" [nzDisabled]="false"></nz-slider>
         </nz-form-control>
         </nz-form-item>
+        
+        <div class="errorMsg" *ngIf="validateForm.touched || validateForm.dirty">
+            <span *ngIf="validateForm.errors?.navTypeIsMenu">当类型为菜单时必须输入组件名</span>
+            <span *ngIf="validateForm.errors?.pathMust">当类型为菜单时必须输入菜单URL</span>
+        </div>
 
         <!-- <nz-form-item>
         <nz-form-label [nzSpan]="7" nzRequired>Password</nz-form-label>
