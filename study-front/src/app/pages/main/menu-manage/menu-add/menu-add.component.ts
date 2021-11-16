@@ -1,7 +1,8 @@
 import { Component, EventEmitter, Input, OnInit, Output } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ValidationErrors, ValidatorFn, Validators } from '@angular/forms';
 import { MenuVo } from 'src/app/common/model/vo/menu-vo';
 import { MenuService } from 'src/app/common/services/menu.service';
+import { StringUtil } from 'src/app/common/utility/string-util';
 import { TreeNodeInterface } from '../menu-manage.component';
 
 @Component({
@@ -27,10 +28,12 @@ export class MenuAddComponent implements OnInit {
       perms: ['', [Validators.required]],
       icon: [''],
       path: [''],
-      component: ['', [Validators.required]],
+      component: [''],
       menuType: [0, [Validators.required]],
       statu: [0, [Validators.required]],
       ordernum: [0, [Validators.required]],
+    }, {
+      validator: this.menuTypeValidator,
     });
   }
 
@@ -66,6 +69,24 @@ export class MenuAddComponent implements OnInit {
     this.menuService.addMenu(menuVo).subscribe(() => {
       this.updateEmit.emit(true);
     })
+  }
+
+  /**
+   * form表单交叉验证
+   * @param control 
+   * @returns 
+   */
+  menuTypeValidator: ValidatorFn = (control: FormGroup): ValidationErrors | null => {
+    const path = control.get('path');
+    const component = control.get('component');
+    const menuType = control.get('menuType');
+    if (StringUtil.isEmpty(path.value) && menuType.value === 1) {
+      return { 'pathMust': { value: true } }
+    }
+    if (StringUtil.isEmpty(component.value) && menuType.value === 1) {
+      return { 'navTypeIsMenu': { value: true } }
+    }
+    return null;
   }
 
   resetForm(e: MouseEvent): void {
