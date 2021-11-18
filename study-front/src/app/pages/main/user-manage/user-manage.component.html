@@ -17,14 +17,14 @@
     <button
       nz-button
       disabled
-      nzType="primary"
+      nzType="danger"
       *ngIf="setOfCheckedId.size === 0"
     >
       批量删除
     </button>
     <button
       nz-button
-      nzType="primary"
+      nzType="danger"
       [nzLoading]="loading"
       (click)="sendRequest()"
       *ngIf="setOfCheckedId.size !== 0"

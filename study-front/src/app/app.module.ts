@@ -31,6 +31,8 @@ import { UserEditComponent } from './pages/main/user-manage/user-edit/user-edit.
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
+import { BookAddComponent } from './pages/main/book-manage/book-add/book-add.component';
+import { BookEditComponent } from './pages/main/book-manage/book-edit/book-edit.component';
 
 
 registerLocaleData(zh);
@@ -59,7 +61,9 @@ registerLocaleData(zh);
     UserEditComponent,
     UserAssignComponent,
     ConfirmpswDirective,
-    BookManageComponent
+    BookManageComponent,
+    BookAddComponent,
+    BookEditComponent
   ],
   imports: [
     BrowserModule,

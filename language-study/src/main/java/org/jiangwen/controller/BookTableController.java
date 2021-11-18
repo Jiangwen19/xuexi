@@ -5,16 +5,17 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.entity.BookTable;
+import org.jiangwen.entity.LessonTable;
 import org.jiangwen.service.BookTableService;
+import org.jiangwen.service.LessonTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
-import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -32,6 +33,9 @@ public class BookTableController extends BaseController {
     @Autowired
     BookTableService bookTableService;
 
+    @Autowired
+    LessonTableService lessonTableService;
+
     @GetMapping("/info/{bookId}")
     @PreAuthorize("hasAuthority('book:list')")
     public ApiRestResponse bookInfo(@PathVariable(name = "bookId") Long bookId) {
@@ -42,7 +46,7 @@ public class BookTableController extends BaseController {
     @PreAuthorize("hasAuthority('book:list')")
     public ApiRestResponse list(@PathVariable("str") String str) {
 
-        List<BookTable> books = bookTableService.list(new QueryWrapper<BookTable>().like("book_name_orignal", str));
+        List<BookTable> books = bookTableService.list(new QueryWrapper<BookTable>().like("book_name_orignal", str).orderByAsc("book_number"));
         return ApiRestResponse.success(books);
     }
 
@@ -51,6 +55,7 @@ public class BookTableController extends BaseController {
     public ApiRestResponse lists() {
 
         Page<BookTable> pageData = bookTableService.page(getPage());
+        pageData.getRecords().sort(Comparator.comparing(BookTable::getBookNumber));
         return ApiRestResponse.success(pageData);
     }
 
@@ -58,13 +63,19 @@ public class BookTableController extends BaseController {
     @PreAuthorize("hasAuthority('book:list')")
 
     public ApiRestResponse listAll() {
-        List<BookTable> books = bookTableService.list();
+        List<BookTable> books = bookTableService.list(new QueryWrapper<BookTable>().orderByAsc("book_number"));
         return ApiRestResponse.success(books);
     }
 
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('book:list')")
     public ApiRestResponse save(@Validated @RequestBody BookTable bookTable, Principal principal) {
+
+        int count = bookTableService.count(new QueryWrapper<BookTable>().eq("book_number", bookTable.getBookNumber()));
+        if (count > 0) {
+            return ApiRestResponse.error("该编号已经存在");
+        }
+
         bookTable.setCreater(principal.getName());
         bookTable.setCreateTime(LocalDateTime.now());
         bookTableService.save(bookTable);
@@ -81,13 +92,18 @@ public class BookTableController extends BaseController {
         return ApiRestResponse.success(bookTable);
     }
 
-    @Transactional
-    @PostMapping("/delete")
+    @PostMapping("/delete/{bookId}")
     @PreAuthorize("hasAuthority('book:list')")
-    public ApiRestResponse delete(@RequestBody Long[] ids) {
+    public ApiRestResponse delete(@PathVariable("bookId") Long bookId) {
+        LessonTable lessonTable = lessonTableService.getById(bookId);
+        // 判断菜单是否有课程
+        int count = lessonTableService.count(new QueryWrapper<LessonTable>().eq("book_id", bookId));
+        if (count > 0) {
+            return ApiRestResponse.error("该菜单存在课程，请先删除课程");
+        }
 
-        bookTableService.removeByIds(Arrays.asList(ids));
-        return ApiRestResponse.success();
+        bookTableService.removeById(bookId);
+        return ApiRestResponse.success(lessonTable);
     }
 
 }

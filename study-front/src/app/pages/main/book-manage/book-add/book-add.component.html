@@ -1,0 +1,50 @@
+<div class="book-add">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+
+        <!-- 图书编号 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>图书编号</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="bookNumberErrorTpl">
+            <nz-input-number formControlName="bookNumber" [nzMin]="1" [nzStep]="1"></nz-input-number> 
+            <ng-template #bookNumberErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入图书编号</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 书名 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>书名</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="bookNameOrignalErrorTpl">
+            <input nz-input formControlName="bookNameOrignal"/>
+            <ng-template #bookNameOrignalErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入书名</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 译名 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>译名</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <input nz-input formControlName="bookNameTranslate"/>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 相关描述 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>相关描述</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <textarea rows="9" nz-input formControlName="description"></textarea>
+        </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+            <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+        </nz-form-item>
+
+    </form>
+</div>

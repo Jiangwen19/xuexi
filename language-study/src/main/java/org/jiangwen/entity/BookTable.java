@@ -11,7 +11,7 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author name：JiangWen

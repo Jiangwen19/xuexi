@@ -1,1 +1,105 @@
-<p>book-manage works!</p>
+<div class="booklist">
+  <div class="operate">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input
+        type="text"
+        nz-input
+        placeholder="根据书名查找"
+        [(ngModel)]="searchInfo"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="search()">
+        <i nz-icon nzType="search"></i>
+      </button>
+    </ng-template>
+    <button nz-button nzType="primary" (click)="showModal(1)">新增图书</button>
+  </div>
+  <div class="roleDetail">
+    <nz-table
+      #rowSelectionTable
+      nzShowPagination
+      nzShowSizeChanger
+      [nzData]="listOfData"
+      [nzScroll]="{ y: '500px' }"
+      (nzCurrentPageDataChange)="onCurrentPageDataChange($event)"
+      nzBordered
+    >
+      <thead>
+        <tr>
+          <th
+            nzWidth="3%"
+            nzShowCheckbox="false"
+            [nzChecked]="checked"
+            [nzIndeterminate]="indeterminate"
+            (nzCheckedChange)="onAllChecked($event)"
+          ></th>
+          <th nzWidth="5%">编号</th>
+          <th nzWidth="18%">书名</th>
+          <th nzWidth="18%">译名</th>
+          <th nzWidth="31%">相关描述</th>
+          <th nzWidth="10%">创建者</th>
+          <th nzWidth="15%">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of rowSelectionTable.data">
+          <td
+            nzShowCheckbox="false"
+            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzDisabled]="data.disabled"
+            (nzCheckedChange)="onItemChecked(data.id, $event)"
+          ></td>
+          <td>{{ data.bookNumber }}</td>
+          <td>{{ data.bookNameOrignal }}</td>
+          <td>{{ data.bookNameTranslate }}</td>
+          <td>{{ data.description }}</td>
+          <td>{{ data.creater }}</td>
+          <td>
+            <a (click)="showModal(3, data.bookId)"> 详情 </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a (click)="showModal(2, data.bookId)"> 编辑 </a>
+            <nz-divider nzType="vertical"></nz-divider>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="确认要删除此本书吗?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="confirm(data.bookId, data.id)"
+              (nzOnCancel)="cancel()"
+            >
+              删除
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </div>
+</div>
+
+<div class="editModal">
+  <nz-modal
+    [nzWidth]="900"
+    [nzStyle]="{ top: '18px' }"
+    [(nzVisible)]="isVisible"
+    [nzTitle]="modalTitle"
+    [nzContent]="modalContent"
+    [nzFooter]="null"
+    (nzOnCancel)="handleCancel()"
+    [ngSwitch]="popupsHandle"
+  >
+    <!-- 模态框显示内容 -->
+    <ng-template #modalTitle>{{ popupsTitle }}</ng-template>
+    <ng-template #modalContent>
+      <app-book-add
+        *ngSwitchCase="1"
+        (updateEmit)="accept($event)"
+      ></app-book-add>
+      <app-book-edit
+        *ngSwitchCase="2"
+        [editBookId]="bookId"
+        (updateEmit)="accept($event)"
+      ></app-book-edit>
+      <div *ngSwitchCase="3"></div>
+    </ng-template>
+  </nz-modal>
+</div>
