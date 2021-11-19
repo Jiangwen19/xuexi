@@ -10,11 +10,11 @@ import javax.validation.constraints.NotNull;
 
 /**
  * <p>
- *
+ * 
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-28
+ * @since 2021-11-20
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,7 +23,7 @@ public class LessonTable extends BaseEntity {
     private static final long serialVersionUID = 1L;
 
     @TableId(value = "lesson_id", type = IdType.AUTO)
-    private Integer lessonId;
+    private Long lessonId;
 
     @NotNull(message = "图书ID不能为空")
     private Long bookId;
@@ -36,7 +36,7 @@ public class LessonTable extends BaseEntity {
     private String description;
 
     @NotNull(message = "课文编号不能为空")
-    private Integer lessonNumber;
+    private Long lessonNumber;
 
 
 }

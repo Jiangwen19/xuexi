@@ -34,6 +34,8 @@ import { RegisterComponent } from './pages/register/register.component';
 import { BookAddComponent } from './pages/main/book-manage/book-add/book-add.component';
 import { BookEditComponent } from './pages/main/book-manage/book-edit/book-edit.component';
 import { LessonManageComponent } from './pages/main/lesson-manage/lesson-manage.component';
+import { LessonAddComponent } from './pages/main/lesson-manage/lesson-add/lesson-add.component';
+import { LessonEditComponent } from './pages/main/lesson-manage/lesson-edit/lesson-edit.component';
 
 
 registerLocaleData(zh);
@@ -65,7 +67,9 @@ registerLocaleData(zh);
     BookManageComponent,
     BookAddComponent,
     BookEditComponent,
-    LessonManageComponent
+    LessonManageComponent,
+    LessonAddComponent,
+    LessonEditComponent
   ],
   imports: [
     BrowserModule,

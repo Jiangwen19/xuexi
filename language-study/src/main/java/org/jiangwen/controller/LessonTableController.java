@@ -5,10 +5,13 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.resvo.BookInfo;
 import org.jiangwen.entity.BookTable;
+import org.jiangwen.entity.LessonTable;
 import org.jiangwen.service.BookTableService;
+import org.jiangwen.service.LessonTableService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -21,7 +24,7 @@ import java.util.List;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-28
+ * @since 2021-11-20
  */
 @RestController
 @RequestMapping("/lesson")
@@ -29,6 +32,9 @@ public class LessonTableController extends BaseController {
 
     @Autowired
     BookTableService bookTableService;
+
+    @Autowired
+    LessonTableService lessonTableService;
 
     @GetMapping("/allBookInfo")
     @PreAuthorize("hasAuthority('lesson:list')")
@@ -46,4 +52,16 @@ public class LessonTableController extends BaseController {
         });
         return ApiRestResponse.success(bookInfos);
     }
+
+    @GetMapping("/list/{bookId}")
+    @PreAuthorize("hasAuthority('lesson:list')")
+    public ApiRestResponse list(@PathVariable("bookId") Long bookId) {
+
+        List<LessonTable> lessons = lessonTableService.list(new QueryWrapper<LessonTable>()
+                .eq("book_id", bookId)
+                .orderByAsc("lesson_number"));
+
+        return ApiRestResponse.success(lessons);
+    }
+
 }

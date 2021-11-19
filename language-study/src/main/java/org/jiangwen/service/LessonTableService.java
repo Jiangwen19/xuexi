@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-28
+ * @since 2021-11-20
  */
 public interface LessonTableService extends IService<LessonTable> {
 

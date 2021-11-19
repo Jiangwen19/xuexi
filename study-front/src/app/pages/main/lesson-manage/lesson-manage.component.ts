@@ -22,9 +22,16 @@ export class LessonManageComponent implements OnInit {
 
   // 标签页
   tabs: Array<{ name: string; bookId: number; disabled: boolean }> = [];
-  nzTabPosition: NzTabPosition = 'top';
-  selectedIndex = 1;
-  selectedBook: any;
+  selectedIndexMap = new Map<number, number>();
+  selectedBookNumber: number;
+  selectedBookId: number;
+  minNumber: number;
+  maxNumber: number;
+
+  // 绑定到子组件的lessonId
+  lessonId: number;
+  // 搜索参数
+  searchInfo: string = '';
 
   // 监听绑定属性值变化
   differ: KeyValueDiffer<string, any>;
@@ -40,36 +47,35 @@ export class LessonManageComponent implements OnInit {
   popupsHandle: number;
   popupsTitle: string;
   isVisible = false;
-  // 绑定到子组件的roleId
-  roleId: number;
-  // 搜索参数
-  searchInfo: string = '';
+
   // 批量删除提交数据
   requestData: number[];
   constructor(private nzMessageService: NzMessageService, private lessonService: LessonService) { }
 
   ngOnInit() {
     this.getAllBookNumber()
-    // for (let i = 0; i < 30; i++) {
-    //   this.tabs.push({
-    //     name: `图书编号: ${i}`,
-    //     disabled: i === 28,
-    //     content: `Content of tab ${i}`
-    //   });
-    // }
   }
 
   getAllBookNumber() {
     this.lessonService.getAllBookNumber().subscribe((res) => {
       let books = res.data;
-      for (let book of books) {
+      this.minNumber = books[0].bookNumber;
+      this.selectedBookNumber = books[0].bookNumber;
+      this.maxNumber = books[books.length - 1].bookNumber;
+      this.selectedBookId = books[0].bookId;
+      for (let i = 0; i < books.length; i++) {
+        this.selectedIndexMap.set(books[i].bookNumber, i);
         this.tabs.push({
-          name: `${book.bookNumber}: ${book.bookNameOrignal}`,
-          bookId: book.bookId,
+          name: `${books[i].bookNumber}: ${books[i].bookNameOrignal}`,
+          bookId: books[i].bookId,
           disabled: false,
         });
       }
     })
+  }
+
+  getLessonsByBookId(){
+    
   }
 
   search() {
@@ -81,22 +87,18 @@ export class LessonManageComponent implements OnInit {
   }
 
   selectBook(arg: any): void {
-    this.selectedBook = arg;
+    this.selectedBookId = arg;
   }
 
-  showModal(handleNum: number, roleId?: number): void {
+  showModal(handleNum: number, lessonId?: number): void {
 
     if (handleNum === 1) {
       this.popupsHandle = 1
-      this.popupsTitle = "新增角色";
+      this.popupsTitle = "新增课文";
     } else if (handleNum === 2) {
-      this.roleId = roleId;
+      this.lessonId = lessonId;
       this.popupsHandle = 2;
-      this.popupsTitle = "分配限权";
-    } else if (handleNum === 3) {
-      this.roleId = roleId;
-      this.popupsHandle = 3;
-      this.popupsTitle = "编辑";
+      this.popupsTitle = "修改课文信息";
     }
     this.isVisible = true;
   }
