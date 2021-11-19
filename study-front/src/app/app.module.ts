@@ -33,6 +33,7 @@ import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.com
 import { RegisterComponent } from './pages/register/register.component';
 import { BookAddComponent } from './pages/main/book-manage/book-add/book-add.component';
 import { BookEditComponent } from './pages/main/book-manage/book-edit/book-edit.component';
+import { LessonManageComponent } from './pages/main/lesson-manage/lesson-manage.component';
 
 
 registerLocaleData(zh);
@@ -63,7 +64,8 @@ registerLocaleData(zh);
     ConfirmpswDirective,
     BookManageComponent,
     BookAddComponent,
-    BookEditComponent
+    BookEditComponent,
+    LessonManageComponent
   ],
   imports: [
     BrowserModule,
