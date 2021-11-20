@@ -25,7 +25,6 @@ public class LessonTable extends BaseEntity {
     @TableId(value = "lesson_id", type = IdType.AUTO)
     private Long lessonId;
 
-    @NotNull(message = "图书ID不能为空")
     private Long bookId;
 
     private String lessonNameTranslate;

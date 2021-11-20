@@ -1,1 +1,49 @@
-<p>lesson-edit works!</p>
+<div class="lesson-edit">
+    <form nz-form [formGroup]="validateForm" (ngSubmit)="submitForm(validateForm.value)">
+        <!-- 课文编号 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>课文编号</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="lessonNumberErrorTpl">
+            <nz-input-number formControlName="lessonNumber" [nzMin]="1" [nzStep]="1" [ngModel]="LessonInfo?LessonInfo.lessonNumber:null"></nz-input-number> 
+            <ng-template #lessonNumberErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入课文编号</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 课文标题 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7" nzRequired>课文标题</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzHasFeedback nzValidatingTip="Validating..." [nzErrorTip]="lessonNameOrignalErrorTpl">
+            <input nz-input formControlName="lessonNameOrignal" [ngModel]="LessonInfo?LessonInfo.lessonNameOrignal:''"/>
+            <ng-template #lessonNameOrignalErrorTpl let-control>
+            <ng-container *ngIf="control.hasError('required')">请输入课文标题</ng-container>
+            </ng-template>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 标题译名 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7">标题译名</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <input nz-input formControlName="lessonNameTranslate" [ngModel]="LessonInfo?LessonInfo.lessonNameTranslate:''"/>
+        </nz-form-control>
+        </nz-form-item>
+        
+        <!-- 相关描述 -->
+        <nz-form-item>
+        <nz-form-label [nzSpan]="7">相关描述</nz-form-label>
+        <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
+            <textarea rows="9" nz-input formControlName="description" [ngModel]="LessonInfo?LessonInfo.description:''"></textarea>
+        </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+        <nz-form-control [nzOffset]="7" [nzSpan]="12">
+            <button nz-button nzType="primary" [disabled]="!validateForm.valid">Submit</button>
+            <button nz-button (click)="resetForm($event)">Reset</button>
+        </nz-form-control>
+        </nz-form-item>
+    </form>
+</div>
+

@@ -25,7 +25,7 @@
         
         <!-- 译名 -->
         <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>译名</nz-form-label>
+        <nz-form-label [nzSpan]="7">译名</nz-form-label>
         <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
             <input nz-input formControlName="bookNameTranslate" [ngModel]="bookInfo?bookInfo.bookNameTranslate:''"/>
         </nz-form-control>
@@ -33,7 +33,7 @@
         
         <!-- 相关描述 -->
         <nz-form-item>
-        <nz-form-label [nzSpan]="7" nzRequired>相关描述</nz-form-label>
+        <nz-form-label [nzSpan]="7">相关描述</nz-form-label>
         <nz-form-control [nzSpan]="12" nzValidatingTip="Validating...">
             <textarea rows="9" nz-input formControlName="description" [ngModel]="bookInfo?bookInfo.description:''"></textarea>
         </nz-form-control>
