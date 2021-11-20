@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 21/11/2021 03:33:45
+ Date: 21/11/2021 06:50:43
 */
 
 
@@ -323,7 +323,8 @@ CREATE TABLE "public"."grammer_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "book_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."grammer_table" OWNER TO "postgres";
@@ -362,8 +363,8 @@ INSERT INTO "public"."lesson_table" VALUES (8, 2, '搜索', '222', '嗷嗷', NUL
 INSERT INTO "public"."lesson_table" VALUES (12, 3, '十九大精神', '十九大精神', '十九大精神', 'jiangwen', '2021-11-20 09:50:46.344848', NULL, NULL, 3);
 INSERT INTO "public"."lesson_table" VALUES (13, 3, '二十大精神', '二十大精神', '二十大精神', 'jiangwen', '2021-11-20 12:38:54.757546', NULL, NULL, 4);
 INSERT INTO "public"."lesson_table" VALUES (9, 3, '啊啊啊·', '双向', '叔叔', NULL, NULL, 'jiangwen', '2021-11-21 00:53:09.529865', 1);
-INSERT INTO "public"."lesson_table" VALUES (14, 3, 'sd', 'ds', 'sd', 'jiangwen', '2021-11-21 00:12:46.386904', 'jiangwen', '2021-11-21 00:53:44.5926', 5);
 INSERT INTO "public"."lesson_table" VALUES (11, 3, '十八大精神', '十八大精神', '十八大精神', 'jiangwen', '2021-11-20 09:50:00.945237', 'jiangwen', '2021-11-21 03:21:11.972185', 2);
+INSERT INTO "public"."lesson_table" VALUES (14, 3, 'sd', 'ds', 'sd', 'jiangwen', '2021-11-21 00:12:46.386904', 'jiangwen', '2021-11-21 06:14:45.634841', 5);
 COMMIT;
 
 -- ----------------------------
@@ -379,7 +380,8 @@ CREATE TABLE "public"."phrase_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "book_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."phrase_table" OWNER TO "postgres";
@@ -540,8 +542,7 @@ CREATE TABLE "public"."sentence_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6),
-  "sentence_number" int8
+  "update_time" timestamp(6)
 )
 ;
 ALTER TABLE "public"."sentence_table" OWNER TO "postgres";
@@ -665,7 +666,8 @@ CREATE TABLE "public"."word_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6)
+  "update_time" timestamp(6),
+  "book_id" int8 NOT NULL
 )
 ;
 ALTER TABLE "public"."word_table" OWNER TO "postgres";

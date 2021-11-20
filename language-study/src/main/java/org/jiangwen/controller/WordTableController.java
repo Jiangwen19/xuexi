@@ -2,7 +2,6 @@ package org.jiangwen.controller;
 
 
 import org.springframework.web.bind.annotation.RequestMapping;
-
 import org.springframework.web.bind.annotation.RestController;
 
 /**
@@ -11,7 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-10-03
+ * @since 2021-11-21
  */
 @RestController
 @RequestMapping("/word-table")
