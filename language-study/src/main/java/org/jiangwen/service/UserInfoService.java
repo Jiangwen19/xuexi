@@ -23,4 +23,6 @@ public interface UserInfoService extends IService<UserInfo> {
     void clearUserAuthorityInfoByRoleId(long roleId);
 
     void clearUserAuthorityInfoByMenuId(long menuId);
+
+    int usernameNum(String username);
 }

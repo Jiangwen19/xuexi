@@ -2,6 +2,7 @@ package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.common.resvo.FrontMenu;
 import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.UserInfo;
@@ -13,7 +14,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * <p>
@@ -31,22 +34,6 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
     @Autowired
     UserInfoMapper userInfoMapper;
-//
-//    public static final Map<Integer, String> MENUTYPE = new HashMap<>() {
-//        {
-//            put(0, "目录");
-//            put(1, "菜单");
-//            put(2, "按钮");
-//        }
-//    };
-//
-//    public static final Map<Integer, String> MENUSTATU = new HashMap<>() {
-//        {
-//            put(0, "正常");
-//            put(1, "禁用");
-//            put(2, "异常");
-//        }
-//    };
 
     @Override
     public List<ResMenuVo> getCurrentUserNav() {
@@ -117,11 +104,43 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     }
 
     @Override
-    public List<FrontMenuTable> tree() {
+    public List<FrontMenu> tree() {
         // 获取所有菜单信息
         List<FrontMenuTable> frontMenus = this.list(new QueryWrapper<FrontMenuTable>().orderByAsc("ordernum"));
 
         // 转成树状结构
-        return buildTreeMenu(frontMenus);
+        List<FrontMenuTable> menuList = buildTreeMenu(frontMenus);
+        return convertMenu(0, "", menuList);
+    }
+
+    private List<FrontMenu> convertMenu(Integer level, String key, List<FrontMenuTable> menus) {
+        List<FrontMenu> frontMenus = new ArrayList<>();
+        level++;
+        for (int i = 0; i < menus.size(); i++) {
+            FrontMenu frontMenu = new FrontMenu();
+
+            frontMenu.setLevel(level);
+            if (level == 1) {
+                frontMenu.setKey(String.valueOf(i + 1));
+            } else {
+                frontMenu.setKey(key.concat("-").concat(String.valueOf(i + 1)));
+            }
+            frontMenu.setMenuId(menus.get(i).getFrontMenuId());
+            frontMenu.setTitle(menus.get(i).getMenuName());
+            frontMenu.setOnlyCode(menus.get(i).getPerms());
+            frontMenu.setPath(menus.get(i).getPath());
+            frontMenu.setComponent(menus.get(i).getComponent());
+            frontMenu.setIcon(menus.get(i).getIcon());
+            frontMenu.setMenuType(menus.get(i).getMenuType());
+            frontMenu.setOrderNum(menus.get(i).getOrdernum());
+            frontMenu.setState(menus.get(i).getStatu());
+            if (menus.get(i).getChildren().size() != 0) {
+                frontMenu.setChildren(convertMenu(level, frontMenu.getKey(), menus.get(i).getChildren()));
+            } else {
+                frontMenu.setChildren(null);
+            }
+            frontMenus.add(frontMenu);
+        }
+        return frontMenus;
     }
 }

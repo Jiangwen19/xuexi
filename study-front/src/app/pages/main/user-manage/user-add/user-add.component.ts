@@ -15,10 +15,10 @@ export class UserAddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private roleService: UserService) {
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.email, Validators.required]],
-      mobile: [''],
-      statu: [0, [Validators.required]],
+      username: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      mobile: [null],
+      statu: [null, [Validators.required]],
     });
   }
 
@@ -36,8 +36,10 @@ export class UserAddComponent implements OnInit {
 
   // 添加用户
   addUser(userInfoVo: UserInfoVo) {
-    this.roleService.addUser(userInfoVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.roleService.addUser(userInfoVo).subscribe((res) => {
+      if (res.status === 200) {
+        this.updateEmit.emit(true);
+      }
     });
   }
 

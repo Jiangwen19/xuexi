@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import { NzMessageService } from 'ng-zorro-antd/message';
 import { MenuService } from 'src/app/common/services/menu.service';
 import { Constants } from 'src/app/common/utility/constants';
-import { ConvertUtils } from 'src/app/common/utility/convert-utils';
 export interface TreeNodeInterface {
   key: string;
   level?: number;
@@ -106,8 +105,7 @@ export class MenuManageComponent implements OnInit {
    */
   getMenuList() {
     this.menuService.getMenuList().subscribe((resList) => {
-      let menuList = resList.data;
-      this.listOfMapData = ConvertUtils.navConvert(0, '', menuList);
+      this.listOfMapData = resList.data;
       this.listOfMapData.forEach(item => {
         this.mapOfExpandedData[item.key] = this.convertTreeToList(item);
       });

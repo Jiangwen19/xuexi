@@ -10,7 +10,7 @@ import { Breadcrumbs, IBreadcrumb } from 'src/app/common/utility/breadcrumbs';
 })
 export class MainComponent implements OnInit {
 
-  public breadcrumbs: Array<IBreadcrumb>;
+  public breadcrumbs: Array<IBreadcrumb> = [];
 
   public showActionBtn: boolean;
 
@@ -21,7 +21,6 @@ export class MainComponent implements OnInit {
     private router: Router,
     private postmanService: PostmanService) {
     this.postmanService.loadMain$.emit(true);
-    this.breadcrumbs = [];
   }
 
   ngOnInit() {

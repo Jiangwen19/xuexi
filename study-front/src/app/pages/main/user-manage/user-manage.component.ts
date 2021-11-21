@@ -36,7 +36,6 @@ export class UserManageComponent implements OnInit {
   listOfCurrentPageData: readonly Data[] = [];
   setOfCheckedId = new Set<number>();
   // 编辑模态框
-  isConfirmLoading: boolean;
   popupsHandle: number;
   popupsTitle: string;
   isVisible = false;
@@ -72,8 +71,7 @@ export class UserManageComponent implements OnInit {
    */
   searchUsers() {
     this.userService.searchUsers(this.searchInfo).subscribe((res) => {
-      let users = res.data;
-      this.convertUsers(users);
+      this.listOfData = res.data;
     })
   }
 
@@ -96,28 +94,8 @@ export class UserManageComponent implements OnInit {
    */
   getUserListOfAll() {
     this.userService.getUserListOfAll().subscribe((res) => {
-      let users = res.data;
-      this.convertUsers(users);
+      this.listOfData = res.data;
     })
-  }
-
-  /**
-  * users显示格式转换
-  * @param users
-  */
-  convertUsers(users: any) {
-    this.listOfData = users.map((user, index) => ({
-      id: index,
-      userId: user.userId,
-      picture: user.picture,
-      username: user.username,
-      roles: user.roles,
-      email: user.email,
-      mobile: user.mobile,
-      statu: user.statu,
-      createTime: user.createTime,
-      disabled: false
-    }))
   }
 
   /**
@@ -154,9 +132,11 @@ export class UserManageComponent implements OnInit {
    * 接受子组件更新消息
    * @param isUpdate
    */
-  accept() {
-    this.getUserListOfAll();
-    this.handleCancel();
+  accept(acc: boolean) {
+    if (acc === true) {
+      this.getUserListOfAll();
+      this.handleCancel();
+    }
   }
 
   /**
@@ -221,25 +201,25 @@ export class UserManageComponent implements OnInit {
 
   refreshCheckedStatus(): void {
     const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    this.checked = listOfEnabledData.every(({ userId }) => this.setOfCheckedId.has(userId));
+    this.indeterminate = listOfEnabledData.some(({ userId }) => this.setOfCheckedId.has(userId)) && !this.checked;
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
+  onItemChecked(userId: number, checked: boolean): void {
+    this.updateCheckedSet(userId, checked);
     this.refreshCheckedStatus();
   }
 
   onAllChecked(checked: boolean): void {
     this.listOfCurrentPageData
       .filter(({ disabled }) => !disabled)
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+      .forEach(({ userId }) => this.updateCheckedSet(userId, checked));
     this.refreshCheckedStatus();
   }
 
   sendRequest(): void {
     this.loading = true;
-    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
+    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.userId))
       .map(val => val.userId);
     this.delateUsers(this.requestData);
     setTimeout(() => {

@@ -1,10 +1,10 @@
 package org.jiangwen.controller;
 
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jiangwen.service.*;
 import org.jiangwen.utils.RedisUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.ServletRequestUtils;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -30,6 +30,12 @@ public class BaseController {
 
     @Autowired
     RoleMenuTableService roleMenuTableService;
+
+    @Autowired
+    BookTableService bookTableService;
+
+    @Autowired
+    LessonTableService lessonTableService;
 
     /**
      * 获取页码

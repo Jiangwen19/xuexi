@@ -3,7 +3,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { RoleService } from 'src/app/common/services/role.service';
 import { Constants } from 'src/app/common/utility/constants';
 export interface Data {
-  id: number,
   roleId: number,
   roleName: string,
   symbol: string,
@@ -31,7 +30,6 @@ export class RoleManageComponent implements OnInit {
   listOfCurrentPageData: readonly Data[] = [];
   setOfCheckedId = new Set<number>();
   // 编辑模态框
-  isConfirmLoading: boolean;
   popupsHandle: number;
   popupsTitle: string;
   isVisible = false;
@@ -81,8 +79,7 @@ export class RoleManageComponent implements OnInit {
    */
   searchRoles() {
     this.roleService.searchRoles(this.searchInfo).subscribe((res) => {
-      let roles = res.data.records;
-      this.convertRoles(roles);
+      this.listOfData = res.data.records;
     })
   }
 
@@ -91,25 +88,8 @@ export class RoleManageComponent implements OnInit {
    */
   getRoleListAll() {
     this.roleService.getRoleListAll().subscribe((roleDta) => {
-      let roles = roleDta.data;
-      this.convertRoles(roles);
+      this.listOfData = roleDta.data;
     })
-  }
-
-  /**
-   * role显示格式转换
-   * @param roles 
-   */
-  convertRoles(roles: any) {
-    this.listOfData = roles.map((role, index) => ({
-      id: index,
-      roleId: role.roleId,
-      roleName: role.roleName,
-      symbol: role.symbol,
-      remark: role.remark,
-      statu: role.statu,
-      disabled: false
-    }))
   }
 
   /**
@@ -145,9 +125,11 @@ export class RoleManageComponent implements OnInit {
    * 接受子组件更新消息
    * @param isUpdate
    */
-  accept() {
-    this.getRoleListAll();
-    this.handleCancel();
+  accept(acc: boolean) {
+    if (acc === true) {
+      this.getRoleListAll();
+      this.handleCancel();
+    }
   }
 
   /**
@@ -202,8 +184,8 @@ export class RoleManageComponent implements OnInit {
 
   refreshCheckedStatus(): void {
     const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    this.checked = listOfEnabledData.every(({ roleId }) => this.setOfCheckedId.has(roleId));
+    this.indeterminate = listOfEnabledData.some(({ roleId }) => this.setOfCheckedId.has(roleId)) && !this.checked;
   }
 
   onItemChecked(id: number, checked: boolean): void {
@@ -214,13 +196,13 @@ export class RoleManageComponent implements OnInit {
   onAllChecked(checked: boolean): void {
     this.listOfCurrentPageData
       .filter(({ disabled }) => !disabled)
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+      .forEach(({ roleId }) => this.updateCheckedSet(roleId, checked));
     this.refreshCheckedStatus();
   }
 
   sendRequest(): void {
     this.loading = true;
-    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
+    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.roleId))
       .map(val => val.roleId);
     this.delateRoles(this.requestData);
     setTimeout(() => {

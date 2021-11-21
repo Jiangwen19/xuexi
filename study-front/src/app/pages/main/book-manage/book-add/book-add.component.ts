@@ -17,7 +17,7 @@ export class BookAddComponent implements OnInit {
       bookNumber: [null, [Validators.required]],
       bookNameOrignal: [null, [Validators.required]],
       bookNameTranslate: [null],
-      description: [null, [Validators.required]],
+      description: [null],
     });
   }
 

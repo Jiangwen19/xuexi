@@ -1,5 +1,6 @@
 package org.jiangwen.service;
 
+import org.jiangwen.common.resvo.FrontMenu;
 import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import com.baomidou.mybatisplus.extension.service.IService;
@@ -18,5 +19,5 @@ public interface FrontMenuTableService extends IService<FrontMenuTable> {
 
     List<ResMenuVo> getCurrentUserNav();
 
-    List<FrontMenuTable> tree();
+    List<FrontMenu> tree();
 }

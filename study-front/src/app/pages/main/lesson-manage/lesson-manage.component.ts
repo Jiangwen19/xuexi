@@ -3,7 +3,6 @@ import { NzMessageService } from 'ng-zorro-antd/message';
 import { LessonService } from '../../../common/services/lesson.service';
 
 export interface Data {
-  id: number,
   lessonId: number,
   lessonNumber: number,
   lessonNameOrignal: string,
@@ -77,25 +76,8 @@ export class LessonManageComponent implements OnInit {
    */
   getLessonsByBookId(bookId: number) {
     this.lessonService.getLessonsByBookId(bookId).subscribe((res) => {
-      let lessons = res.data;
-      this.convertLessons(lessons);
+      this.listOfData = res.data;
     })
-  }
-
-  /**
-   * 显示格式
-   * @param lessons 
-   */
-  convertLessons(lessons: any) {
-    this.listOfData = lessons.map((lesson, index) => ({
-      id: index,
-      lessonId: lesson.lessonId,
-      lessonNumber: lesson.lessonNumber,
-      lessonNameOrignal: lesson.lessonNameOrignal,
-      lessonNameTranslate: lesson.lessonNameTranslate,
-      description: lesson.description,
-      disabled: false
-    }))
   }
 
   /**
@@ -114,8 +96,7 @@ export class LessonManageComponent implements OnInit {
    */
   searchLessonsByInfo(bookId: number, searchInfo: string) {
     this.lessonService.searchLessonsByInfo(bookId, searchInfo).subscribe((res) => {
-      let roles = res.data;
-      this.convertLessons(roles);
+      this.listOfData = res.data;
     })
   }
 
@@ -213,25 +194,25 @@ export class LessonManageComponent implements OnInit {
 
   refreshCheckedStatus(): void {
     const listOfEnabledData = this.listOfCurrentPageData.filter(({ disabled }) => !disabled);
-    this.checked = listOfEnabledData.every(({ id }) => this.setOfCheckedId.has(id));
-    this.indeterminate = listOfEnabledData.some(({ id }) => this.setOfCheckedId.has(id)) && !this.checked;
+    this.checked = listOfEnabledData.every(({ lessonId }) => this.setOfCheckedId.has(lessonId));
+    this.indeterminate = listOfEnabledData.some(({ lessonId }) => this.setOfCheckedId.has(lessonId)) && !this.checked;
   }
 
-  onItemChecked(id: number, checked: boolean): void {
-    this.updateCheckedSet(id, checked);
+  onItemChecked(lessonId: number, checked: boolean): void {
+    this.updateCheckedSet(lessonId, checked);
     this.refreshCheckedStatus();
   }
 
   onAllChecked(checked: boolean): void {
     this.listOfCurrentPageData
       .filter(({ disabled }) => !disabled)
-      .forEach(({ id }) => this.updateCheckedSet(id, checked));
+      .forEach(({ lessonId }) => this.updateCheckedSet(lessonId, checked));
     this.refreshCheckedStatus();
   }
 
   sendRequest(): void {
     this.loading = true;
-    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.id))
+    this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.lessonId))
       .map(val => val.lessonId);
     // this.delateRoles(this.requestData);
     setTimeout(() => {

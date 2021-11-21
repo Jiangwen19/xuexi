@@ -3,8 +3,8 @@
     <div class="row">
       <ng-template #recursiveList let-MenuList>
         <li *ngFor="let item of MenuList">
-          <label nz-checkbox [nzValue]="item.frontMenuId" [ngModel]="roleHasMenuIds.indexOf(item.frontMenuId) !== -1">{{item.menuName}}</label>
-          <ul *ngIf="item.children.length>0">
+          <label nz-checkbox [nzValue]="item.menuId" [ngModel]="roleHasMenuIds.indexOf(item.menuId) !== -1">{{item.title}}</label>
+          <ul *ngIf="item.children!==null">
             <ng-container *ngTemplateOutlet="recursiveList;context:{$implicit:item.children}"></ng-container>
           </ul>
         </li>

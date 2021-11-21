@@ -18,10 +18,10 @@ export class UserEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private userService: UserService) {
     this.validateForm = this.fb.group({
-      username: ['', [Validators.required]],
-      email: ['', [Validators.email, Validators.required]],
-      mobile: [''],
-      statu: [0, [Validators.required]],
+      username: [null, [Validators.required]],
+      email: [null, [Validators.email, Validators.required]],
+      mobile: [null],
+      statu: [null, [Validators.required]],
     });
   }
 
@@ -41,8 +41,10 @@ export class UserEditComponent implements OnInit {
 
   // 更新用户
   updateUser(userInfoVo: UserInfoVo) {
-    this.userService.updateUser(userInfoVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.userService.updateUser(userInfoVo).subscribe((res) => {
+      if (res.status === 200) {
+        this.updateEmit.emit(true);
+      }
     });
   }
 

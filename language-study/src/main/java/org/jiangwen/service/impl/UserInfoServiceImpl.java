@@ -30,6 +30,9 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
     RoleTableService roleTableService;
 
     @Autowired
+    UserInfoService userInfoService;
+
+    @Autowired
     UserInfoMapper userInfoMapper;
 
     @Autowired
@@ -100,5 +103,11 @@ public class UserInfoServiceImpl extends ServiceImpl<UserInfoMapper, UserInfo> i
         userInfos.forEach(u -> {
             this.clearUserAuthorityInfo(u.getUserId());
         });
+    }
+
+    @Override
+    public int usernameNum(String username) {
+
+        return userInfoService.count(new QueryWrapper<UserInfo>().eq("username", username));
     }
 }

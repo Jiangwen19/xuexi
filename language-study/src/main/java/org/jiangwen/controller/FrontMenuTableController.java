@@ -4,6 +4,7 @@ package org.jiangwen.controller;
 import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jiangwen.common.lang.ApiRestResponse;
+import org.jiangwen.common.resvo.FrontMenu;
 import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.RoleMenuTable;
@@ -57,7 +58,7 @@ public class FrontMenuTableController extends BaseController {
     @GetMapping("/list")
     @PreAuthorize("hasAuthority('sys:menu:list')")
     public ApiRestResponse list() {
-        List<FrontMenuTable> menus = frontMenuTableService.tree();
+        List<FrontMenu> menus = frontMenuTableService.tree();
         return ApiRestResponse.success(menus);
     }
 

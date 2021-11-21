@@ -1,10 +1,11 @@
 package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import org.jiangwen.entity.RoleTable;
 import org.jiangwen.mapper.RoleTableMapper;
 import org.jiangwen.service.RoleTableService;
-import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -20,6 +21,9 @@ import java.util.List;
 @Service
 public class RoleTableServiceImpl extends ServiceImpl<RoleTableMapper, RoleTable> implements RoleTableService {
 
+    @Autowired
+    RoleTableService roleTableService;
+
     @Override
     public List<RoleTable> listRolesByUserId(Long userId) {
 
@@ -28,4 +32,11 @@ public class RoleTableServiceImpl extends ServiceImpl<RoleTableMapper, RoleTable
 
         return roles;
     }
+
+    @Override
+    public int symbolNum(String symbol) {
+
+        return roleTableService.count(new QueryWrapper<RoleTable>().eq("symbol", symbol));
+    }
+
 }

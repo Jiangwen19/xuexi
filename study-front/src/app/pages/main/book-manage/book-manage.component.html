@@ -32,7 +32,6 @@
             nzShowCheckbox="false"
             [nzChecked]="checked"
             [nzIndeterminate]="indeterminate"
-            (nzCheckedChange)="onAllChecked($event)"
           ></th>
           <th nzWidth="5%">编号</th>
           <th nzWidth="18%">书名</th>
@@ -46,9 +45,8 @@
         <tr *ngFor="let data of rowSelectionTable.data">
           <td
             nzShowCheckbox="false"
-            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzChecked]="setOfCheckedId.has(data.bookId)"
             [nzDisabled]="data.disabled"
-            (nzCheckedChange)="onItemChecked(data.id, $event)"
           ></td>
           <td>{{ data.bookNumber }}</td>
           <td>{{ data.bookNameOrignal }}</td>
@@ -64,7 +62,7 @@
               nz-popconfirm
               nzPopconfirmTitle="确认要删除此本书吗?"
               nzPopconfirmPlacement="bottom"
-              (nzOnConfirm)="confirm(data.bookId, data.id)"
+              (nzOnConfirm)="confirm(data.bookId)"
               (nzOnCancel)="cancel()"
             >
               删除

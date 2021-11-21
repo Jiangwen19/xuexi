@@ -6,9 +6,6 @@ import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.resvo.BookInfo;
 import org.jiangwen.entity.BookTable;
 import org.jiangwen.entity.LessonTable;
-import org.jiangwen.service.BookTableService;
-import org.jiangwen.service.LessonTableService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +26,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/lesson")
 public class LessonTableController extends BaseController {
-
-    @Autowired
-    BookTableService bookTableService;
-
-    @Autowired
-    LessonTableService lessonTableService;
 
     @GetMapping("/allBookInfo")
     @PreAuthorize("hasAuthority('lesson:list')")
@@ -107,7 +98,7 @@ public class LessonTableController extends BaseController {
         LessonTable lesson = lessonTableService.getById(lessonTable.getLessonId());
         int count = lessonTableService.hasLessonNumber(lesson.getBookId(), lessonTable.getLessonNumber());
 
-        if (count > 1 || (count == 1 && (lessonTable.getLessonNumber() != lesson.getLessonNumber()))) {
+        if (count > 1 || (count == 1 && (!lessonTable.getLessonNumber().equals(lesson.getLessonNumber())))) {
             return ApiRestResponse.error("该课程编号在本书中已存在");
         }
 

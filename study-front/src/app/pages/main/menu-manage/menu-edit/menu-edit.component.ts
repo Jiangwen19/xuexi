@@ -23,16 +23,15 @@ export class MenuEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private menuService: MenuService) {
     this.validateForm = this.fb.group({
-      frontMenuId: [0, [Validators.required]],
-      parentId: ['', [Validators.required]],
-      menuName: ['', [Validators.required]],
-      perms: ['', [Validators.required]],
-      icon: [''],
-      path: [''],
-      component: [''],
-      menuType: [0, [Validators.required]],
-      statu: [0, [Validators.required]],
-      ordernum: [0, [Validators.required]],
+      parentId: [null, [Validators.required]],
+      menuName: [null, [Validators.required]],
+      perms: [null, [Validators.required]],
+      icon: [null],
+      path: [null],
+      component: [null],
+      menuType: [null, [Validators.required]],
+      statu: [null, [Validators.required]],
+      ordernum: [null, [Validators.required]],
     }, {
       validator: this.menuTypeValidator,
     });

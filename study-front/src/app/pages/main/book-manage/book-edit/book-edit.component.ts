@@ -20,7 +20,7 @@ export class BookEditComponent implements OnInit {
       bookNumber: [null, [Validators.required]],
       bookNameOrignal: [null, [Validators.required]],
       bookNameTranslate: [null],
-      description: [null, [Validators.required]],
+      description: [null],
     });
   }
 

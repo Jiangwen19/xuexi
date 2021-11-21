@@ -6,9 +6,6 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.entity.BookTable;
 import org.jiangwen.entity.LessonTable;
-import org.jiangwen.service.BookTableService;
-import org.jiangwen.service.LessonTableService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -29,12 +26,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/book")
 public class BookTableController extends BaseController {
-
-    @Autowired
-    BookTableService bookTableService;
-
-    @Autowired
-    LessonTableService lessonTableService;
 
     @GetMapping("/info/{bookId}")
     @PreAuthorize("hasAuthority('book:list')")
@@ -85,6 +76,13 @@ public class BookTableController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('book:list')")
     public ApiRestResponse update(@Validated @RequestBody BookTable bookTable, Principal principal) {
+
+        BookTable book = bookTableService.getById(bookTable.getBookId());
+        int count = bookTableService.uniqueBookNum(bookTable);
+
+        if (count > 1 || (count == 1 && (!bookTable.getBookNumber().equals(book.getBookNumber())))) {
+            return ApiRestResponse.error("该书编号已存在");
+        }
         bookTable.setUpdater(principal.getName());
         bookTable.setUpdateTime(LocalDateTime.now());
         bookTableService.updateById(bookTable);

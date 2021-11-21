@@ -16,10 +16,10 @@ export class RoleAddComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private roleService: RoleService) {
     this.validateForm = this.fb.group({
-      roleName: ['', [Validators.required]],
-      symbol: ['', [Validators.required]],
-      remark: [''],
-      statu: [0, [Validators.required]],
+      roleName: [null, [Validators.required]],
+      symbol: [null, [Validators.required]],
+      remark: [null],
+      statu: [null, [Validators.required]],
     });
   }
 
@@ -37,8 +37,10 @@ export class RoleAddComponent implements OnInit {
 
   // 添加角色
   addRole(roleVo: RoleVo) {
-    this.roleService.addRole(roleVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.roleService.addRole(roleVo).subscribe((res) => {
+      if (res.status === 200) {
+        this.updateEmit.emit(true);
+      }
     });
   }
 

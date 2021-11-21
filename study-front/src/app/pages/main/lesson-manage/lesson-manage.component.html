@@ -85,9 +85,9 @@
             <tr *ngFor="let data of rowSelectionTable.data">
               <td
                 nzShowCheckbox="true"
-                [nzChecked]="setOfCheckedId.has(data.id)"
+                [nzChecked]="setOfCheckedId.has(data.lessonId)"
                 [nzDisabled]="data.disabled"
-                (nzCheckedChange)="onItemChecked(data.id, $event)"
+                (nzCheckedChange)="onItemChecked(data.lessonId, $event)"
               ></td>
               <td>{{ data.lessonNumber }}</td>
               <td>{{ data.lessonNameOrignal }}</td>
@@ -102,7 +102,7 @@
                   nz-popconfirm
                   nzPopconfirmTitle="确定要删除课文吗?"
                   nzPopconfirmPlacement="bottom"
-                  (nzOnConfirm)="confirm(data.lessonId, data.id)"
+                  (nzOnConfirm)="confirm(data.lessonId, data.lessonId)"
                   (nzOnCancel)="cancel()"
                 >
                   删除

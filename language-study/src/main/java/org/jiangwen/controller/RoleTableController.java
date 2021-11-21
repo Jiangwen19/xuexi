@@ -79,6 +79,12 @@ public class RoleTableController extends BaseController {
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sys:role:save')")
     public ApiRestResponse save(@Validated @RequestBody RoleTable roleTable, Principal principal) {
+
+        int count = roleTableService.symbolNum(roleTable.getSymbol());
+        if (count > 0) {
+            return ApiRestResponse.error("该角色编码已经存在");
+        }
+
         roleTable.setCreater(principal.getName());
         roleTable.setCreateTime(LocalDateTime.now());
         roleTableService.save(roleTable);
@@ -90,8 +96,13 @@ public class RoleTableController extends BaseController {
     @PreAuthorize("hasAuthority('sys:role:update')")
     public ApiRestResponse update(@Validated @RequestBody RoleTable roleTable) {
 
-        roleTable.setUpdateTime(LocalDateTime.now());
+        RoleTable role = roleTableService.getById(roleTable.getRoleId());
+        int count = roleTableService.symbolNum(roleTable.getSymbol());
+        if (count > 1 || (count == 1 && (!roleTable.getSymbol().equals(role.getSymbol())))) {
+            return ApiRestResponse.error("该权限编码已存在，请换个试试");
+        }
 
+        roleTable.setUpdateTime(LocalDateTime.now());
         roleTableService.updateById(roleTable);
 
         // 更新缓存
@@ -105,11 +116,11 @@ public class RoleTableController extends BaseController {
     @PreAuthorize("hasAuthority('sys:role:delete')")
     public ApiRestResponse info(@RequestBody Long[] ids) {
 
-        roleTableService.removeByIds(Arrays.asList(ids));
-
         // 删除中间表
         userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("role_id", ids));
         roleMenuTableService.remove(new QueryWrapper<RoleMenuTable>().in("role_id", ids));
+
+        roleTableService.removeByIds(Arrays.asList(ids));
 
         // 缓存同步删除
         Arrays.stream(ids).forEach(id -> {

@@ -16,11 +16,10 @@ export class RoleEditComponent implements OnInit {
 
   constructor(private fb: FormBuilder, private roleService: RoleService) {
     this.validateForm = this.fb.group({
-      roleId: [0, [Validators.required]],
-      roleName: ['', [Validators.required]],
-      symbol: ['', [Validators.required]],
-      remark: [''],
-      statu: ['', [Validators.required]],
+      roleName: [null, [Validators.required]],
+      symbol: [null, [Validators.required]],
+      remark: [null],
+      statu: [null, [Validators.required]],
     });
   }
 
@@ -42,8 +41,10 @@ export class RoleEditComponent implements OnInit {
    * @param roleVo
    */
   updateRoleById(roleVo: RoleVo) {
-    this.roleService.roleUpdateById(roleVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.roleService.roleUpdateById(roleVo).subscribe((res) => {
+      if (res.status === 200) {
+        this.updateEmit.emit(true);
+      }
     })
   }
 

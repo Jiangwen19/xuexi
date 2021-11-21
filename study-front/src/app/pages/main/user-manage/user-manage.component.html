@@ -66,9 +66,9 @@
         <tr *ngFor="let data of rowSelectionTable.data">
           <td
             nzShowCheckbox="true"
-            [nzChecked]="setOfCheckedId.has(data.id)"
+            [nzChecked]="setOfCheckedId.has(data.userId)"
             [nzDisabled]="data.disabled"
-            (nzCheckedChange)="onItemChecked(data.id, $event)"
+            (nzCheckedChange)="onItemChecked(data.userId, $event)"
           ></td>
           <td>
             <nz-avatar
@@ -109,7 +109,7 @@
               nz-popconfirm
               nzPopconfirmTitle="Are you sure delete this task?"
               nzPopconfirmPlacement="bottom"
-              (nzOnConfirm)="confirm(data.userId, data.id)"
+              (nzOnConfirm)="confirm(data.userId, data.userId)"
               (nzOnCancel)="cancel()"
             >
               删除

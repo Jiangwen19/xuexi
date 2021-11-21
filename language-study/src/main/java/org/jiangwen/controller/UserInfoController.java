@@ -101,6 +101,11 @@ public class UserInfoController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:save')")
     public ApiRestResponse save(@Validated @RequestBody UserInfo userInfo) {
 
+        int count = userInfoService.usernameNum(userInfo.getUsername());
+        if (count > 0) {
+            return ApiRestResponse.error("该用户名已存在");
+        }
+
         userInfo.setCreateTime(LocalDateTime.now());
         userInfo.setStatu(userInfo.getStatu());
 
@@ -119,6 +124,12 @@ public class UserInfoController extends BaseController {
     @PreAuthorize("hasAuthority('sys:user:update')")
     public ApiRestResponse update(@Validated @RequestBody UserInfo userInfo) {
 
+        UserInfo user = userInfoService.getById(userInfo.getUserId());
+        int count = userInfoService.usernameNum(userInfo.getUsername());
+        if (count > 1 || (count == 1 && (!userInfo.getUsername().equals(user.getUsername())))) {
+            return ApiRestResponse.error("该用户名已存在，请换个试试");
+        }
+
         userInfo.setUpdateTime(LocalDateTime.now());
 
         userInfoService.updateById(userInfo);
@@ -129,6 +140,9 @@ public class UserInfoController extends BaseController {
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:user:delete')")
     public ApiRestResponse delete(@RequestBody Long[] ids) {
+
+        // 删除中间表
+        userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("user_id", ids));
 
         userInfoService.removeByIds(Arrays.asList(ids));
         userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("user_id", ids));

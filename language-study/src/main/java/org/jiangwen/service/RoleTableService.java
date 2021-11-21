@@ -16,4 +16,6 @@ import java.util.List;
 public interface RoleTableService extends IService<RoleTable> {
 
     List<RoleTable> listRolesByUserId(Long userId);
+
+    int symbolNum(String symbol);
 }
