@@ -1,4 +1,4 @@
-import { MENUKEY, PERMITKEY } from "../model/auth/menu-authoritys";
+import { MENUKEY, ROUTERKEY } from "../model/auth/menu-authoritys";
 import { Tokens } from "../model/auth/tokens";
 
 export class StorageUtils {
@@ -44,11 +44,11 @@ export class StorageUtils {
     }
 
     /**
-     * 从sessionStorage中获取PermList
+     * 从sessionStorage中获取routeList
      */
-    public static getPermList(): any {
-        let permList = JSON.parse(sessionStorage.getItem(PERMITKEY));
-        return permList ? permList : null;
+    public static getRouteList(): any {
+        let routeList = JSON.parse(sessionStorage.getItem(ROUTERKEY));
+        return routeList ? routeList : null;
     }
 
 }

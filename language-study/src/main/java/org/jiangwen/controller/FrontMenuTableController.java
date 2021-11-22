@@ -1,11 +1,9 @@
 package org.jiangwen.controller;
 
 
-import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jiangwen.common.lang.ApiRestResponse;
 import org.jiangwen.common.resvo.FrontMenu;
-import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.RoleMenuTable;
 import org.jiangwen.entity.UserInfo;
@@ -17,6 +15,7 @@ import org.springframework.web.bind.annotation.*;
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -38,14 +37,10 @@ public class FrontMenuTableController extends BaseController {
         String authorityInfo = userInfoService.getUserAuthorityInfo(userInfo.getUserId());
         String[] authorityInfoArray = StringUtils.tokenizeToStringArray(authorityInfo, ",");
 
-        // 获取导航栏信息
-        List<ResMenuVo> navs = frontMenuTableService.getCurrentUserNav();
+        Map<Object, Object> navMap = frontMenuTableService.getCurrentUserNav();
+        navMap.put("authoritys", authorityInfoArray);
 
-        return ApiRestResponse.success(MapUtil.builder()
-                .put("authoritys", authorityInfoArray)
-                .put("nav", navs)
-                .map()
-        );
+        return ApiRestResponse.success(navMap);
 
     }
 

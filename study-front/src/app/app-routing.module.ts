@@ -1,8 +1,7 @@
-
 import { NgModule } from '@angular/core';
 import { Router, RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from './common/guard/auth-guard';
-import { MENUKEY } from './common/model/auth/menu-authoritys';
+import { ROUTERKEY } from './common/model/auth/menu-authoritys';
 import { AuthenticationService } from './common/services/authentication.service';
 import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
@@ -31,7 +30,6 @@ const routes: Routes = [
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }
 ];
-
 // 加入到导航中的组件
 const component: any[] = [
   UserManageComponent,
@@ -50,33 +48,24 @@ export class AppRoutingModule {
   constructor(router: Router, private authService: AuthenticationService, private postmanService: PostmanService) {
 
     let setRouter = router.config[3].children;
-    let hasMenu = this.authService.hasMenu();
-
-    this.postmanService.loadLogin$.subscribe((islogin) => {
-      if (islogin === true) {
-        setRouter.length = 1;
-      }
-    })
-    this.postmanService.loadMain$.subscribe((isMain) => {
-      let hasRetainMenu = this.authService.hasMenu();
-      if (isMain && !hasRetainMenu) {
-        this.authService.getMenuAndAuthoritys().subscribe((resNav) => {
-          let menuList = resNav.data.nav;
-          sessionStorage.setItem(MENUKEY, JSON.stringify(menuList));
-          this.dynamicLoadMenu(setRouter, menuList);
+    this.postmanService.loadLogin$.subscribe(() => { setRouter.length = 1 })
+    this.postmanService.loadMain$.subscribe(() => {
+      let hasRetainMenu = this.authService.getRouteList();
+      if (!hasRetainMenu) {
+        this.authService.getMenuAndAuthoritys().subscribe((res) => {
+          let routers = res.data.pathComponents;
+          sessionStorage.setItem(ROUTERKEY, JSON.stringify(routers));
+          this.dynamicLoadMenu(setRouter, routers);
         })
       }
     })
-
-    if (hasMenu) {
-      let menuList = this.authService.getMenu();
-      this.dynamicLoadMenu(setRouter, menuList);
+    if (this.authService.getRouteList()) {
+      let routers = this.authService.getRouteList();
+      this.dynamicLoadMenu(setRouter, routers);
     }
   }
-
-  private dynamicLoadMenu(setRouter: any[], menu: any[]) {
-    for (let item of menu) {
-
+  private dynamicLoadMenu(setRouter: any[], routers: any[]) {
+    for (let item of routers) {
       let index = this.hasComponent(item)
       if (index !== -1) {
         setRouter.push({
@@ -84,20 +73,14 @@ export class AppRoutingModule {
           data: { breadcrumb: item.title }
         })
       }
-
-      if (item.children.length !== 0) {
-        this.dynamicLoadMenu(setRouter, item.children)
-      }
     }
-
   }
   private hasComponent(item: any): number {
     for (let i = 0; i < component.length; i++) {
-      if (item.component === component[i].name) {
+      if (component[i].name === item.component) {
         return i;
       }
     }
     return -1;
   }
-
 }

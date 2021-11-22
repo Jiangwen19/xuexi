@@ -1,8 +1,11 @@
 package org.jiangwen.service.impl;
 
+import cn.hutool.core.map.MapUtil;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.apache.commons.lang3.StringUtils;
 import org.jiangwen.common.resvo.FrontMenu;
+import org.jiangwen.common.resvo.PathComponentVo;
 import org.jiangwen.common.resvo.ResMenuVo;
 import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.UserInfo;
@@ -17,6 +20,7 @@ import org.springframework.stereotype.Service;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
@@ -36,7 +40,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     UserInfoMapper userInfoMapper;
 
     @Override
-    public List<ResMenuVo> getCurrentUserNav() {
+    public Map<Object, Object> getCurrentUserNav() {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         UserInfo userInfo = userInfoService.getByUsername(username);
 
@@ -46,15 +50,38 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
 
         // 转树状结构
         List<FrontMenuTable> menuTree = buildTreeMenu(menus);
-        // 实体转Vo
-        return convert(menuTree);
 
+        // 实体转Vo
+        List<ResMenuVo> frontMenus = convert(menuTree);
+        List<PathComponentVo> pathComponents = findPath(menus);
+
+        return MapUtil.builder()
+                .put("frontMenus", frontMenus)
+                .put("pathComponents", pathComponents)
+                .map();
+
+    }
+
+    private List<PathComponentVo> findPath(List<FrontMenuTable> menus) {
+        List<PathComponentVo> pathComponentVo = new ArrayList<>();
+        menus.forEach(p -> {
+            if (StringUtils.isNotBlank(p.getComponent()) && StringUtils.isNotBlank(p.getPath())) {
+                PathComponentVo pathComponent = new PathComponentVo();
+                pathComponent.setComponent(p.getComponent());
+                pathComponent.setPath(p.getPath());
+                pathComponent.setTitle(p.getMenuName());
+
+                pathComponentVo.add(pathComponent);
+            }
+        });
+
+        return pathComponentVo;
     }
 
     private List<ResMenuVo> convert(List<FrontMenuTable> menuTree) {
         List<ResMenuVo> menuDtos = new ArrayList<>();
 
-        menuTree.forEach(m -> {
+        for (FrontMenuTable m : menuTree) {
             ResMenuVo resMenuVo = new ResMenuVo();
 
             resMenuVo.setMenuId(m.getFrontMenuId());
@@ -73,7 +100,7 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
             }
 
             menuDtos.add(resMenuVo);
-        });
+        }
 
         return menuDtos;
     }

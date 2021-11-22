@@ -15,30 +15,23 @@ export class MenuComponent implements OnInit {
   dark = false
   menus: any[]
 
-  constructor(private router: Router, private authService: AuthenticationService) {
+  constructor(private router: Router, private authService: AuthenticationService) { }
 
-    if (this.authService.hasMenu()) {
-      let getMenus = this.authService.getMenu();
+  ngOnInit() { this.getMenus() }
+  getMenus() {
+    this.authService.getMenuAndAuthoritys().subscribe((resMenu) => {
+      let getMenus = resMenu.data.frontMenus;
       this.menus = ConvertUtils.menuConvert(0, getMenus);
-    } else {
-      this.authService.getMenuAndAuthoritys().subscribe((resMenu) => {
-        let getMenus = resMenu.data.nav;
-        this.menus = ConvertUtils.menuConvert(0, getMenus);
-      })
-    }
-
-    this.openKeyMap = ConvertUtils.openKeyMap;
+      this.openKeyMap = ConvertUtils.openKeyMap;
+      this.searchOpenKey();
+    })
   }
-
-  ngOnInit() {
-    this.searchOpenKey()
-  }
-
   searchOpenKey() {
     for (let key of this.openKeyMap.keys()) {
       if (this.router.url.match(key)) {
         let openKey = this.openKeyMap.get(key);
         this.menus[openKey].open = true;
+        return;
       }
     }
   }

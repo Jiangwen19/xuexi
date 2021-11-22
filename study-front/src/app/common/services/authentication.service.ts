@@ -133,30 +133,25 @@ export class AuthenticationService extends BaseService {
   }
 
   /**
-   * 获取菜单相关限权信息
+   * 获取路由组件相关信息
    */
-  getPerm(): any {
-    return StorageUtils.getPermList();
+  getRouteList(): any {
+    return StorageUtils.getRouteList();
   }
 
   /**
-   * 是否加载菜单信息
+   * 是否缓存菜单信息
+   * @returns 
    */
   hasMenu(): boolean {
-    if (this.getMenu() === null) {
-      return false;
-    }
-    return true;
+    return this.getMenu() === null ? false : true;
   }
 
   /**
-   * 是否加载限权信息
+   * 是否缓存组件路径相关信息
+   * @returns 
    */
-  hasPerm(): boolean {
-    if (this.getPerm() === null) {
-      return false;
-    }
-    return true;
+  hasPathComponent(): boolean {
+    return this.getRouteList() === null ? false : true;
   }
-
 }

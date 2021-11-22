@@ -1,15 +1,15 @@
 package org.jiangwen.service;
 
-import org.jiangwen.common.resvo.FrontMenu;
-import org.jiangwen.common.resvo.ResMenuVo;
-import org.jiangwen.entity.FrontMenuTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.common.resvo.FrontMenu;
+import org.jiangwen.entity.FrontMenuTable;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author name：JiangWen
@@ -17,7 +17,7 @@ import java.util.List;
  */
 public interface FrontMenuTableService extends IService<FrontMenuTable> {
 
-    List<ResMenuVo> getCurrentUserNav();
+    Map<Object, Object> getCurrentUserNav();
 
     List<FrontMenu> tree();
 }
