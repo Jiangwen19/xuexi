@@ -119,6 +119,7 @@ export class LessonManageComponent implements OnInit {
    * @param arg 
    */
   logSelectBook(arg: any): void {
+    this.setOfCheckedId.clear();
     this.selectBook = { name: arg.name, bookId: arg.bookId };
     this.getLessonsByBookId(arg.bookId);
   }
@@ -170,9 +171,25 @@ export class LessonManageComponent implements OnInit {
    * 删除点击事件
    * @param roleId 
    */
-  confirm(roleId: number, dataId?: number): void {
-    let roleIdArr: number[] = [roleId];
-    // this.delateRoles(roleIdArr, dataId);
+  confirm(lessonId: number): void {
+    let lessonIdArr: number[] = [lessonId];
+    this.delateLessonInBook(lessonIdArr, lessonId);
+  }
+
+  /**
+   * 一括删除课文
+   * @param lessonIds 
+   */
+  delateLessonInBook(lessonIds: number[], confirmId?: number) {
+    this.lessonService.delateLessonInBook(lessonIds).subscribe((res) => {
+      this.nzMessageService.info(res.msg);
+      if (res.status === 200) {
+        if (confirmId) {
+          this.setOfCheckedId.delete(confirmId);
+        }
+        this.getLessonsByBookId(this.selectBook.bookId);
+      }
+    })
   }
 
   log(args: any[]): void {
@@ -214,7 +231,7 @@ export class LessonManageComponent implements OnInit {
     this.loading = true;
     this.requestData = this.listOfData.filter(data => this.setOfCheckedId.has(data.lessonId))
       .map(val => val.lessonId);
-    // this.delateRoles(this.requestData);
+    this.delateLessonInBook(this.requestData);
     setTimeout(() => {
       this.setOfCheckedId.clear();
       this.refreshCheckedStatus();

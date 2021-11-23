@@ -12,7 +12,7 @@ import org.springframework.stereotype.Service;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-11-21
+ * @since 2021-11-23
  */
 @Service
 public class WordTableServiceImpl extends ServiceImpl<WordTableMapper, WordTable> implements WordTableService {

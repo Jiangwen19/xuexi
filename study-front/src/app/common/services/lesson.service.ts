@@ -35,4 +35,8 @@ export class LessonService {
   searchLessonsByInfo(bookId: number, searchInfo: string): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/lesson/searchList/${searchInfo}`, bookId);
   }
+
+  delateLessonInBook(lessonIds: number[]): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/lesson/delete`, lessonIds);
+  }
 }

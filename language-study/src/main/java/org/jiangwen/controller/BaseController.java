@@ -37,6 +37,9 @@ public class BaseController {
     @Autowired
     LessonTableService lessonTableService;
 
+    @Autowired
+    SentenceTableService sentenceTableService;
+
     /**
      * 获取页码
      *

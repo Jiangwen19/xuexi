@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-11-21
+ * @since 2021-11-23
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -29,8 +29,6 @@ public class WordTable extends BaseEntity {
     private String wordType;
 
     private String description;
-
-    private Long bookId;
 
 
 }

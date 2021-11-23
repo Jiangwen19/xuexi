@@ -2,4 +2,12 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.LessonTableMapper">
 
+    <select id="getSentenceIdsByLessonId" resultType="java.lang.Long">
+        SELECT
+             st.sentence_seq
+        FROM
+             sentence_table st
+        LEFT JOIN lesson_table lt ON st.lesson_id=lt.lesson_id
+        WHERE st.lesson_id=#{lessonId}
+    </select>
 </mapper>

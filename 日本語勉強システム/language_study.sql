@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 21/11/2021 06:50:43
+ Date: 23/11/2021 15:50:40
 */
 
 
@@ -209,12 +209,13 @@ INSERT INTO "public"."book_table" VALUES (4, '大家的英语', 'everyone''s eng
 INSERT INTO "public"."book_table" VALUES (5, '我的英语', 'my english', '我的英语', NULL, NULL, NULL, NULL, 4);
 INSERT INTO "public"."book_table" VALUES (9, 'gelintonghua', '格林童话', 'gelintonghua童话', 'jiangwen', '2021-11-19 10:01:02.98107', NULL, NULL, 7);
 INSERT INTO "public"."book_table" VALUES (10, 'geliefuyouji', '格列佛游记', 'geliefuyoujiooooo', 'jiangwen', '2021-11-19 10:01:41.688576', NULL, NULL, 9);
-INSERT INTO "public"."book_table" VALUES (11, 'zhijiangxinyu', '之江新语', 'zhijiangxinyu', 'jiangwen', '2021-11-19 10:02:09.383253', NULL, NULL, 19);
-INSERT INTO "public"."book_table" VALUES (12, 'daodejing', '道德经', '老子', 'jiangwen', '2021-11-19 10:02:29.613741', NULL, NULL, 16);
-INSERT INTO "public"."book_table" VALUES (13, 'tuopingongjian', '脱贫攻坚', '脱贫攻坚是场持久战', 'jiangwen', '2021-11-19 10:03:40.82948', NULL, NULL, 66);
-INSERT INTO "public"."book_table" VALUES (14, 'cx', 'cv', '蓝天白云', 'jiangwen', '2021-11-19 11:20:12.591928', NULL, NULL, 10);
-INSERT INTO "public"."book_table" VALUES (3, '我的日本语123', 'わたしの日本語', '我的日本语', NULL, NULL, 'jiangwen', '2021-11-20 05:24:04.115575', 1);
 INSERT INTO "public"."book_table" VALUES (15, 'wozaiyanan', '我在延安', 'wozaiyanan', 'jiangwen', '2021-11-20 05:25:40.551146', NULL, NULL, 15);
+INSERT INTO "public"."book_table" VALUES (16, '庄子', '庄子', '庄子', 'jiangwen', '2021-11-21 09:58:36.082588', 'jiangwen', '2021-11-21 09:58:43.911062', 18);
+INSERT INTO "public"."book_table" VALUES (3, '我的日本语123', 'わたしの日本語', '我的日本语', NULL, NULL, 'jiangwen', '2021-11-21 10:13:19.144831', 1);
+INSERT INTO "public"."book_table" VALUES (12, 'daodejing', '道德经', '老子', 'jiangwen', '2021-11-19 10:02:29.613741', 'test', '2021-11-22 02:50:37.785053', 16);
+INSERT INTO "public"."book_table" VALUES (11, 'zhijian', '之江新语', 'zhijiangxinyu', 'jiangwen', '2021-11-19 10:02:09.383253', 'jiangwen', '2021-11-22 05:09:35.368486', 10);
+INSERT INTO "public"."book_table" VALUES (19, '走进新时代', '改革开放', 'v成功', 'jiangwen', '2021-11-22 05:11:04.923828', NULL, NULL, 65);
+INSERT INTO "public"."book_table" VALUES (20, '脱贫攻坚', '脱贫攻坚', '脱贫攻坚是场持久战', 'jiangwen', '2021-11-22 06:16:31.590688', NULL, NULL, 66);
 COMMIT;
 
 -- ----------------------------
@@ -278,7 +279,6 @@ ALTER TABLE "public"."front_menu_table" OWNER TO "postgres";
 -- ----------------------------
 BEGIN;
 INSERT INTO "public"."front_menu_table" VALUES (113, 20, '删除书本', '', 'book:delete', '', 2, '', 3, 0, 'jiangwen', '2021-11-17 05:10:39.719938', 'jiangwen', '2021-11-17 05:11:35.207846');
-INSERT INTO "public"."front_menu_table" VALUES (6, 5, '文件上传', 'dicts', 'sys:dict:list', 'DictsUploadComponent', 1, 'container', 1, 0, NULL, NULL, 'jiangwen', '2021-11-17 06:05:10.2696');
 INSERT INTO "public"."front_menu_table" VALUES (1, 0, '系统管理', NULL, 'sys:manage', NULL, 0, 'bars', 1, 0, NULL, '2020-09-09 00:00:00', NULL, '2021-09-08 00:00:00');
 INSERT INTO "public"."front_menu_table" VALUES (106, 19, '课文一览', 'lesson', 'lesson:list', 'LessonManageComponent', 1, 'file-done', 2, 0, 'jiangwen', '2021-11-17 04:37:22.893926', 'jiangwen', '2021-11-19 08:43:10.215374');
 INSERT INTO "public"."front_menu_table" VALUES (114, 106, '课文添加', '', 'lesson:save', '', 2, '', 4, 0, 'jiangwen', '2021-11-20 07:16:32.935788', NULL, NULL);
@@ -307,6 +307,7 @@ INSERT INTO "public"."front_menu_table" VALUES (18, 4, '删除菜单', NULL, 'sy
 INSERT INTO "public"."front_menu_table" VALUES (20, 19, '书本一览', 'booklist', 'book:list', 'BookManageComponent', 1, 'windows', 1, 0, NULL, NULL, 'jiangwen', '2021-11-16 01:24:02.561694');
 INSERT INTO "public"."front_menu_table" VALUES (109, 19, '收藏夹', 'favorites', 'favorites', 'FavoritesComponent', 1, 'star', 4, 0, 'jiangwen', '2021-11-17 04:50:02.342559', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (110, 19, '错题本', 'mistake', 'mistake:list', 'MistakeComponent', 1, 'bug', 5, 0, 'jiangwen', '2021-11-17 04:58:33.827284', NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (6, 5, '文件上传', 'dicts', 'sys:dict:list', 'DictsUploadComponent', 1, 'container', 1, 0, NULL, NULL, 'jiangwen', '2021-11-22 02:45:38.544423');
 INSERT INTO "public"."front_menu_table" VALUES (111, 20, '添加书本', '', 'book:save', '', 2, '', 1, 0, 'jiangwen', '2021-11-17 05:05:14.593166', 'jiangwen', '2021-11-17 05:08:13.161302');
 INSERT INTO "public"."front_menu_table" VALUES (112, 20, '更新书本', '', 'book:update', '', 2, '', 2, 0, 'jiangwen', '2021-11-17 05:09:06.0611', 'jiangwen', '2021-11-17 05:09:29.971774');
 COMMIT;
@@ -323,8 +324,7 @@ CREATE TABLE "public"."grammer_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6),
-  "book_id" int8 NOT NULL
+  "update_time" timestamp(6)
 )
 ;
 ALTER TABLE "public"."grammer_table" OWNER TO "postgres";
@@ -357,14 +357,9 @@ INSERT INTO "public"."lesson_table" VALUES (2, 1, '第二课：天气好/二', '
 INSERT INTO "public"."lesson_table" VALUES (3, 1, '第三课：天气好/三', '第三課:天気が良く/三', '天气好一起去散步吧/三', NULL, NULL, NULL, NULL, 3);
 INSERT INTO "public"."lesson_table" VALUES (4, 1, '第四课：天气好/四', '第四課:天気が良く/四', '天气好一起去散步吧/四', NULL, NULL, NULL, NULL, 4);
 INSERT INTO "public"."lesson_table" VALUES (5, 1, '第五课：天气好/五', '第五課:天気が良く/五', '天气好一起去散步吧/五', NULL, NULL, NULL, NULL, 5);
-INSERT INTO "public"."lesson_table" VALUES (6, 2, '请问', '2222', '1111', NULL, NULL, NULL, NULL, 1);
 INSERT INTO "public"."lesson_table" VALUES (7, 2, '时代的', '王薇薇', '外企', NULL, NULL, NULL, NULL, 2);
-INSERT INTO "public"."lesson_table" VALUES (8, 2, '搜索', '222', '嗷嗷', NULL, NULL, NULL, NULL, 3);
-INSERT INTO "public"."lesson_table" VALUES (12, 3, '十九大精神', '十九大精神', '十九大精神', 'jiangwen', '2021-11-20 09:50:46.344848', NULL, NULL, 3);
-INSERT INTO "public"."lesson_table" VALUES (13, 3, '二十大精神', '二十大精神', '二十大精神', 'jiangwen', '2021-11-20 12:38:54.757546', NULL, NULL, 4);
-INSERT INTO "public"."lesson_table" VALUES (9, 3, '啊啊啊·', '双向', '叔叔', NULL, NULL, 'jiangwen', '2021-11-21 00:53:09.529865', 1);
-INSERT INTO "public"."lesson_table" VALUES (11, 3, '十八大精神', '十八大精神', '十八大精神', 'jiangwen', '2021-11-20 09:50:00.945237', 'jiangwen', '2021-11-21 03:21:11.972185', 2);
-INSERT INTO "public"."lesson_table" VALUES (14, 3, 'sd', 'ds', 'sd', 'jiangwen', '2021-11-21 00:12:46.386904', 'jiangwen', '2021-11-21 06:14:45.634841', 5);
+INSERT INTO "public"."lesson_table" VALUES (11, 3, '十八大精神', '十八大精神', '十八大精神', 'jiangwen', '2021-11-20 09:50:00.945237', 'jiangwen', '2021-11-22 02:33:26.342526', 2);
+INSERT INTO "public"."lesson_table" VALUES (13, 3, '二十大精神', '二十大精神', '二十大精神nih', 'jiangwen', '2021-11-20 12:38:54.757546', 'jiangwen', '2021-11-23 04:48:15.470529', 4);
 COMMIT;
 
 -- ----------------------------
@@ -380,8 +375,7 @@ CREATE TABLE "public"."phrase_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6),
-  "book_id" int8 NOT NULL
+  "update_time" timestamp(6)
 )
 ;
 ALTER TABLE "public"."phrase_table" OWNER TO "postgres";
@@ -406,6 +400,26 @@ ALTER TABLE "public"."role_menu_table" OWNER TO "postgres";
 -- Records of role_menu_table
 -- ----------------------------
 BEGIN;
+INSERT INTO "public"."role_menu_table" VALUES (508, 9, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (509, 9, 2, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (510, 9, 7, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (511, 9, 8, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (512, 9, 9, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (513, 9, 10, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (514, 9, 11, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (515, 9, 19, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (516, 9, 20, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (517, 9, 111, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (518, 9, 112, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (519, 9, 113, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (520, 9, 106, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (521, 9, 114, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (522, 9, 115, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (523, 9, 116, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (524, 9, 109, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (525, 9, 110, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (526, 9, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (527, 9, 6, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (400, 3, 19, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (401, 3, 20, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (402, 3, 111, NULL, NULL, NULL, NULL);
@@ -445,26 +459,6 @@ INSERT INTO "public"."role_menu_table" VALUES (484, 6, 109, NULL, NULL, NULL, NU
 INSERT INTO "public"."role_menu_table" VALUES (485, 6, 110, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (486, 6, 5, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."role_menu_table" VALUES (487, 6, 6, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (488, 9, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (489, 9, 2, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (490, 9, 7, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (491, 9, 8, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (492, 9, 9, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (493, 9, 10, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (494, 9, 11, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (495, 9, 19, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (496, 9, 20, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (497, 9, 111, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (498, 9, 112, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (499, 9, 113, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (500, 9, 106, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (501, 9, 114, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (502, 9, 115, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (503, 9, 116, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (504, 9, 109, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (505, 9, 110, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (506, 9, 5, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (507, 9, 6, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -489,9 +483,9 @@ ALTER TABLE "public"."role_table" OWNER TO "postgres";
 -- Records of role_table
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."role_table" VALUES (3, '普通用户', '只有基本查看功能', 'normal', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
-INSERT INTO "public"."role_table" VALUES (6, '超级管理员', '系统默认最高权限，不可以编辑和任意修改', 'admin', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
-INSERT INTO "public"."role_table" VALUES (9, '一般管理员', '能对普通用户进行管理，对图书进行增删查改', 'general', 1, NULL, '2020-09-09 00:00:00', NULL, '2020-09-09 00:00:00');
+INSERT INTO "public"."role_table" VALUES (6, '超级管理员', '系统默认最高权限，不可以编辑和任意修改', 'admin', 0, NULL, '2020-09-09 00:00:00', NULL, '2021-11-22 02:43:47.342536');
+INSERT INTO "public"."role_table" VALUES (3, '普通用户', '只有基本查看功能', 'normal', 0, NULL, '2020-09-09 00:00:00', NULL, '2021-11-23 04:29:13.061645');
+INSERT INTO "public"."role_table" VALUES (9, '一般管理员', '能对普通用户进行管理，对图书进行增删查改', 'general', 0, NULL, '2020-09-09 00:00:00', NULL, '2021-11-23 04:29:20.69694');
 COMMIT;
 
 -- ----------------------------
@@ -532,12 +526,11 @@ ALTER TABLE "public"."sentence_phrase_table" OWNER TO "postgres";
 DROP TABLE IF EXISTS "public"."sentence_table";
 CREATE TABLE "public"."sentence_table" (
   "sentence_seq" int8 NOT NULL DEFAULT nextval('sentence_table_sentence_seq_seq'::regclass),
-  "book_id" int8 NOT NULL,
   "lesson_id" int8 NOT NULL,
   "line_no" int8 NOT NULL DEFAULT nextval('sentence_table_line_no_seq'::regclass),
   "sentence_type" varchar(4) COLLATE "pg_catalog"."default",
   "sentence_name_translate" text COLLATE "pg_catalog"."default",
-  "sentence_name_orignal" text COLLATE "pg_catalog"."default",
+  "sentence_name_orignal" text COLLATE "pg_catalog"."default" NOT NULL,
   "description" text COLLATE "pg_catalog"."default",
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -546,6 +539,23 @@ CREATE TABLE "public"."sentence_table" (
 )
 ;
 ALTER TABLE "public"."sentence_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of sentence_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."sentence_table" VALUES (1, 1, 1, '0001', NULL, '课程id为1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (2, 1, 2, '0001', NULL, '课程id为1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (3, 1, 3, '0001', NULL, '课程id为1', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (4, 7, 1, '0002', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (5, 7, 2, '0002', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (6, 7, 1, '0001', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (7, 7, 1, '0003', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (8, 7, 2, '0003', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (9, 7, 3, '0003', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (10, 11, 1, '0001', NULL, '课程id为11', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (11, 11, 2, '0002', NULL, '课程id为11', NULL, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sentence_word_table
@@ -591,14 +601,11 @@ ALTER TABLE "public"."user_info" OWNER TO "postgres";
 -- Records of user_info
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 1, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2020-12-19 00:00:00');
-INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, 'user', '11@ll.com', NULL, 2, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', NULL, NULL, 'user', '11@ll.com', NULL, 2, NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$WqNk.lgpKjmT0K.foYSiOOB5UTIleJZcPvFRSAzAlsKwKk2sOVkwW', 'admin', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '999999999', 1, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2021-11-16 01:08:45.283201');
-INSERT INTO "public"."user_info" VALUES (26, 'sdcs', '$2a$10$k5HbV58h/3uNVlw5W80ps.1WC3gZaP4H1RQtcLBHVhWDFCl1i5ahe', NULL, NULL, NULL, 'user', 'ttt@xff', 'xs', 0, NULL, NULL, '2021-11-13 20:24:34.87021', NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (28, 'ppoo', '$2a$10$mkT12N52EyjY3s39flGHpeXxY0wewe5kIll6Q3Jm32HOGrTtbZzkO', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:24:52.014422', NULL, NULL);
-INSERT INTO "public"."user_info" VALUES (27, 'we', '$2a$10$NjB37o2ygyiPuYZsLK8ahuZAgf2LRumXCDz6PkM.zbiOfrxFHMQKe', NULL, NULL, NULL, 'user', 'ttt@xff', 'ttt@xff', 0, NULL, NULL, '2021-11-13 20:24:45.557302', NULL, '2021-11-14 00:18:31.22327');
+INSERT INTO "public"."user_info" VALUES (1998, 'jiangwen2', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'admin', NULL, NULL, 'user', '11@ll.com', NULL, 0, NULL, NULL, NULL, NULL, '2021-11-22 02:47:07.458299');
+INSERT INTO "public"."user_info" VALUES (9999, 'mnm', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', NULL, NULL, 'user', '11@ll.com', NULL, 0, NULL, NULL, NULL, NULL, '2021-11-22 02:46:05.91589');
+INSERT INTO "public"."user_info" VALUES (1996, 'jiangwen', '$2a$10$WqNk.lgpKjmT0K.foYSiOOB5UTIleJZcPvFRSAzAlsKwKk2sOVkwW', 'admin', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '999999999', 0, '2011-09-09 00:00:00', 'jw', '2009-09-09 00:00:00', 'jw', '2021-11-22 02:46:10.833687');
+INSERT INTO "public"."user_info" VALUES (1997, 'test', '$2a$10$ylFmtYmQWF.Ef0i17u/YgeY6Dq4I4uh80Y44wtw.XstM3sLA4eHfa', 'normal', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 0, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2021-11-22 02:46:27.643277');
+INSERT INTO "public"."user_info" VALUES (8888, 'showen', '$2a$10$ZfUWV95E1YeCZHFalFXiCuwzZbPzyTE8S.1I74M51crEUvCmSOrue', 'general', 'old_password', 'description', 'user', 'jiangwen9@yahoo.com', '8888888888', 0, '2011-09-09 00:00:00', 'miho', '2009-09-09 00:00:00', 'miho', '2021-11-22 02:46:37.619693');
 COMMIT;
 
 -- ----------------------------
@@ -608,7 +615,7 @@ DROP TABLE IF EXISTS "public"."user_practice_history";
 CREATE TABLE "public"."user_practice_history" (
   "history_id" int8 NOT NULL DEFAULT nextval('user_practice_history_history_id_seq'::regclass),
   "user_id" int8 NOT NULL,
-  "sentence_seq" int8 NOT NULL,
+  "sentence_seq" int8,
   "favourites_flg" bool,
   "mistakes_flg" bool,
   "mistake_count" int8,
@@ -666,36 +673,42 @@ CREATE TABLE "public"."word_table" (
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
   "updater" varchar(20) COLLATE "pg_catalog"."default",
-  "update_time" timestamp(6),
-  "book_id" int8 NOT NULL
+  "update_time" timestamp(6)
 )
 ;
 ALTER TABLE "public"."word_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of word_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."word_table" VALUES (1, 'asc', 'cscs', '0001', NULL, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Alter sequences owned by
 -- ----------------------------
 ALTER SEQUENCE "public"."book_table_book_id_seq"
 OWNED BY "public"."book_table"."book_id";
-SELECT setval('"public"."book_table_book_id_seq"', 16, true);
+SELECT setval('"public"."book_table_book_id_seq"', 21, true);
 ALTER SEQUENCE "public"."code_table_code_id_seq"
 OWNED BY "public"."code_table"."code_id";
 SELECT setval('"public"."code_table_code_id_seq"', 2, false);
 ALTER SEQUENCE "public"."favourites_table_favourites_id_seq"
 OWNED BY "public"."favourites_table"."favourites_id";
 SELECT setval('"public"."favourites_table_favourites_id_seq"', 2, false);
-SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 117, true);
+SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 118, true);
 ALTER SEQUENCE "public"."grammer_table_grammer_id_seq"
 OWNED BY "public"."grammer_table"."grammer_id";
 SELECT setval('"public"."grammer_table_grammer_id_seq"', 2, false);
 ALTER SEQUENCE "public"."lesson_table_lesson_id_seq"
 OWNED BY "public"."lesson_table"."lesson_id";
-SELECT setval('"public"."lesson_table_lesson_id_seq"', 15, true);
+SELECT setval('"public"."lesson_table_lesson_id_seq"', 47, true);
 ALTER SEQUENCE "public"."phrase_table_phrase_id_seq"
 OWNED BY "public"."phrase_table"."phrase_id";
 SELECT setval('"public"."phrase_table_phrase_id_seq"', 2, false);
-SELECT setval('"public"."role_menu_table_role_menu_table_seq"', 508, true);
-SELECT setval('"public"."role_table_role_id_seq"', 93, true);
+SELECT setval('"public"."role_menu_table_role_menu_table_seq"', 534, true);
+SELECT setval('"public"."role_table_role_id_seq"', 106, true);
 ALTER SEQUENCE "public"."sentence_table_line_no_seq"
 OWNED BY "public"."sentence_table"."line_no";
 SELECT setval('"public"."sentence_table_line_no_seq"', 2, false);
@@ -704,11 +717,11 @@ OWNED BY "public"."sentence_table"."sentence_seq";
 SELECT setval('"public"."sentence_table_sentence_seq_seq"', 2, false);
 ALTER SEQUENCE "public"."user_info_user_id_seq"
 OWNED BY "public"."user_info"."user_id";
-SELECT setval('"public"."user_info_user_id_seq"', 41, true);
+SELECT setval('"public"."user_info_user_id_seq"', 64, true);
 ALTER SEQUENCE "public"."user_practice_history_history_id_seq"
 OWNED BY "public"."user_practice_history"."history_id";
 SELECT setval('"public"."user_practice_history_history_id_seq"', 2, false);
-SELECT setval('"public"."user_role_table_user_role_id_seq"', 23, true);
+SELECT setval('"public"."user_role_table_user_role_id_seq"', 31, true);
 ALTER SEQUENCE "public"."word_table_word_id_seq"
 OWNED BY "public"."word_table"."word_id";
 SELECT setval('"public"."word_table_word_id_seq"', 2, false);
@@ -778,11 +791,6 @@ ALTER TABLE "public"."sentence_grammer_table" ADD CONSTRAINT "sentence_grammer_t
 -- Primary Key structure for table sentence_phrase_table
 -- ----------------------------
 ALTER TABLE "public"."sentence_phrase_table" ADD CONSTRAINT "sentence_phrase_table_pkey" PRIMARY KEY ("sentence_phrase_id");
-
--- ----------------------------
--- Uniques structure for table sentence_table
--- ----------------------------
-ALTER TABLE "public"."sentence_table" ADD CONSTRAINT "sentence_information_key" UNIQUE ("book_id", "lesson_id", "line_no", "sentence_type");
 
 -- ----------------------------
 -- Primary Key structure for table sentence_table

@@ -11,7 +11,7 @@ import lombok.EqualsAndHashCode;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-11-21
+ * @since 2021-11-23
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -21,8 +21,6 @@ public class SentenceTable extends BaseEntity {
 
     @TableId(value = "sentence_seq", type = IdType.AUTO)
     private Long sentenceSeq;
-
-    private Long bookId;
 
     private Long lessonId;
 

@@ -145,8 +145,6 @@ public class UserInfoController extends BaseController {
         userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("user_id", ids));
 
         userInfoService.removeByIds(Arrays.asList(ids));
-        userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("user_id", ids));
-
         return ApiRestResponse.success();
     }
 

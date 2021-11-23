@@ -7,12 +7,14 @@ import org.jiangwen.common.resvo.BookInfo;
 import org.jiangwen.entity.BookTable;
 import org.jiangwen.entity.LessonTable;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 /**
@@ -110,4 +112,16 @@ public class LessonTableController extends BaseController {
         return ApiRestResponse.success(lessonTable);
     }
 
+    @Transactional
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('lesson:delete')")
+    public ApiRestResponse delete(@RequestBody Long[] lessonIds) {
+
+        List<Long> sentenceIds = lessonTableService.hasChildSentence(lessonIds);
+
+        sentenceTableService.removeByIds(sentenceIds);
+        lessonTableService.removeByIds(Arrays.asList(lessonIds));
+
+        return ApiRestResponse.success();
+    }
 }

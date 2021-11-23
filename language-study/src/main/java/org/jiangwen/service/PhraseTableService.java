@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * </p>
  *
  * @author name：JiangWen
- * @since 2021-11-21
+ * @since 2021-11-23
  */
 public interface PhraseTableService extends IService<PhraseTable> {
 

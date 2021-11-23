@@ -175,7 +175,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJzaG93ZW4iLCJpYXQiOjE2MzQ0ODUwNzgsImV4cCI6MTYzNTA4OTg3OH0.okiWH44VAmqlYpnvglT4RPM-xvbypbU0UmF3dHk2jqiC1oz8UAMfo-myZq1hJP56-Eag0CZLaX2rpqcbDiDx4Q",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjI1NDU5NSwiZXhwIjoxNjM2ODU5Mzk1fQ.P8t4xWMnIrGlzK8SreFW9_C_Ev61FW38OFPUVib-hpLx6s4PojXRPyXk09yAhJkShdJBdjuZjY3KSoR8TMQX5w",
 						"type": "text"
 					}
 				],
@@ -201,7 +201,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJ0ZXN0IiwiaWF0IjoxNjM0NDk0MTg5LCJleHAiOjE2MzUwOTg5ODl9.R6Yc-HBN8nXSwIv3WOV4US19qXBcs9FnUhyGIG8q35ancQC-NXB-59lvFT37uXIa2mmqSyeMALoHOL4jNUOq1g",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjI1NDU5NSwiZXhwIjoxNjM2ODU5Mzk1fQ.P8t4xWMnIrGlzK8SreFW9_C_Ev61FW38OFPUVib-hpLx6s4PojXRPyXk09yAhJkShdJBdjuZjY3KSoR8TMQX5w",
 						"type": "text"
 					}
 				],
@@ -234,7 +234,7 @@
 				"header": [
 					{
 						"key": "Authorization",
-						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNDQ5NDMyMywiZXhwIjoxNjM1MDk5MTIzfQ.tV07qPrrDBbsq_4FOPJ0LvmO1kocD21DekZwGBXpjpbN5IO0MXHo8PZqhPaQhzNTlhX7TTP5EbZYZcaOw80nhA",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjI1NDU5NSwiZXhwIjoxNjM2ODU5Mzk1fQ.P8t4xWMnIrGlzK8SreFW9_C_Ev61FW38OFPUVib-hpLx6s4PojXRPyXk09yAhJkShdJBdjuZjY3KSoR8TMQX5w",
 						"type": "text"
 					}
 				],
@@ -274,6 +274,199 @@
 					"path": [
 						"menu",
 						"list"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "获取菜单info",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNTcxNTg0OCwiZXhwIjoxNjM2MzIwNjQ4fQ.7UxXEahqw9oZpXpVxODZsLK5lWZn7h79yjN-HyxGiqtJeddPrh7Sa6SodDBi7IEpezTxwiAX8E34-IINlfGXxg",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/menu/info/16",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"info",
+						"16"
+					],
+					"query": [
+						{
+							"key": "menuId",
+							"value": "16",
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "新增菜单",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjI1NDU5NSwiZXhwIjoxNjM2ODU5Mzk1fQ.P8t4xWMnIrGlzK8SreFW9_C_Ev61FW38OFPUVib-hpLx6s4PojXRPyXk09yAhJkShdJBdjuZjY3KSoR8TMQX5w",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"component\": \"jiangwen\",\n    \"icon\": \"bars\",\n    \"menuName\": \"测试\",\n    \"menuType\": 1,\n    \"ordernum\": 11,\n    \"parentId\": 0,\n    \"path\": \"mnm\",\n    \"perms\": \"sys:yyy\",\n    \"statu\": 0\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/menu/save",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"menu",
+						"save"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "限权一览",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNzA4NzQzMiwiZXhwIjoxNjM3NjkyMjMyfQ.RXAmrafP-Y6XJvICEMi9kmpgGgD6BrpS66vFRfhtfoJdwv7QmO8tLo5PW8WAY9_GQ19NY9EPdxEZLali8kWmxA",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/lesson/list/1",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lesson",
+						"list",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "角色更新",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjMyNzgyNCwiZXhwIjoxNjM2OTMyNjI0fQ.zlRoJAb8KvakvgzsScUyKKWrSjdPIVM8UHGskoWouLPxUw6yUjCAY-VFhj8mCbaiSWD3lceR94uLOM2ChYgJlQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"roleId\": 55,\n    \"roleName\": \"bars\",\n    \"statu\": 1,\n    \"symbol\": \"ccccccc\",\n    \"remark\": \"ceshi\"\n\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/role/update",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"role",
+						"update"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:8080/role/info/3",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNjMyNzgyNCwiZXhwIjoxNjM2OTMyNjI0fQ.zlRoJAb8KvakvgzsScUyKKWrSjdPIVM8UHGskoWouLPxUw6yUjCAY-VFhj8mCbaiSWD3lceR94uLOM2ChYgJlQ",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/role/info/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"role",
+						"info",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "删除课程",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNzY0NjAyNSwiZXhwIjoxNjM4MjUwODI1fQ.5LHOZgLs3xfdL48db7O_l3Rjexqm91Br79Oax78nPqwIJ9-BkNRRi_uaXZYGn_hKu7r2uI6IJdlyD1c1udFagQ",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"12\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/lesson/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"lesson",
+						"delete"
 					]
 				}
 			},
