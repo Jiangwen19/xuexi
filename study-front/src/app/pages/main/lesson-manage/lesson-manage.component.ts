@@ -43,7 +43,8 @@ export class LessonManageComponent implements OnInit {
   isVisible = false;
   // 批量删除提交数据
   requestData: number[];
-  constructor(private differs: KeyValueDiffers, private nzMessageService: NzMessageService, private lessonService: LessonService) {
+  constructor(private differs: KeyValueDiffers, private nzMessageService: NzMessageService,
+    private lessonService: LessonService) {
     this.differ = this.differs.find({}).create();
   }
 
@@ -195,7 +196,6 @@ export class LessonManageComponent implements OnInit {
   log(args: any[]): void {
     // console.log(args);
   }
-
   updateCheckedSet(id: number, checked: boolean): void {
     if (checked) {
       this.setOfCheckedId.add(id);

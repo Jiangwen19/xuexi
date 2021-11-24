@@ -8,6 +8,7 @@ import org.jiangwen.entity.FrontMenuTable;
 import org.jiangwen.entity.RoleMenuTable;
 import org.jiangwen.entity.UserInfo;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -57,9 +58,16 @@ public class FrontMenuTableController extends BaseController {
         return ApiRestResponse.success(menus);
     }
 
+    @Transactional
     @PostMapping("/save")
     @PreAuthorize("hasAuthority('sys:menu:save')")
     public ApiRestResponse save(@Validated @RequestBody FrontMenuTable frontMenuTable, Principal principal) {
+
+        int count = frontMenuTableService.count(new QueryWrapper<FrontMenuTable>().eq("perms", frontMenuTable.getPerms()));
+        if (count > 0) {
+            return ApiRestResponse.error("该权限编码已经存在");
+        }
+
         frontMenuTable.setCreater(principal.getName());
         frontMenuTable.setCreateTime(LocalDateTime.now());
         frontMenuTableService.save(frontMenuTable);
@@ -69,6 +77,12 @@ public class FrontMenuTableController extends BaseController {
     @PostMapping("/update")
     @PreAuthorize("hasAuthority('sys:menu:update')")
     public ApiRestResponse update(@Validated @RequestBody FrontMenuTable frontMenuTable, Principal principal) {
+
+        List<FrontMenuTable> menuList = frontMenuTableService.permsNoUnique(frontMenuTable);
+        if (menuList.size() > 0) {
+            return ApiRestResponse.error("该权限编码已经存在");
+        }
+
         frontMenuTable.setUpdater(principal.getName());
         frontMenuTable.setUpdateTime(LocalDateTime.now());
         frontMenuTableService.updateById(frontMenuTable);
@@ -78,6 +92,7 @@ public class FrontMenuTableController extends BaseController {
         return ApiRestResponse.success(frontMenuTable);
     }
 
+    @Transactional
     @PostMapping("/delete/{menuId}")
     @PreAuthorize("hasAuthority('sys:menu:delete')")
     public ApiRestResponse delete(@PathVariable("menuId") Long menuId) {

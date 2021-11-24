@@ -17,7 +17,7 @@ export class MenuAddComponent implements OnInit {
 
   selectedValue = null;
   @Input() mapOfExpandedData: { [key: string]: TreeNodeInterface[] };
-  @Output() updateEmit = new EventEmitter<boolean>();
+  @Output() updateEmit = new EventEmitter<number>();
 
   constructor(private fb: FormBuilder, private menuService: MenuService) {
     this.validateForm = this.fb.group({
@@ -64,8 +64,8 @@ export class MenuAddComponent implements OnInit {
 
   // 添加菜单
   addMenu(menuVo: MenuVo) {
-    this.menuService.addMenu(menuVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.menuService.addMenu(menuVo).subscribe((res) => {
+      this.updateEmit.emit(res.status);
     })
   }
 

@@ -13,6 +13,7 @@ import { IndexComponent } from './pages/main/main-index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
 import { RoleManageComponent } from './pages/main/role-manage/role-manage.component';
+import { SentenceManageComponent } from './pages/main/sentence-manage/sentence-manage.component';
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -39,7 +40,8 @@ const component: any[] = [
   DictsUploadComponent,
   BookManageComponent,
   LessonManageComponent,
-  CodeManageComponent
+  CodeManageComponent,
+  SentenceManageComponent
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

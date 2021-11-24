@@ -39,6 +39,9 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
     @Autowired
     UserInfoMapper userInfoMapper;
 
+    @Autowired
+    FrontMenuTableMapper frontMenuTableMapper;
+
     @Override
     public Map<Object, Object> getCurrentUserNav() {
         String username = (String) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
@@ -112,8 +115,8 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
         // 先各自寻找到各自的子类
         for (FrontMenuTable menu : menus) {
             for (FrontMenuTable e : menus) {
-                if (menu.getFrontMenuId() == e.getParentId()) {
-                    menu.getChildren().add(e);
+                if (menu.getParentId().equals(e.getFrontMenuId())) {
+                    e.getChildren().add(menu);
                 }
             }
 
@@ -138,6 +141,12 @@ public class FrontMenuTableServiceImpl extends ServiceImpl<FrontMenuTableMapper,
         // 转成树状结构
         List<FrontMenuTable> menuList = buildTreeMenu(frontMenus);
         return convertMenu(0, "", menuList);
+    }
+
+    @Override
+    public List<FrontMenuTable> permsNoUnique(FrontMenuTable frontMenuTable) {
+
+        return frontMenuTableMapper.selectMenuExcludeOwn(frontMenuTable.getFrontMenuId(), frontMenuTable.getPerms());
     }
 
     private List<FrontMenu> convertMenu(Integer level, String key, List<FrontMenuTable> menus) {

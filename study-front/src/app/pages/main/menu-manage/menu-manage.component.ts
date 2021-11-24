@@ -116,9 +116,11 @@ export class MenuManageComponent implements OnInit {
    * 接受子组件更新消息
    * @param isUpdate
    */
-  accept() {
-    this.getMenuList();
-    this.handleCancel();
+  accept(acc: number) {
+    if (acc === 200) {
+      this.getMenuList();
+      this.handleCancel();
+    }
   }
 
   /**

@@ -20,4 +20,6 @@ public interface FrontMenuTableService extends IService<FrontMenuTable> {
     Map<Object, Object> getCurrentUserNav();
 
     List<FrontMenu> tree();
+
+    List<FrontMenuTable> permsNoUnique(FrontMenuTable frontMenuTable);
 }

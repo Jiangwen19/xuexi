@@ -94,7 +94,7 @@
               <td>{{ data.lessonNameTranslate }}</td>
               <td>{{ data.description }}</td>
               <td>
-                <a> 详情 </a>
+                <a routerLink="../lesson/sentence" [queryParams]="{lessonId:data.lessonId}"> 详情 </a>
                 <nz-divider nzType="vertical"></nz-divider>
                 <a (click)="showModal(2, data.lessonId)"> 编辑 </a>
                 <nz-divider nzType="vertical"></nz-divider>

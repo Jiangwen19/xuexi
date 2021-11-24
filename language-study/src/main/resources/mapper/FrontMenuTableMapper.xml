@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.FrontMenuTableMapper">
 
+    <select id="selectMenuExcludeOwn" resultType="org.jiangwen.entity.FrontMenuTable">
+        SELECT
+         front_menu_table.*
+        FROM front_menu_table
+
+        WHERE front_menu_table.front_menu_id != #{frontMenuId} AND front_menu_table.perms = #{perms}
+    </select>
 </mapper>

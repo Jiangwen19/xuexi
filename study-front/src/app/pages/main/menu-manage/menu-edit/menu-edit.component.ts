@@ -19,7 +19,7 @@ export class MenuEditComponent implements OnInit {
   selectedValue = null;
   @Input() childMenuId: number;
   @Input() mapOfExpandedData: { [key: string]: TreeNodeInterface[] };
-  @Output() updateEmit = new EventEmitter<boolean>();
+  @Output() updateEmit = new EventEmitter<number>();
 
   constructor(private fb: FormBuilder, private menuService: MenuService) {
     this.validateForm = this.fb.group({
@@ -78,8 +78,8 @@ export class MenuEditComponent implements OnInit {
   }
 
   MenuUpdateById(menuVo: MenuVo) {
-    this.menuService.MenuUpdateById(menuVo).subscribe(() => {
-      this.updateEmit.emit(true);
+    this.menuService.MenuUpdateById(menuVo).subscribe((res) => {
+      this.updateEmit.emit(res.status);
     });
   }
 
