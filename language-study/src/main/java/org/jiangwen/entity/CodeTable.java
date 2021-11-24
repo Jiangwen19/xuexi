@@ -6,9 +6,11 @@ import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author name：JiangWen
@@ -24,6 +26,7 @@ public class CodeTable extends BaseEntity {
     @TableId(value = "code_id", type = IdType.AUTO)
     private Long codeId;
 
+    @NotBlank(message = "Code编码不能为空不能为空")
     private String codeNo;
 
     private String codeItem;

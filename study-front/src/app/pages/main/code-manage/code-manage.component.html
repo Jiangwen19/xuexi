@@ -1,0 +1,134 @@
+<div class="code-manage">
+  <div class="operate">
+    <button nz-button [nzType]="'primary'" (click)="showModal()">
+      <span>添加Code</span>
+    </button>
+  </div>
+  <nz-table
+    #basicTable
+    [nzData]="listOfData"
+    [nzScroll]="{ y: '540px' }"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th nzWidth="15%">CodeNo</th>
+        <th nzWidth="15%">CodeItem</th>
+        <th nzWidth="50%">Description</th>
+        <th nzWidth="20%">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.codeNo }}</td>
+        <td>{{ data.codeItem }}</td>
+        <td>{{ data.description }}</td>
+        <td>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="确认要删除此本书吗?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirm(data.codeId)"
+            (nzOnCancel)="cancel()"
+          >
+            删除
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>
+<nz-modal
+  [nzWidth]="800"
+  [(nzVisible)]="isVisible"
+  [nzContent]="modalContent"
+  nzTitle="The first Modal"
+  (nzOnCancel)="handleCancel()"
+  (nzOnOk)="handleOk()"
+>
+  <ng-template #modalContent>
+    <form nz-form #form="ngForm">
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">CodeNo</nz-form-label>
+        <nz-form-control nzHasFeedback [nzSpan]="12" [nzErrorTip]="codeNoTpl">
+          <input
+            nz-input
+            [(ngModel)]="codeVo.codeNo"
+            name="codeNo"
+            maxlength="4"
+            pattern="^[0-9]*$"
+            required
+          />
+          <ng-template #codeNoTpl let-control>
+            <ng-container *ngIf="control.hasError('maxlength')"
+              >长度不长于4个字符</ng-container
+            >
+            <ng-container *ngIf="control.hasError('pattern')"
+              >请输入4位数字</ng-container
+            >
+            <ng-container *ngIf="control.hasError('required')"
+              >请输入Code编码</ng-container
+            >
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">CodeItem</nz-form-label>
+        <nz-form-control nzHasFeedback [nzSpan]="12" [nzErrorTip]="CodeItemTpl">
+          <input
+            nz-input
+            [(ngModel)]="codeVo.codeItem"
+            name="codeItem"
+            maxlength="10"
+            required
+          />
+          <ng-template #CodeItemTpl let-control>
+            <ng-container *ngIf="control.hasError('maxlength')"
+              >最多输入10个字符</ng-container
+            >
+            <ng-container *ngIf="control.hasError('required')"
+              >请输入Code条目</ng-container
+            >
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <nz-form-item>
+        <nz-form-label [nzSpan]="5">Description</nz-form-label>
+        <nz-form-control nzHasFeedback [nzSpan]="12" [nzErrorTip]="combineTpl">
+          <textarea
+            nz-input
+            [(ngModel)]="codeVo.description"
+            name="description"
+            minlength="5"
+            maxlength="100"
+            required
+          ></textarea>
+          <ng-template #combineTpl let-control>
+            <ng-container *ngIf="control.hasError('maxlength')"
+              >最多输入100字</ng-container
+            >
+            <ng-container *ngIf="control.hasError('minlength')"
+              >请输入至少五个字符的描述</ng-container
+            >
+            <ng-container *ngIf="control.hasError('required')"
+              >请输入基本描述</ng-container
+            >
+          </ng-template>
+        </nz-form-control>
+      </nz-form-item>
+      <div *nzModalFooter>
+        <button nz-button nzType="default" (click)="handleCancel()">
+          取消
+        </button>
+        <button
+          nz-button
+          nzType="primary"
+          [disabled]="form.invalid"
+          (click)="handleOk()"
+        >
+          确认
+        </button>
+      </div>
+    </form>
+  </ng-template>
+</nz-modal>

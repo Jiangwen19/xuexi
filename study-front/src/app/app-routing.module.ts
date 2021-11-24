@@ -6,6 +6,7 @@ import { AuthenticationService } from './common/services/authentication.service'
 import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
 import { BookManageComponent } from './pages/main/book-manage/book-manage.component';
+import { CodeManageComponent } from './pages/main/code-manage/code-manage.component';
 import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
 import { LessonManageComponent } from './pages/main/lesson-manage/lesson-manage.component';
 import { IndexComponent } from './pages/main/main-index/index.component';
@@ -37,7 +38,8 @@ const component: any[] = [
   RoleManageComponent,
   DictsUploadComponent,
   BookManageComponent,
-  LessonManageComponent
+  LessonManageComponent,
+  CodeManageComponent
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

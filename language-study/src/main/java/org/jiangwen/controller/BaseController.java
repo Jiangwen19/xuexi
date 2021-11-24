@@ -40,6 +40,9 @@ public class BaseController {
     @Autowired
     SentenceTableService sentenceTableService;
 
+    @Autowired
+    CodeTableService codeTableService;
+
     /**
      * 获取页码
      *

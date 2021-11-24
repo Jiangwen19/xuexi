@@ -157,8 +157,10 @@ export class MenuManageComponent implements OnInit {
 
   confirm(menuId: number): void {
     this.menuService.deleteMenuById(menuId).subscribe((res) => {
-      this.nzMessageService.info(res.msg);
-      this.getMenuList();
+      if (res.status === 200) {
+        this.nzMessageService.info(res.msg);
+        this.getMenuList();
+      }
     })
   }
 

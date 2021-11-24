@@ -1,11 +1,13 @@
 package org.jiangwen.service;
 
-import org.jiangwen.entity.CodeTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.entity.CodeTable;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author name：JiangWen
@@ -13,4 +15,5 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface CodeTableService extends IService<CodeTable> {
 
+    List<CodeTable> codeNoUnique(CodeTable codeTable);
 }

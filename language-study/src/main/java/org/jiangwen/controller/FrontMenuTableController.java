@@ -88,12 +88,12 @@ public class FrontMenuTableController extends BaseController {
             return ApiRestResponse.error("该菜单存在子菜单");
         }
 
-        // 清除缓存
-        userInfoService.clearUserAuthorityInfoByMenuId(menuId);
-        // 删除菜单
-        frontMenuTableService.removeById(menuId);
         // 同步删除菜单角色中间关联表
         roleMenuTableService.remove(new QueryWrapper<RoleMenuTable>().eq("front_menu_id", menuId));
+        // 删除菜单
+        frontMenuTableService.removeById(menuId);
+        // 清除缓存
+        userInfoService.clearUserAuthorityInfoByMenuId(menuId);
 
         return ApiRestResponse.success(frontMenuTable);
     }

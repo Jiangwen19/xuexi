@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.CodeTableMapper">
 
+    <select id="selectCodeExcludeOwn" resultType="org.jiangwen.entity.CodeTable">
+        SELECT
+         code_table.*
+        FROM code_table
+
+        WHERE code_table.code_id != #{codeId} AND code_table.code_item = #{codeNo}
+    </select>
 </mapper>
