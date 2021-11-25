@@ -471,6 +471,41 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "句子删除",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNzgyOTkzNCwiZXhwIjoxNjM4NDM0NzM0fQ.MW3a2T4WE0ALpShgCI4mKpJ_xC5RydzISR8HNiitERkEanTsZVbsl6CQnBoMDOQ3AyyALafMaL1Twx9Iu3h95A",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "[\"12\"]",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/sentence/delete",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"sentence",
+						"delete"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
