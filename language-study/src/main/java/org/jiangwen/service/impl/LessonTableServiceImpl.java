@@ -68,13 +68,16 @@ public class LessonTableServiceImpl extends ServiceImpl<LessonTableMapper, Lesso
 
             if (sentenceIds.size() != 0) {
                 idsInLessons.addAll(sentenceIds);
-
-                sentencePhraseTableService.remove(new QueryWrapper<SentencePhraseTable>().in("sentence_seq", sentenceIds));
-                sentenceGrammerTableService.remove(new QueryWrapper<SentenceGrammerTable>().in("sentence_seq", sentenceIds));
-                sentenceWordTableService.remove(new QueryWrapper<SentenceWordTable>().in("sentence_seq", sentenceIds));
-                userPracticeHistoryService.remove(new QueryWrapper<UserPracticeHistory>().in("sentence_seq", sentenceIds));
+                deleteMediumTable(sentenceIds);
             }
         }
         return idsInLessons;
+    }
+
+    public void deleteMediumTable(List<Long> sentenceIds) {
+        sentencePhraseTableService.remove(new QueryWrapper<SentencePhraseTable>().in("sentence_seq", sentenceIds));
+        sentenceGrammerTableService.remove(new QueryWrapper<SentenceGrammerTable>().in("sentence_seq", sentenceIds));
+        sentenceWordTableService.remove(new QueryWrapper<SentenceWordTable>().in("sentence_seq", sentenceIds));
+        userPracticeHistoryService.remove(new QueryWrapper<UserPracticeHistory>().in("sentence_seq", sentenceIds));
     }
 }

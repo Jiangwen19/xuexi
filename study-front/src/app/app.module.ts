@@ -38,6 +38,7 @@ import { LessonAddComponent } from './pages/main/lesson-manage/lesson-add/lesson
 import { LessonEditComponent } from './pages/main/lesson-manage/lesson-edit/lesson-edit.component';
 import { CodeManageComponent } from './pages/main/code-manage/code-manage.component';
 import { SentenceManageComponent } from './pages/main/sentence-manage/sentence-manage.component';
+import { SentenceDetailComponent } from './pages/main/sentence-detail/sentence-detail.component';
 
 
 registerLocaleData(zh);
@@ -73,7 +74,8 @@ registerLocaleData(zh);
     LessonAddComponent,
     LessonEditComponent,
     CodeManageComponent,
-    SentenceManageComponent
+    SentenceManageComponent,
+    SentenceDetailComponent
   ],
   imports: [
     BrowserModule,
