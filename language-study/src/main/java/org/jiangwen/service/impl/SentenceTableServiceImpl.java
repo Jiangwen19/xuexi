@@ -2,6 +2,7 @@ package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.common.resvo.SentenceInfoVo;
 import org.jiangwen.entity.SentenceTable;
 import org.jiangwen.mapper.SentenceTableMapper;
 import org.jiangwen.service.SentenceTableService;
@@ -26,6 +27,9 @@ public class SentenceTableServiceImpl extends ServiceImpl<SentenceTableMapper, S
 
     @Autowired
     LessonTableServiceImpl lessonTableServiceImpl;
+
+    @Autowired
+    SentenceTableMapper sentenceTableMapper;
 
     @Override
     public List<SentenceTable> sentenceListMatchCode(Long lessonId, String sentenceType) {
@@ -56,4 +60,11 @@ public class SentenceTableServiceImpl extends ServiceImpl<SentenceTableMapper, S
         List<Long> sentenceList = Arrays.asList(sentenceIds);
         lessonTableServiceImpl.deleteMediumTable(sentenceList);
     }
+
+    @Override
+    public SentenceInfoVo getSentenceDetail(Long sentenceSeq) {
+
+        return sentenceTableMapper.getSentenceInfo(sentenceSeq);
+    }
+
 }

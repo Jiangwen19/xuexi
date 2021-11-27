@@ -4,6 +4,7 @@ package org.jiangwen.controller;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.jiangwen.common.dto.LessonLinkSentenceDto;
 import org.jiangwen.common.lang.ApiRestResponse;
+import org.jiangwen.common.resvo.SentenceInfoVo;
 import org.jiangwen.entity.CodeTable;
 import org.jiangwen.entity.SentenceTable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -13,6 +14,7 @@ import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -75,4 +77,13 @@ public class SentenceTableController extends BaseController {
 
         return ApiRestResponse.success();
     }
+
+    @GetMapping("/detail/{sentenceSeq}")
+    @PreAuthorize("hasAuthority('sentence:list')")
+    public ApiRestResponse SentenceDetail(@PathVariable(name = "sentenceSeq") Long sentenceSeq) {
+
+        SentenceInfoVo sentenceInfoVo = sentenceTableService.getSentenceDetail(sentenceSeq);
+        return ApiRestResponse.success(new ArrayList<>(Arrays.asList(sentenceInfoVo)));
+    }
+
 }

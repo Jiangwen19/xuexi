@@ -1,5 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.SentenceTableMapper">
+    <select id="getSentenceInfo" resultType="org.jiangwen.common.resvo.SentenceInfoVo">
+        WITH SENTENCEINPHRASE AS(
 
+        SELECT *
+        FROM sentence_table st
+        JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        WHERE st.sentence_seq=#{sentenceSeq})
+
+        SELECT lesson_name_orignal,line_no,code_item,sentence_name_orignal,sentence_name_translate
+        FROM SENTENCEINPHRASE
+        JOIN code_table
+        ON SENTENCEINPHRASE.sentence_type=code_table.code_no
+    </select>
 </mapper>

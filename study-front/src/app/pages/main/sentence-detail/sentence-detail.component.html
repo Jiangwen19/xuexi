@@ -1,1 +1,263 @@
-<p>sentence-detail works!</p>
+<div class="sentence-detail">
+  <nz-descriptions nzTitle="句子信息" [nzColumn]="3">
+    <nz-descriptions-item nzTitle="所属课程">{{
+      sentenceDetail[0].lessonNameOrignal
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="句子编号">{{
+      sentenceDetail[0].lineNo
+    }}</nz-descriptions-item>
+    <nz-descriptions-item nzTitle="句子类型">{{
+      sentenceDetail[0].codeItem
+    }}</nz-descriptions-item>
+  </nz-descriptions>
+  <nz-descriptions [nzColumn]="1">
+    <nz-descriptions-item nzTitle="原文">
+      {{ sentenceDetail[0].sentenceNameOrignal }}
+    </nz-descriptions-item>
+    <nz-descriptions-item nzTitle="译文">
+      {{ sentenceDetail[0].sentenceNameTranslate }}
+    </nz-descriptions-item>
+  </nz-descriptions>
+  <h5>关联词语</h5>
+  <button
+    nz-button
+    class="add"
+    nzSize="small"
+    nzType="primary"
+    (click)="addOperate('word')"
+  >
+    添加词语
+  </button>
+  <nz-table
+    #smallTable
+    [nzData]="wordData"
+    nzSize="small"
+    nzPageSize="5"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th nzWidth="5%">Word_Id</th>
+        <th nzWidth="40%">单词</th>
+        <th nzWidth="40%">翻译</th>
+        <th nzWidth="15%">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of smallTable.data">
+        <td>{{ data.wordId }}</td>
+        <td>{{ data.wordNameOrignal }}</td>
+        <td>{{ data.wordNameTranslate }}</td>
+        <td>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="确定要删除此单词吗?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirm(data.wordId, 'wordId')"
+            (nzOnCancel)="cancel()"
+          >
+            删除
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="addWord">
+        <td></td>
+        <td>
+          <input
+            nz-input
+            placeholder="请输入单词"
+            [(ngModel)]="wordVo.wordNameOrignal"
+          />
+        </td>
+        <td>
+          <input
+            nz-input
+            placeholder="译文"
+            [(ngModel)]="wordVo.wordNameTranslate"
+          />
+        </td>
+        <td>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="commit('word')"
+          >
+            确认
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="cancelOperate('word')"
+          >
+            取消
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <h5>关联短语</h5>
+  <button
+    nz-button
+    class="add"
+    nzSize="small"
+    nzType="primary"
+    (click)="addOperate('phrase')"
+  >
+    添加短语
+  </button>
+  <nz-table
+    #smallTable01
+    [nzData]="phraseData"
+    nzSize="small"
+    nzPageSize="5"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th nzWidth="5%">Phrase_Id</th>
+        <th nzWidth="40%">短语</th>
+        <th nzWidth="40%">翻译</th>
+        <th nzWidth="15%">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of smallTable01.data">
+        <td>{{ data.phraseId }}</td>
+        <td>{{ data.phraseNameOrignal }}</td>
+        <td>{{ data.phraseNameTranslate }}</td>
+        <td>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="确定要删除短语吗?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirm(data.phraseId, 'phraseId')"
+            (nzOnCancel)="cancel()"
+          >
+            删除
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="addPrase">
+        <td></td>
+        <td>
+          <input
+            nz-input
+            placeholder="请输入短语"
+            [(ngModel)]="phraseVo.phraseNameOrignal"
+          />
+        </td>
+        <td>
+          <input
+            nz-input
+            placeholder="译文"
+            [(ngModel)]="phraseVo.phraseNameTranslate"
+          />
+        </td>
+        <td>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="commit('phrase')"
+          >
+            确认
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="cancelOperate('phrase')"
+          >
+            取消
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+  <h5>关联文法</h5>
+  <button
+    nz-button
+    class="add"
+    nzSize="small"
+    nzType="primary"
+    (click)="addOperate('grammar')"
+  >
+    添加文法
+  </button>
+  <nz-table
+    #smallTable02
+    [nzData]="grammarData"
+    nzSize="small"
+    nzPageSize="5"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th nzWidth="5%">Grammer_Id</th>
+        <th nzWidth="40%">grammerTitle</th>
+        <th nzWidth="40%">grammer</th>
+        <th nzWidth="15%">操作</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of smallTable02.data">
+        <td>{{ data.grammerId }}</td>
+        <td>{{ data.grammerTitle }}</td>
+        <td>{{ data.grammer }}</td>
+        <td>
+          <a
+            nz-popconfirm
+            nzPopconfirmTitle="确定要删除此条文法吗?"
+            nzPopconfirmPlacement="bottom"
+            (nzOnConfirm)="confirm(data.grammerId, 'grammerId')"
+            (nzOnCancel)="cancel()"
+          >
+            删除
+          </a>
+        </td>
+      </tr>
+      <tr *ngIf="addGrammar">
+        <td></td>
+        <td>
+          <textarea
+            nz-input
+            placeholder="请输入文法标题"
+            [(ngModel)]="grammarVo.grammerTitle"
+            [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+          ></textarea>
+        </td>
+        <td>
+          <textarea
+            nz-input
+            placeholder="请输入文法内容"
+            [(ngModel)]="grammarVo.grammer"
+            [nzAutosize]="{ minRows: 3, maxRows: 5 }"
+          ></textarea>
+        </td>
+        <td>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="commit('grammar')"
+          >
+            确认
+          </button>
+          <nz-divider nzType="vertical"></nz-divider>
+          <button
+            nz-button
+            nzSize="small"
+            nzType="danger"
+            (click)="cancelOperate('grammar')"
+          >
+            取消
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

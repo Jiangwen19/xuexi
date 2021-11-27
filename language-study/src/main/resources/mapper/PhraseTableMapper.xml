@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.PhraseTableMapper">
 
+    <select id="getPhraseBySentenceSeq" resultType="org.jiangwen.entity.PhraseTable">
+        SELECT pt.*
+        FROM sentence_phrase_table spt
+        JOIN phrase_table pt
+        ON spt.phrase_id=pt.phrase_id
+        WHERE spt.sentence_seq=#{sentenceSeq}
+    </select>
 </mapper>

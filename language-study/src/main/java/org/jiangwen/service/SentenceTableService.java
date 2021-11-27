@@ -1,6 +1,7 @@
 package org.jiangwen.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.common.resvo.SentenceInfoVo;
 import org.jiangwen.entity.SentenceTable;
 
 import java.util.List;
@@ -20,4 +21,7 @@ public interface SentenceTableService extends IService<SentenceTable> {
     List<Long> hasItemInDb(Long[] sentenceIds);
 
     void deleteMediumTable(Long[] sentenceIds);
+
+    SentenceInfoVo getSentenceDetail(Long sentenceSeq);
+
 }

@@ -43,6 +43,24 @@ public class BaseController {
     @Autowired
     CodeTableService codeTableService;
 
+    @Autowired
+    WordTableService wordTableService;
+
+    @Autowired
+    PhraseTableService phraseTableService;
+
+    @Autowired
+    GrammerTableService grammerTableService;
+
+    @Autowired
+    SentenceWordTableService sentenceWordTableService;
+
+    @Autowired
+    SentencePhraseTableService sentencePhraseTableService;
+
+    @Autowired
+    SentenceGrammerTableService sentenceGrammerTableService;
+
     /**
      * 获取页码
      *

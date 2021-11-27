@@ -1,11 +1,13 @@
 package org.jiangwen.service;
 
-import org.jiangwen.entity.WordTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.entity.WordTable;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author name：JiangWen
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface WordTableService extends IService<WordTable> {
 
+    List<WordTable> getWordBySentenceSeq(Long sentenceSeq);
+
+    Long addWord(WordTable wordTable, String name);
 }

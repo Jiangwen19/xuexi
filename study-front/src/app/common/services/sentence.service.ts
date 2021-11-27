@@ -39,4 +39,8 @@ export class SentenceService {
   delateSentences(sentenceSeqIds: number[]): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/sentence/delete`, sentenceSeqIds);
   }
+
+  getSentenceDetail(sentenceSeq: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/sentence/detail/${sentenceSeq}`);
+  }
 }

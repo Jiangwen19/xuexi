@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author name：JiangWen
@@ -26,6 +28,7 @@ public class PhraseTable extends BaseEntity {
 
     private String phraseNameTranslate;
 
+    @NotBlank(message = "短语不能为空")
     private String phraseNameOrignal;
 
     private String description;

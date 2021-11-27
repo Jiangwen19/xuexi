@@ -1,11 +1,13 @@
 package org.jiangwen.service;
 
-import org.jiangwen.entity.GrammerTable;
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.entity.GrammerTable;
+
+import java.util.List;
 
 /**
  * <p>
- *  服务类
+ * 服务类
  * </p>
  *
  * @author name：JiangWen
@@ -13,4 +15,7 @@ import com.baomidou.mybatisplus.extension.service.IService;
  */
 public interface GrammerTableService extends IService<GrammerTable> {
 
+    List<GrammerTable> getGrammarBySentenceSeq(Long sentenceSeq);
+
+    Long addGrammar(GrammerTable grammerTable, String name);
 }

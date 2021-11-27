@@ -5,9 +5,11 @@ import com.baomidou.mybatisplus.annotation.TableId;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import javax.validation.constraints.NotBlank;
+
 /**
  * <p>
- * 
+ *
  * </p>
  *
  * @author name：JiangWen
@@ -24,6 +26,7 @@ public class WordTable extends BaseEntity {
 
     private String wordNameTranslate;
 
+    @NotBlank(message = "单词不能为空")
     private String wordNameOrignal;
 
     private String wordType;

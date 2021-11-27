@@ -2,4 +2,11 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.GrammerTableMapper">
 
+    <select id="getGrammarBySentenceSeq" resultType="org.jiangwen.entity.GrammerTable">
+        SELECT gt.*
+        FROM sentence_grammer_table sgt
+        JOIN grammer_table gt
+        ON sgt.grammer_id=gt.grammer_id
+        WHERE sgt.sentence_seq=#{sentenceSeq}
+    </select>
 </mapper>

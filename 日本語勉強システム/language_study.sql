@@ -12,7 +12,7 @@
  Target Server Version : 90616
  File Encoding         : 65001
 
- Date: 26/11/2021 00:28:24
+ Date: 27/11/2021 18:09:30
 */
 
 
@@ -116,10 +116,43 @@ START 1
 CACHE 1;
 
 -- ----------------------------
+-- Sequence structure for sentence_grammer_table_sentence_grammer_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."sentence_grammer_table_sentence_grammer_id_seq";
+CREATE SEQUENCE "public"."sentence_grammer_table_sentence_grammer_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for sentence_phrase_table_sentence_phrase_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."sentence_phrase_table_sentence_phrase_id_seq";
+CREATE SEQUENCE "public"."sentence_phrase_table_sentence_phrase_id_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
 -- Sequence structure for sentence_table_sentence_seq_seq
 -- ----------------------------
 DROP SEQUENCE IF EXISTS "public"."sentence_table_sentence_seq_seq";
 CREATE SEQUENCE "public"."sentence_table_sentence_seq_seq" 
+INCREMENT 1
+MINVALUE  1
+MAXVALUE 9223372036854775807
+START 1
+CACHE 1;
+
+-- ----------------------------
+-- Sequence structure for sentence_word_table_sentence_word_id_seq
+-- ----------------------------
+DROP SEQUENCE IF EXISTS "public"."sentence_word_table_sentence_word_id_seq";
+CREATE SEQUENCE "public"."sentence_word_table_sentence_word_id_seq" 
 INCREMENT 1
 MINVALUE  1
 MAXVALUE 9223372036854775807
@@ -313,28 +346,25 @@ INSERT INTO "public"."front_menu_table" VALUES (112, 20, '更新书本', '', 'bo
 INSERT INTO "public"."front_menu_table" VALUES (106, 19, '课文一览', 'lesson', 'lesson:list', 'LessonManageComponent', 1, 'file-done', 3, 0, 'jiangwen', '2021-11-17 04:37:22.893926', 'jiangwen', '2021-11-24 10:03:06.065252');
 INSERT INTO "public"."front_menu_table" VALUES (149, 129, '删除文法', NULL, 'grammar:delete', NULL, 2, NULL, 10, 0, 'jiangwen', '2021-11-24 16:55:13.202059', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (154, 106, '句子详情', 'lesson/sentence/word', 'sentence:detail', 'SentenceDetailComponent', 2, NULL, 8, 0, 'jiangwen', '2021-11-25 20:12:12.71078', NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (155, 106, '新增词语', NULL, 'word:addInSentence', NULL, 2, NULL, 18, 0, 'jiangwen', '2021-11-25 20:19:28.8443', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (6, 5, '打印图书', 'dicts', 'sys:dict:list', 'DictsUploadComponent', 1, 'container', 1, 0, NULL, NULL, 'jiangwen', '2021-11-24 16:55:49.753261');
 INSERT INTO "public"."front_menu_table" VALUES (2, 1, '用户管理', 'users-manage', 'sys:user:list', 'UserManageComponent', 1, 'team', 1, 0, NULL, '2020-02-02 00:00:00', 'jiangwen', '2021-11-24 10:05:24.048648');
 INSERT INTO "public"."front_menu_table" VALUES (119, 2, '添加用户', NULL, 'sys:user:save', NULL, 2, NULL, 1, 0, 'jiangwen', '2021-11-24 02:45:16.757981', 'jiangwen', '2021-11-24 02:46:46.43058');
-INSERT INTO "public"."front_menu_table" VALUES (156, 106, '删除词语', NULL, 'word:deleteInSentence', NULL, 2, NULL, 19, 0, 'jiangwen', '2021-11-25 20:20:20.917269', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (141, 19, '用户管理', 'consumer', 'consumer:list', 'ConsumerComponent', 1, 'user', 1, 0, 'jiangwen', '2021-11-24 16:43:03.184654', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (143, 141, '收藏夹', 'favorites', 'favorites', 'FavoritesComponent', 2, NULL, 1, 0, 'jiangwen', '2021-11-24 16:45:58.730703', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (144, 141, '错题本', 'mistaken', 'mistaken:list', 'MistakenComponent', 2, NULL, 2, 0, 'jiangwen', '2021-11-24 16:48:01.713009', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (128, 19, '短语管理', 'phrase', 'phrase:list', 'PhraseMnageComponent', 1, 'edit', 5, 0, 'jiangwen', '2021-11-24 09:56:07.128292', 'jiangwen', '2021-11-24 17:46:09.797375');
 INSERT INTO "public"."front_menu_table" VALUES (145, 127, '删除单词', NULL, 'word:delete', NULL, 2, NULL, 11, 0, 'jiangwen', '2021-11-24 16:50:32.138441', NULL, NULL);
+INSERT INTO "public"."front_menu_table" VALUES (161, 127, '添加单词', NULL, 'word:add', NULL, 2, NULL, 8, 0, 'jiangwen', '2021-11-26 22:30:27.18031', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (139, 127, '更新单词', NULL, 'word:update', NULL, 2, NULL, 9, 0, 'jiangwen', '2021-11-24 11:13:24.612517', 'jiangwen', '2021-11-24 16:51:29.809532');
 INSERT INTO "public"."front_menu_table" VALUES (146, 128, '修改短语', NULL, 'phrase:update', NULL, 2, NULL, 2, 0, 'jiangwen', '2021-11-24 16:52:30.427361', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (147, 128, '删除短语', NULL, 'phrase:delete', NULL, 2, NULL, 3, 0, 'jiangwen', '2021-11-24 16:53:33.711117', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (129, 19, '文法管理', 'grammar', 'grammar:list', 'GrammarManageComponent', 1, 'api', 6, 0, 'jiangwen', '2021-11-24 09:58:59.197548', 'jiangwen', '2021-11-24 17:46:25.724313');
 INSERT INTO "public"."front_menu_table" VALUES (118, 19, 'Code', 'code', 'code:list', 'CodeManageComponent', 1, 'code', 7, 0, 'jiangwen', '2021-11-24 02:23:10.205665', 'jiangwen', '2021-11-24 17:46:47.018741');
-INSERT INTO "public"."front_menu_table" VALUES (157, 106, '新增短语', NULL, 'phrase:addInSentence', NULL, 2, NULL, 20, 0, 'jiangwen', '2021-11-25 20:21:35.742918', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (123, 106, '句子一览', 'lesson/sentence', 'sentence:list', 'SentenceManageComponent', 2, NULL, 7, 0, 'jiangwen', '2021-11-24 09:29:35.528731', 'jiangwen', '2021-11-24 17:59:28.925762');
-INSERT INTO "public"."front_menu_table" VALUES (158, 106, '删除短语', NULL, 'phrase:deleteInSentence', NULL, 2, NULL, 21, 0, 'jiangwen', '2021-11-25 20:22:13.499051', NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (159, 106, '新增文法', NULL, 'grammar:addInSentence', NULL, 2, NULL, 22, 0, 'jiangwen', '2021-11-25 20:23:35.549256', NULL, NULL);
-INSERT INTO "public"."front_menu_table" VALUES (160, 106, '删除文法', NULL, 'grammar:deleteInSentence', NULL, 2, NULL, 23, 0, 'jiangwen', '2021-11-25 20:24:26.785888', NULL, NULL);
 INSERT INTO "public"."front_menu_table" VALUES (153, 106, '获取Code', NULL, 'sentence:codelist', NULL, 2, NULL, 24, 0, 'jiangwen', '2021-11-25 18:47:36.542634', 'jiangwen', '2021-11-25 20:24:58.816683');
 INSERT INTO "public"."front_menu_table" VALUES (114, 106, '添加课文', '', 'lesson:save', '', 2, '', 4, 0, 'jiangwen', '2021-11-20 07:16:32.935788', 'jiangwen', '2021-11-25 20:25:22.103043');
+INSERT INTO "public"."front_menu_table" VALUES (162, 128, '添加短语', NULL, 'phrase:add', NULL, 2, NULL, 1, 0, 'jiangwen', '2021-11-26 22:30:56.211074', 'jiangwen', '2021-11-26 22:31:29.587911');
+INSERT INTO "public"."front_menu_table" VALUES (163, 129, '添加文法', NULL, 'grammar:add', NULL, 2, NULL, 8, 0, 'jiangwen', '2021-11-26 22:32:10.551015', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -343,8 +373,8 @@ COMMIT;
 DROP TABLE IF EXISTS "public"."grammer_table";
 CREATE TABLE "public"."grammer_table" (
   "grammer_id" int8 NOT NULL DEFAULT nextval('grammer_table_grammer_id_seq'::regclass),
-  "grammer_title" text COLLATE "pg_catalog"."default",
-  "grammer" text COLLATE "pg_catalog"."default",
+  "grammer_title" text COLLATE "pg_catalog"."default" NOT NULL,
+  "grammer" text COLLATE "pg_catalog"."default" NOT NULL,
   "description" text COLLATE "pg_catalog"."default",
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -353,6 +383,15 @@ CREATE TABLE "public"."grammer_table" (
 )
 ;
 ALTER TABLE "public"."grammer_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of grammer_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."grammer_table" VALUES (1, '...は...です', '什么是什么', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."grammer_table" VALUES (3, 'xscfc', 'cscg', NULL, 'jiangwen', '2021-11-27 16:40:51.724175', NULL, NULL);
+INSERT INTO "public"."grammer_table" VALUES (4, '成功撒个', '纯手工', NULL, 'jiangwen', '2021-11-27 18:07:15.788482', NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for lesson_table
@@ -395,7 +434,7 @@ CREATE TABLE "public"."phrase_table" (
   "phrase_id" int8 NOT NULL DEFAULT nextval('phrase_table_phrase_id_seq'::regclass),
   "phrase_type" varchar(4) COLLATE "pg_catalog"."default",
   "phrase_name_translate" text COLLATE "pg_catalog"."default",
-  "phrase_name_orignal" text COLLATE "pg_catalog"."default",
+  "phrase_name_orignal" text COLLATE "pg_catalog"."default" NOT NULL,
   "description" text COLLATE "pg_catalog"."default",
   "creater" varchar(20) COLLATE "pg_catalog"."default",
   "create_time" timestamp(6),
@@ -404,6 +443,19 @@ CREATE TABLE "public"."phrase_table" (
 )
 ;
 ALTER TABLE "public"."phrase_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of phrase_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."phrase_table" VALUES (1, '0001', '去', 'go to ', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (3, NULL, 'cvsgh', 'gcds', NULL, 'jiangwen', '2021-11-27 16:37:14.63594', NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (4, NULL, '从不思悔改v', '从v是v吃', NULL, 'jiangwen', '2021-11-27 17:49:15.641281', NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (5, NULL, 'csvhgv', 'sghfcgfsh', NULL, 'jiangwen', '2021-11-27 17:53:26.470026', NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (6, NULL, 'pppppp', 'ppppp', NULL, 'jiangwen', '2021-11-27 17:53:45.543736', NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (7, NULL, '从不说假话', '成都市更好', NULL, 'jiangwen', '2021-11-27 18:07:03.801085', NULL, NULL);
+INSERT INTO "public"."phrase_table" VALUES (8, NULL, '纯手工', '纯手工', NULL, 'jiangwen', '2021-11-27 18:07:31.53839', NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for role_menu_table
@@ -425,132 +477,123 @@ ALTER TABLE "public"."role_menu_table" OWNER TO "postgres";
 -- Records of role_menu_table
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."role_menu_table" VALUES (1600, 6, 1, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1601, 6, 2, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1602, 6, 119, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1603, 6, 8, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1604, 6, 9, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1605, 6, 10, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1606, 6, 11, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1607, 6, 3, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1608, 6, 12, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1609, 6, 13, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1610, 6, 14, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1611, 6, 15, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1612, 6, 4, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1613, 6, 16, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1614, 6, 17, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1615, 6, 18, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1616, 6, 19, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1617, 6, 141, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1618, 6, 143, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1619, 6, 144, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1620, 6, 20, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1621, 6, 111, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1622, 6, 112, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1623, 6, 113, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1624, 6, 106, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1625, 6, 114, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1626, 6, 115, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1627, 6, 116, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1628, 6, 123, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1629, 6, 154, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1630, 6, 124, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1631, 6, 125, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1632, 6, 126, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1633, 6, 155, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1634, 6, 156, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1635, 6, 157, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1636, 6, 158, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1637, 6, 159, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1638, 6, 160, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1639, 6, 153, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1640, 6, 127, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1641, 6, 139, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1642, 6, 145, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1643, 6, 128, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1644, 6, 146, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1645, 6, 147, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1646, 6, 129, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1647, 6, 148, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1648, 6, 149, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1649, 6, 118, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1650, 6, 120, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1651, 6, 121, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1652, 6, 122, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1653, 6, 5, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1654, 6, 6, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1687, 9, 19, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1688, 9, 141, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1689, 9, 143, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1690, 9, 144, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1691, 9, 20, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1692, 9, 111, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1693, 9, 112, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1694, 9, 113, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1695, 9, 106, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1696, 9, 114, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1697, 9, 115, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1698, 9, 116, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1699, 9, 123, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1700, 9, 154, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1701, 9, 124, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1702, 9, 125, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1703, 9, 126, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1704, 9, 155, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1705, 9, 156, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1706, 9, 157, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1707, 9, 158, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1708, 9, 159, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1709, 9, 160, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1710, 9, 153, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1711, 9, 127, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1712, 9, 139, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1713, 9, 145, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1714, 9, 128, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1715, 9, 146, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1716, 9, 147, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1717, 9, 129, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1718, 9, 148, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1719, 9, 149, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1720, 9, 118, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1721, 9, 120, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1722, 9, 121, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1723, 9, 122, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1724, 9, 5, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1725, 9, 6, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1655, 3, 19, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1656, 3, 20, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1657, 3, 111, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1658, 3, 112, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1659, 3, 113, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1660, 3, 106, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1661, 3, 114, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1662, 3, 115, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1663, 3, 116, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1664, 3, 123, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1665, 3, 154, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1666, 3, 124, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1667, 3, 125, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1668, 3, 126, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1669, 3, 155, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1670, 3, 156, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1671, 3, 157, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1672, 3, 158, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1673, 3, 159, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1674, 3, 160, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1675, 3, 153, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1676, 3, 127, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1677, 3, 139, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1678, 3, 145, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1679, 3, 128, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1680, 3, 146, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1681, 3, 147, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1682, 3, 129, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1683, 3, 148, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1684, 3, 149, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1685, 3, 5, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."role_menu_table" VALUES (1686, 3, 6, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1807, 9, 19, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1808, 9, 141, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1809, 9, 143, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1810, 9, 144, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1811, 9, 20, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1812, 9, 111, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1813, 9, 112, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1814, 9, 113, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1815, 9, 106, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1816, 9, 114, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1817, 9, 115, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1818, 9, 116, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1819, 9, 123, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1820, 9, 154, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1821, 9, 124, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1822, 9, 125, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1823, 9, 126, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1824, 9, 153, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1825, 9, 127, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1826, 9, 161, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1827, 9, 139, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1828, 9, 145, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1829, 9, 128, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1830, 9, 162, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1831, 9, 146, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1832, 9, 147, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1833, 9, 129, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1834, 9, 163, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1835, 9, 148, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1836, 9, 149, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1837, 9, 118, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1838, 9, 120, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1839, 9, 121, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1840, 9, 122, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1841, 9, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1842, 9, 6, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1872, 6, 1, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1873, 6, 2, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1874, 6, 119, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1875, 6, 8, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1876, 6, 9, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1877, 6, 10, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1878, 6, 11, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1879, 6, 3, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1880, 6, 12, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1881, 6, 13, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1882, 6, 14, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1883, 6, 15, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1884, 6, 4, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1885, 6, 16, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1886, 6, 17, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1887, 6, 18, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1888, 6, 19, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1889, 6, 141, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1890, 6, 143, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1891, 6, 144, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1892, 6, 20, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1893, 6, 111, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1894, 6, 112, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1895, 6, 113, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1896, 6, 106, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1897, 6, 114, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1898, 6, 115, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1899, 6, 116, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1900, 6, 123, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1901, 6, 154, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1902, 6, 124, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1903, 6, 125, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1904, 6, 126, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1905, 6, 153, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1906, 6, 127, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1907, 6, 161, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1908, 6, 139, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1909, 6, 145, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1910, 6, 128, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1911, 6, 162, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1912, 6, 146, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1913, 6, 147, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1914, 6, 129, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1915, 6, 163, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1916, 6, 148, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1917, 6, 149, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1918, 6, 118, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1919, 6, 120, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1920, 6, 121, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1921, 6, 122, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1922, 6, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1923, 6, 6, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1924, 3, 19, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1925, 3, 20, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1926, 3, 111, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1927, 3, 112, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1928, 3, 113, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1929, 3, 106, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1930, 3, 114, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1931, 3, 115, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1932, 3, 116, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1933, 3, 123, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1934, 3, 154, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1935, 3, 124, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1936, 3, 125, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1937, 3, 126, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1938, 3, 153, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1939, 3, 127, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1940, 3, 161, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1941, 3, 139, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1942, 3, 145, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1943, 3, 128, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1944, 3, 162, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1945, 3, 146, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1946, 3, 147, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1947, 3, 129, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1948, 3, 163, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1949, 3, 148, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1950, 3, 149, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1951, 3, 5, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."role_menu_table" VALUES (1952, 3, 6, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -585,7 +628,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_grammer_table";
 CREATE TABLE "public"."sentence_grammer_table" (
-  "sentence_grammer_id" int8 NOT NULL,
+  "sentence_grammer_id" int8 NOT NULL DEFAULT nextval('sentence_grammer_table_sentence_grammer_id_seq'::regclass),
   "grammer_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -597,11 +640,18 @@ CREATE TABLE "public"."sentence_grammer_table" (
 ALTER TABLE "public"."sentence_grammer_table" OWNER TO "postgres";
 
 -- ----------------------------
+-- Records of sentence_grammer_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."sentence_grammer_table" VALUES (1, 1, 10, NULL, NULL, NULL, NULL);
+COMMIT;
+
+-- ----------------------------
 -- Table structure for sentence_phrase_table
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_phrase_table";
 CREATE TABLE "public"."sentence_phrase_table" (
-  "sentence_phrase_id" int8 NOT NULL,
+  "sentence_phrase_id" int8 NOT NULL DEFAULT nextval('sentence_phrase_table_sentence_phrase_id_seq'::regclass),
   "phrase_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -611,6 +661,13 @@ CREATE TABLE "public"."sentence_phrase_table" (
 )
 ;
 ALTER TABLE "public"."sentence_phrase_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of sentence_phrase_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."sentence_phrase_table" VALUES (1, 1, 10, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for sentence_table
@@ -646,10 +703,7 @@ INSERT INTO "public"."sentence_table" VALUES (7, 7, 1, '0003', NULL, '课程id�
 INSERT INTO "public"."sentence_table" VALUES (8, 7, 2, '0003', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."sentence_table" VALUES (9, 7, 3, '0003', NULL, '课程id为7', NULL, NULL, NULL, NULL, NULL);
 INSERT INTO "public"."sentence_table" VALUES (11, 11, 2, '0002', NULL, '课程id为11', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."sentence_table" VALUES (10, 11, 1, '0001', NULL, '课程id为11句子id为10', NULL, NULL, NULL, NULL, NULL);
-INSERT INTO "public"."sentence_table" VALUES (13, 11, 2, '0002', '测试v更多成功哈', '彻底改善v吃该喝水', NULL, 'jiangwen', '2021-11-25 21:08:28.975614', NULL, NULL);
-INSERT INTO "public"."sentence_table" VALUES (14, 11, 3, '0002', '从v是工厂打工', '测试v工厂打工', NULL, 'jiangwen', '2021-11-25 21:08:40.561555', NULL, NULL);
-INSERT INTO "public"."sentence_table" VALUES (15, 11, 3, '0001', '测试v冰红茶v是', '彻底放松股份公司', NULL, 'jiangwen', '2021-11-26 00:21:50.28258', NULL, NULL);
+INSERT INTO "public"."sentence_table" VALUES (10, 11, 1, '0001', NULL, '课程id为11句子id为10测试', NULL, NULL, NULL, NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -657,7 +711,7 @@ COMMIT;
 -- ----------------------------
 DROP TABLE IF EXISTS "public"."sentence_word_table";
 CREATE TABLE "public"."sentence_word_table" (
-  "sentence_word_id" int8 NOT NULL,
+  "sentence_word_id" int8 NOT NULL DEFAULT nextval('sentence_word_table_sentence_word_id_seq'::regclass),
   "word_id" int8 NOT NULL,
   "sentence_seq" int8 NOT NULL,
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -667,6 +721,15 @@ CREATE TABLE "public"."sentence_word_table" (
 )
 ;
 ALTER TABLE "public"."sentence_word_table" OWNER TO "postgres";
+
+-- ----------------------------
+-- Records of sentence_word_table
+-- ----------------------------
+BEGIN;
+INSERT INTO "public"."sentence_word_table" VALUES (1, 1, 10, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_word_table" VALUES (2, 2, 10, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."sentence_word_table" VALUES (3, 3, 1, NULL, NULL, NULL, NULL);
+COMMIT;
 
 -- ----------------------------
 -- Table structure for user_info
@@ -762,7 +825,7 @@ DROP TABLE IF EXISTS "public"."word_table";
 CREATE TABLE "public"."word_table" (
   "word_id" int8 NOT NULL DEFAULT nextval('word_table_word_id_seq'::regclass),
   "word_name_translate" text COLLATE "pg_catalog"."default",
-  "word_name_orignal" text COLLATE "pg_catalog"."default",
+  "word_name_orignal" text COLLATE "pg_catalog"."default" NOT NULL,
   "word_type" xml,
   "description" text COLLATE "pg_catalog"."default",
   "creater" varchar(20) COLLATE "pg_catalog"."default",
@@ -777,7 +840,26 @@ ALTER TABLE "public"."word_table" OWNER TO "postgres";
 -- Records of word_table
 -- ----------------------------
 BEGIN;
-INSERT INTO "public"."word_table" VALUES (1, 'asc', 'cscs', '0001', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (1, 'world', '世界', '0001', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (2, 'hello', '你好', '0002', NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (3, 'other', '其他', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (6, '你', 'you', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (7, '你', 'you', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (8, '你', 'you', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (9, '你', 'you', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (10, '你', 'you', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (11, '滚滚滚', '有意义', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (12, '111', '事实上', NULL, NULL, NULL, NULL, NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (13, '999', '111', NULL, NULL, 'jiangwen', '2021-11-27 15:46:14.418367', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (14, 'csghvchs', 'cdhsv', NULL, NULL, 'jiangwen', '2021-11-27 16:41:07.367048', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (15, 'cvshbvc', 'cvshg', NULL, NULL, 'jiangwen', '2021-11-27 16:41:13.961667', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (16, 'cvhsvh', 'cvsvgh', NULL, NULL, 'jiangwen', '2021-11-27 16:41:27.19041', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (17, 'cvsghvc', 'vcgfcsy', NULL, NULL, 'jiangwen', '2021-11-27 16:41:42.262465', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (18, 'cvhsgvch', 'cvhsvghc', NULL, NULL, 'jiangwen', '2021-11-27 16:41:49.806655', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (19, 'cvhsgvc', 'csgc', NULL, NULL, 'jiangwen', '2021-11-27 16:41:55.84637', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (20, 'cvshgcvgsh', 'csgcgs', NULL, NULL, 'jiangwen', '2021-11-27 16:42:03.696089', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (21, 'cvgshv', 'cvgsgc', NULL, NULL, 'jiangwen', '2021-11-27 16:42:13.527923', NULL, NULL);
+INSERT INTO "public"."word_table" VALUES (22, 'cbshvchgs', 'cgscvgy', NULL, NULL, 'jiangwen', '2021-11-27 16:42:26.359114', NULL, NULL);
 COMMIT;
 
 -- ----------------------------
@@ -792,21 +874,24 @@ SELECT setval('"public"."code_table_code_id_seq"', 16, true);
 ALTER SEQUENCE "public"."favourites_table_favourites_id_seq"
 OWNED BY "public"."favourites_table"."favourites_id";
 SELECT setval('"public"."favourites_table_favourites_id_seq"', 2, false);
-SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 161, true);
+SELECT setval('"public"."front_menu_table_front_menu_id_seq"', 164, true);
 ALTER SEQUENCE "public"."grammer_table_grammer_id_seq"
 OWNED BY "public"."grammer_table"."grammer_id";
-SELECT setval('"public"."grammer_table_grammer_id_seq"', 2, false);
+SELECT setval('"public"."grammer_table_grammer_id_seq"', 5, true);
 ALTER SEQUENCE "public"."lesson_table_lesson_id_seq"
 OWNED BY "public"."lesson_table"."lesson_id";
 SELECT setval('"public"."lesson_table_lesson_id_seq"', 47, true);
 ALTER SEQUENCE "public"."phrase_table_phrase_id_seq"
 OWNED BY "public"."phrase_table"."phrase_id";
-SELECT setval('"public"."phrase_table_phrase_id_seq"', 2, false);
-SELECT setval('"public"."role_menu_table_role_menu_table_seq"', 1726, true);
+SELECT setval('"public"."phrase_table_phrase_id_seq"', 9, true);
+SELECT setval('"public"."role_menu_table_role_menu_table_seq"', 1953, true);
 SELECT setval('"public"."role_table_role_id_seq"', 106, true);
+SELECT setval('"public"."sentence_grammer_table_sentence_grammer_id_seq"', 5, true);
+SELECT setval('"public"."sentence_phrase_table_sentence_phrase_id_seq"', 9, true);
 ALTER SEQUENCE "public"."sentence_table_sentence_seq_seq"
 OWNED BY "public"."sentence_table"."sentence_seq";
 SELECT setval('"public"."sentence_table_sentence_seq_seq"', 19, true);
+SELECT setval('"public"."sentence_word_table_sentence_word_id_seq"', 16, true);
 ALTER SEQUENCE "public"."user_info_user_id_seq"
 OWNED BY "public"."user_info"."user_id";
 SELECT setval('"public"."user_info_user_id_seq"', 66, true);
@@ -816,7 +901,7 @@ SELECT setval('"public"."user_practice_history_history_id_seq"', 2, false);
 SELECT setval('"public"."user_role_table_user_role_id_seq"', 31, true);
 ALTER SEQUENCE "public"."word_table_word_id_seq"
 OWNED BY "public"."word_table"."word_id";
-SELECT setval('"public"."word_table_word_id_seq"', 2, false);
+SELECT setval('"public"."word_table_word_id_seq"', 23, true);
 
 -- ----------------------------
 -- Uniques structure for table book_table
