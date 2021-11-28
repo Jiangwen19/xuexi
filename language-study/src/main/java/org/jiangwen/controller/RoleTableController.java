@@ -114,7 +114,7 @@ public class RoleTableController extends BaseController {
     @Transactional
     @PostMapping("/delete")
     @PreAuthorize("hasAuthority('sys:role:delete')")
-    public ApiRestResponse info(@RequestBody Long[] ids) {
+    public ApiRestResponse deleteByIds(@RequestBody Long[] ids) {
 
         // 删除中间表
         userRoleTableService.remove(new QueryWrapper<UserRoleTable>().in("role_id", ids));
@@ -134,7 +134,7 @@ public class RoleTableController extends BaseController {
     @Transactional
     @PostMapping("/perm/{roleId}")
     @PreAuthorize("hasAuthority('sys:role:perm')")
-    public ApiRestResponse info(@PathVariable("roleId") Long roleId, @RequestBody Long[] menuIds) {
+    public ApiRestResponse permDelete(@PathVariable("roleId") Long roleId, @RequestBody Long[] menuIds) {
 
         List<RoleMenuTable> roleMenus = new ArrayList<>();
 

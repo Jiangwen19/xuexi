@@ -1,6 +1,7 @@
 package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.common.resvo.WordInfo;
 import org.jiangwen.entity.WordTable;
 import org.jiangwen.mapper.WordTableMapper;
 import org.jiangwen.service.WordTableService;
@@ -38,5 +39,23 @@ public class WordTableServiceImpl extends ServiceImpl<WordTableMapper, WordTable
         wordTableMapper.insert(wordTable);
         return wordTable.getWordId();
     }
-    
+
+    @Override
+    public List<WordInfo> getAllWordInfo() {
+
+        return wordTableMapper.getAllWordInfo();
+    }
+
+    @Override
+    public List<WordInfo> searchBytwo(Integer bookNumber, String lessonNameOrignal) {
+
+        return wordTableMapper.searchBytwo(bookNumber, lessonNameOrignal);
+    }
+
+    @Override
+    public List<WordInfo> searchByBookNum(Integer bookNumber) {
+
+        return wordTableMapper.searchByBookNum(bookNumber);
+    }
+
 }

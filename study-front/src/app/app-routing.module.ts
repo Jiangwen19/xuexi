@@ -7,15 +7,20 @@ import { PostmanService } from './common/services/postman.service';
 import { LoginComponent } from './pages/login/login.component';
 import { BookManageComponent } from './pages/main/book-manage/book-manage.component';
 import { CodeManageComponent } from './pages/main/code-manage/code-manage.component';
+import { ConsumerManageComponent } from './pages/main/consumer-manage/consumer-manage.component';
 import { DictsUploadComponent } from './pages/main/dicts-upload/dicts-upload.component';
+import { GrammarManageComponent } from './pages/main/grammar-manage/grammar-manage.component';
+import { HistoryManageComponent } from './pages/main/history-manage/history-manage.component';
 import { LessonManageComponent } from './pages/main/lesson-manage/lesson-manage.component';
 import { IndexComponent } from './pages/main/main-index/index.component';
 import { MainComponent } from './pages/main/main.component';
 import { MenuManageComponent } from './pages/main/menu-manage/menu-manage.component';
+import { PhraseManageComponent } from './pages/main/phrase-manage/phrase-manage.component';
 import { RoleManageComponent } from './pages/main/role-manage/role-manage.component';
 import { SentenceDetailComponent } from './pages/main/sentence-detail/sentence-detail.component';
 import { SentenceManageComponent } from './pages/main/sentence-manage/sentence-manage.component';
 import { UserManageComponent } from './pages/main/user-manage/user-manage.component';
+import { WordManageComponent } from './pages/main/word-manage/word-manage.component';
 import { PageNotFoundComponent } from './pages/page-not-found/page-not-found.component';
 import { RegisterComponent } from './pages/register/register.component';
 
@@ -43,7 +48,12 @@ const component: any[] = [
   LessonManageComponent,
   CodeManageComponent,
   SentenceManageComponent,
-  SentenceDetailComponent
+  SentenceDetailComponent,
+  WordManageComponent,
+  PhraseManageComponent,
+  GrammarManageComponent,
+  ConsumerManageComponent,
+  HistoryManageComponent
 ];
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

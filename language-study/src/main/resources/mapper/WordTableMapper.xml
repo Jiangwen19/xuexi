@@ -8,4 +8,42 @@
         ON swt.word_id=wt.word_id
         WHERE swt.sentence_seq=#{sentenceSeq}
     </select>
+    <select id="getAllWordInfo" resultType="org.jiangwen.common.resvo.WordInfo">
+        SELECT wt.word_id,wt.word_name_orignal,wt.word_name_translate,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM word_table wt
+        LEFT JOIN sentence_word_table swt
+        ON wt.word_id=swt.word_id
+        LEFT JOIN sentence_table st
+        ON swt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+    </select>
+    <select id="searchBytwo" resultType="org.jiangwen.common.resvo.WordInfo">
+        SELECT wt.word_id,wt.word_name_orignal,wt.word_name_translate,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM word_table wt
+        LEFT JOIN sentence_word_table swt
+        ON wt.word_id=swt.word_id
+        LEFT JOIN sentence_table st
+        ON swt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE bt.book_number=#{bookNumber} AND lt.lesson_name_orignal=#{lessonNameOrignal}
+    </select>
+    <select id="searchByBookNum" resultType="org.jiangwen.common.resvo.WordInfo">
+        SELECT wt.word_id,wt.word_name_orignal,wt.word_name_translate,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM word_table wt
+        LEFT JOIN sentence_word_table swt
+        ON wt.word_id=swt.word_id
+        LEFT JOIN sentence_table st
+        ON swt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE bt.book_number=#{bookNumber}
+    </select>
 </mapper>

@@ -1,6 +1,7 @@
 package org.jiangwen.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
+import org.jiangwen.common.resvo.WordInfo;
 import org.jiangwen.entity.WordTable;
 
 import java.util.List;
@@ -18,4 +19,10 @@ public interface WordTableService extends IService<WordTable> {
     List<WordTable> getWordBySentenceSeq(Long sentenceSeq);
 
     Long addWord(WordTable wordTable, String name);
+
+    List<WordInfo> getAllWordInfo();
+
+    List<WordInfo> searchBytwo(Integer bookNumber, String lessonNameOrignal);
+
+    List<WordInfo> searchByBookNum(Integer bookNumber);
 }

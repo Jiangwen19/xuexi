@@ -2,7 +2,9 @@ package org.jiangwen.controller;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import org.apache.commons.lang3.StringUtils;
 import org.jiangwen.common.lang.ApiRestResponse;
+import org.jiangwen.common.resvo.WordInfo;
 import org.jiangwen.entity.SentenceWordTable;
 import org.jiangwen.entity.WordTable;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -11,6 +13,8 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.security.Principal;
+import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -65,5 +69,62 @@ public class WordTableController extends BaseController {
         // 删除句子单词中间关联表
         sentenceWordTableService.remove(new QueryWrapper<SentenceWordTable>().allEq(map));
         return ApiRestResponse.success();
+    }
+
+    @GetMapping("/list")
+    @PreAuthorize("hasAuthority('word:list')")
+    public ApiRestResponse wordList() {
+        List<WordInfo> words = wordTableService.getAllWordInfo();
+        return ApiRestResponse.success(words);
+    }
+
+    @GetMapping("/info/{wordId}")
+    @PreAuthorize("hasAuthority('word:list')")
+    public ApiRestResponse wordInfo(@PathVariable(name = "wordId") Long wordId) {
+        return ApiRestResponse.success(wordTableService.getById(wordId));
+    }
+
+    @PostMapping("/update")
+    @PreAuthorize("hasAuthority('word:update')")
+    public ApiRestResponse update(@Validated @RequestBody WordTable wordTable, Principal principal) {
+
+        wordTable.setUpdater(principal.getName());
+        wordTable.setUpdateTime(LocalDateTime.now());
+        wordTableService.updateById(wordTable);
+
+        return ApiRestResponse.success(wordTable);
+    }
+
+    @Transactional
+    @PostMapping("/delete")
+    @PreAuthorize("hasAuthority('word:delete')")
+    public ApiRestResponse wordDelete(@RequestBody Long[] ids) {
+
+        // 删除中间表
+        sentenceWordTableService.remove(new QueryWrapper<SentenceWordTable>().in("word_id", ids));
+
+        wordTableService.removeByIds(Arrays.asList(ids));
+
+        return ApiRestResponse.success();
+    }
+
+    @PostMapping("/search")
+    @PreAuthorize("hasAuthority('word:list')")
+    public ApiRestResponse searchWords(@RequestBody WordInfo wordInfo) {
+
+        List<WordInfo> words;
+
+        Integer bookNum = wordInfo.getBookNumber();
+        String lessonName = wordInfo.getLessonNameOrignal();
+
+        if (bookNum != null && StringUtils.isNotBlank(lessonName)) {
+            words = wordTableService.searchBytwo(bookNum, lessonName);
+        } else if (bookNum != null && !StringUtils.isNotBlank(lessonName)) {
+            words = wordTableService.searchByBookNum(bookNum);
+        } else {
+            return ApiRestResponse.error("没有找到匹配的查询结果");
+        }
+
+        return ApiRestResponse.success(words);
     }
 }
