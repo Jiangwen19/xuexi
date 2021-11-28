@@ -1,6 +1,7 @@
 package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.common.resvo.GrammarInfo;
 import org.jiangwen.entity.GrammerTable;
 import org.jiangwen.mapper.GrammerTableMapper;
 import org.jiangwen.service.GrammerTableService;
@@ -37,5 +38,20 @@ public class GrammerTableServiceImpl extends ServiceImpl<GrammerTableMapper, Gra
 
         grammerTableMapper.insert(grammerTable);
         return grammerTable.getGrammerId();
+    }
+
+    @Override
+    public List<GrammarInfo> getAllGrammarInfo() {
+        return grammerTableMapper.getAllGrammarInfo();
+    }
+
+    @Override
+    public List<GrammarInfo> searchByTwo(Integer bookNum, String lessonName) {
+        return grammerTableMapper.searchBytwo(bookNum, lessonName);
+    }
+
+    @Override
+    public List<GrammarInfo> searchByBookNum(Integer bookNum) {
+        return grammerTableMapper.searchByBookNum(bookNum);
     }
 }

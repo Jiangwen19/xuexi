@@ -9,4 +9,42 @@
         ON sgt.grammer_id=gt.grammer_id
         WHERE sgt.sentence_seq=#{sentenceSeq}
     </select>
+    <select id="getAllGrammarInfo" resultType="org.jiangwen.common.resvo.GrammarInfo">
+        SELECT gt.grammer_id,gt.grammer_title,gt.grammer,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM grammer_table gt
+        LEFT JOIN sentence_grammer_table sgt
+        ON gt.grammer_id=sgt.grammer_id
+        LEFT JOIN sentence_table st
+        ON sgt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+    </select>
+    <select id="searchBytwo" resultType="org.jiangwen.common.resvo.GrammarInfo">
+        SELECT gt.grammer_id,gt.grammer_title,gt.grammer,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM grammer_table gt
+        LEFT JOIN sentence_grammer_table sgt
+        ON gt.grammer_id=sgt.grammer_id
+        LEFT JOIN sentence_table st
+        ON sgt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE bt.book_number=#{bookNum} AND lt.lesson_name_orignal=#{lessonName}
+    </select>
+    <select id="searchByBookNum" resultType="org.jiangwen.common.resvo.GrammarInfo">
+        SELECT gt.grammer_id,gt.grammer_title,gt.grammer,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM grammer_table gt
+        LEFT JOIN sentence_grammer_table sgt
+        ON gt.grammer_id=sgt.grammer_id
+        LEFT JOIN sentence_table st
+        ON sgt.sentence_seq=st.sentence_seq
+        LEFT JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        LEFT JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE bt.book_number=#{bookNum}
+    </select>
 </mapper>

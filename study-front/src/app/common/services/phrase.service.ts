@@ -3,6 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { ApiResponse } from '../model/api.response';
+import { CompactSearchVo } from '../model/vo/compact-search-vo';
 import { PhraseVo } from '../model/vo/phrase-vo';
 
 @Injectable({
@@ -26,5 +27,21 @@ export class PhraseService {
 
   deletePhraseByIds(phraseIds: number[]): Observable<ApiResponse> {
     return this.http.post<ApiResponse>(`${environment.baseUrl}/phrase/delete`, phraseIds);
+  }
+
+  getPhraseInfoOfAll(): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/phrase/list`);
+  }
+
+  getPhraseInfoById(phraseId: number): Observable<ApiResponse> {
+    return this.http.get<ApiResponse>(`${environment.baseUrl}/phrase/info/${phraseId}`);
+  }
+
+  phraseUpdate(phraseVo: PhraseVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/phrase/update`, phraseVo);
+  }
+
+  searchPhrases(compactSearchVo: CompactSearchVo): Observable<ApiResponse> {
+    return this.http.post<ApiResponse>(`${environment.baseUrl}/phrase/search`, compactSearchVo);
   }
 }

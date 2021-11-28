@@ -1,6 +1,7 @@
 package org.jiangwen.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import org.jiangwen.common.resvo.PhraseInfo;
 import org.jiangwen.entity.PhraseTable;
 import org.jiangwen.mapper.PhraseTableMapper;
 import org.jiangwen.service.PhraseTableService;
@@ -38,5 +39,20 @@ public class PhraseTableServiceImpl extends ServiceImpl<PhraseTableMapper, Phras
 
         phraseTableMapper.insert(phraseTable);
         return phraseTable.getPhraseId();
+    }
+
+    @Override
+    public List<PhraseInfo> getAllPhraseInfo() {
+        return phraseTableMapper.getAllPhraseInfo();
+    }
+
+    @Override
+    public List<PhraseInfo> searchByBookAndLe(Integer bookNum, String lessonName) {
+        return phraseTableMapper.searchByBookAndLe(bookNum, lessonName);
+    }
+
+    @Override
+    public List<PhraseInfo> searchByBookNum(Integer bookNum) {
+        return phraseTableMapper.searchByBookNum(bookNum);
     }
 }
