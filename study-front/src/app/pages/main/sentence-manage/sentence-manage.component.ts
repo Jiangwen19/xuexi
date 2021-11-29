@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NzMessageService } from 'ng-zorro-antd/message';
+import { StringUtil } from 'src/app/common/utility/string-util';
 import { SentenceVo } from '../../../common/model/vo/sentence-vo';
 import { SentenceService } from '../../../common/services/sentence.service';
 
@@ -43,7 +44,7 @@ export class SentenceManageComponent implements OnInit {
     private nzMessageService: NzMessageService) { this.getLessonId() }
 
   ngOnInit() {
-    this.getAllCode()
+    this.getAllCode();
   }
 
   /**
@@ -51,7 +52,12 @@ export class SentenceManageComponent implements OnInit {
    */
   getLessonId() {
     this.route.queryParams.subscribe((res) => {
-      this.lessonId = res.lessonId;
+      if (!StringUtil.isEmpty(res.lessonId)) {
+        sessionStorage.setItem('lastLessonId', res.lessonId);
+        this.lessonId = res.lessonId;
+      } else {
+        this.lessonId = +sessionStorage.getItem('lastLessonId');
+      }
     })
   }
 

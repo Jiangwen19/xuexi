@@ -506,6 +506,33 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "获得句子关联语法",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJ0eXBlIjoiSldUIiwiYWxnIjoiSFM1MTIifQ.eyJzdWIiOiJqaWFuZ3dlbiIsImlhdCI6MTYzNzkxMTA1NCwiZXhwIjoxNjM4NTE1ODU0fQ.ta0hOVQYawo5Mv4dS5HBUd4--0G40A7pAFoG9w_8SGhW5PPi3dYz3S68kKF0YM4am6QlKRkOIejp7u5eP3G4vw",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "http://localhost:8080/grammer/GrammarInSentence/10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"grammer",
+						"GrammarInSentence",
+						"10"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
