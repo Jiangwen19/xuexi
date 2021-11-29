@@ -1,1 +1,57 @@
-<p>history-manage works!</p>
+<nz-tabset>
+  <nz-tab
+    *ngFor="let tab of tabs"
+    [nzTitle]="titleTemplate"
+    (nzSelect)="selectTab(tab)"
+  >
+    <ng-template #titleTemplate>
+      <i nz-icon [nzType]="tab.icon"></i>
+      {{ tab.name }}
+    </ng-template>
+    <nz-table
+      #basicTable
+      [nzData]="listOfData"
+      [nzScroll]="{ y: '540px' }"
+      nzBordered
+    >
+      <thead>
+        <tr>
+          <th nzWidth="10%">记录ID</th>
+          <th nzWidth="10%">句子Seq</th>
+          <th
+            *ngIf="tab.name === '错题本'"
+            style="background-color: #d9d9d9"
+            nzWidth="10%"
+          >
+            错误次数
+          </th>
+          <th nzWidth="30%">从属课程</th>
+          <th nzWidth="10%">书本编号</th>
+          <th nzWidth="20%">书名</th>
+          <th nzWidth="10%">操作</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let data of basicTable.data">
+          <td>{{ data.historyId }}</td>
+          <td>{{ data.sentenceSeq }}</td>
+          <td *ngIf="tab.name === '错题本'">{{ data.mistakeCount }}</td>
+          <td>{{ data.lessonNameOrignal }}</td>
+          <td>{{ data.bookNumber }}</td>
+          <td>{{ data.bookNameOrignal }}</td>
+          <td>
+            <a
+              nz-popconfirm
+              nzPopconfirmTitle="确认要删除此条记录吗?"
+              nzPopconfirmPlacement="bottom"
+              (nzOnConfirm)="del(data.historyId, tab.name)"
+              (nzOnCancel)="cancel()"
+            >
+              删除
+            </a>
+          </td>
+        </tr>
+      </tbody>
+    </nz-table>
+  </nz-tab>
+</nz-tabset>

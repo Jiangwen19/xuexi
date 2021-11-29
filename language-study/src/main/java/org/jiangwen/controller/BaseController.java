@@ -61,6 +61,9 @@ public class BaseController {
     @Autowired
     SentenceGrammerTableService sentenceGrammerTableService;
 
+    @Autowired
+    UserPracticeHistoryService userPracticeHistoryService;
+
     /**
      * 获取页码
      *

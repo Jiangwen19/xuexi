@@ -11,4 +11,15 @@ export class Constants {
         [2, ['异常', 'red']],
     ]);
 
+    public static tabs = [
+        {
+            name: "收藏夹",
+            icon: 'star'
+        },
+        {
+            name: "错题本",
+            icon: 'bug'
+        }
+    ];
+
 }

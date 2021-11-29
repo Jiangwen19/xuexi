@@ -1,1 +1,47 @@
-<p>consumer-manage works!</p>
+<div class="consumer-manage">
+  <div class="operate">
+    <nz-input-group nzSearch [nzAddOnAfter]="suffixIconButton">
+      <input
+        type="text"
+        nz-input
+        placeholder="根据用户名查找"
+        [(ngModel)]="searchInfo"
+        (ngModelChange)="searchIsBlank($event)"
+      />
+    </nz-input-group>
+    <ng-template #suffixIconButton>
+      <button nz-button nzType="primary" nzSearch (click)="search()">
+        <i nz-icon nzType="search"></i>
+      </button>
+    </ng-template>
+  </div>
+  <nz-table
+    #basicTable
+    [nzData]="listOfData"
+    [nzScroll]="{ y: '540px' }"
+    nzBordered
+  >
+    <thead>
+      <tr>
+        <th nzWidth="10%">用户Id</th>
+        <th nzWidth="20%">用户名</th>
+        <th nzWidth="30%">邮箱</th>
+        <th nzWidth="30%">电话</th>
+        <th nzWidth="10%">使用数据</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let data of basicTable.data">
+        <td>{{ data.userId }}</td>
+        <td>{{ data.username }}</td>
+        <td>{{ data.email }}</td>
+        <td>{{ data.mobile }}</td>
+        <td>
+          <a routerLink="./history" [queryParams]="{ userId: data.userId }">
+            Link
+          </a>
+        </td>
+      </tr>
+    </tbody>
+  </nz-table>
+</div>

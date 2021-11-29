@@ -1,5 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="org.jiangwen.mapper.UserPracticeHistoryMapper">
-
+    <select id="getFavouritesByUserId" resultType="org.jiangwen.common.resvo.History">
+        SELECT uph.history_id,uph.mistake_count,uph.sentence_seq,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM user_practice_history uph
+        JOIN sentence_table st
+        ON uph.sentence_seq=st.sentence_seq
+        JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE uph.favourites_flg=TRUE AND uph.user_id=#{userId}
+    </select>
+    <select id="getMistakensByUserId" resultType="org.jiangwen.common.resvo.History">
+        SELECT uph.history_id,uph.mistake_count,uph.sentence_seq,lt.lesson_name_orignal,bt.book_name_orignal,book_number
+        FROM user_practice_history uph
+        JOIN sentence_table st
+        ON uph.sentence_seq=st.sentence_seq
+        JOIN lesson_table lt
+        ON st.lesson_id=lt.lesson_id
+        JOIN book_table bt
+        ON lt.book_id=bt.book_id
+        WHERE uph.mistakes_flg=TRUE AND uph.user_id=#{userId}
+    </select>
 </mapper>
